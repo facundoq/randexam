@@ -1,0 +1,70 @@
+from questions import trees
+from test_generator import *
+import numpy as np
+
+class InformationGain(DataQuestion):
+    def __init__(self, d:Dataset, numeric_attribute:int,nominal_attribute:int,class_index:int):
+        super().__init__(d)
+        self.numeric_attribute=numeric_attribute
+        self.nominal_attribute = nominal_attribute
+        self.class_index=class_index
+
+    def generate(self, seed=None):
+        attribute_indices=[self.nominal_attribute,self.numeric_attribute]
+        attributes = [self.d.attributes[i] for i in attribute_indices]
+        m = len(attributes)
+        header = ["Atributo"] + attributes
+        data = [["Entropía"] + [" "] * m,
+                ["Ganancia de Información"] + [" "] * m
+                ]
+
+        infogain_table = Table(data, header=header)
+        att = " y ".join(attributes)
+        q = Paragraphs([Text(
+            f"Calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos {att}. Utilice la siguiente tabla para presentar los resultados:"),
+                        infogain_table,
+                        Text(
+                            f"En base a estos valores, indique cuál de los {m} atributos se elegiría para generar la raíz de un árbol de decisión.\n"
+                            f"Utilice dos decimales para los cálculos. \n"
+                            f"Recuerde que para los atributos numéricos debe calcular la ganancia de información de todos los puntos de corte.\n"
+                            f"Utilice logaritmo con base 2 para todos los cálculo"
+                            f""),
+                        ])
+        y = self.d.column(self.class_index)
+        y = np.array(y)
+
+        numeric = np.array(self.d.column(self.numeric_attribute))
+        nominal = self.d.column(self.nominal_attribute)
+
+        # values
+        entropy_general = trees.entropy(y)
+        entropy_nominal = trees.entropy_nominal(nominal, y)
+        infogain_nominal = trees.information_gain_nominal(nominal, y)
+
+        entropies_numeric, discretization_points = trees.entropy_numeric(numeric, y)
+        infogains_numeric, _ = trees.information_gain_numeric(numeric, y)
+        # all
+        entropy_numeric = entropies_numeric.min()
+        infogain_numeric = infogains_numeric.max()
+
+        def format(x):
+            return f"{x:.2f}"
+
+        results = [["Entropía", format(entropy_numeric), format(entropy_nominal)],
+                   ["Ganancia", format(infogain_numeric), format(infogain_nominal)]]
+
+        results_table = Table(results, header=header)
+        # numericresults
+        numeric_header = ["Punto de corte", "Entropía", "Info Gain"]
+        for l in [discretization_points, entropies_numeric, infogains_numeric]:
+            for i in range(len(l)):
+                l[i] = format(l[i])
+        numeric_data = list(zip(discretization_points, entropies_numeric, infogains_numeric))
+
+        numeric_table = Table(numeric_data, header=numeric_header)
+        entropy_text = Text(f"Entropía general: {entropy_general}")
+        a = Paragraphs([entropy_text, results_table, numeric_table])
+        return q, a
+
+    def title(self):
+        return "Ganancia de Información"
