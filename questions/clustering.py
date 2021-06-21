@@ -1,6 +1,9 @@
 from test_generator import *
 
 class Clustering(DataQuestion):
+    def __init__(self,d:Dataset,include_dataset=False):
+        super().__init__(d)
+        self.include_dataset=include_dataset
 
     def generate_centroids(self):
         col0 = self.d.column(0)
@@ -33,7 +36,7 @@ class Clustering(DataQuestion):
 
 
 
-    def generate(self, seed=None):
+    def generate(self,  seed=None):
         centroids = self.generate_centroids()
         distances = self.calculate_distances(centroids)
 
@@ -41,16 +44,19 @@ class Clustering(DataQuestion):
         distances_table = Table([["1", "$\sqrt{valor}$", "$\sqrt{valor}$", "(c1 o c2)"], ["..."] * 4], header=header)
 
         header = ["Centroide"] + self.d.attributes
-
         rows_with_id = [[f"**c{i + 1}**"] + row for i, row in enumerate(centroids.str_rows)]
         centroid_table = Table(rows_with_id, header=header)
         n_samples = 3
+        data_table = Table(self.d.str_rows[:n_samples], self.d.header, number_rows=True)
+
+
         # b_q, b_a = self.silhouette_values()
         q = Paragraphs(
             [Text(
-                f"Utilizando la numerización de datos generada anteriormente, y dados los centroides **c1** y **c2**, "
+                f"Utilizando la numerización de los datos de la tabla, y dados los centroides **c1** y **c2**, "
                 f"calcule la distancia euclídea de los {n_samples} primeros ejemplos hacia estos centroides, "
                 f"y a cuál de ellos estarían asignados. No utilizar la clase en este ejercicio."),
+             data_table,
              centroid_table,
              Text(
                  "Nota: Para presentar los resultados, no calcule las raíces cuadradas. "

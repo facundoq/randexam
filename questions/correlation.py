@@ -76,7 +76,7 @@ class CorrelationMatrix3(DataQuestion):
 
         correlation_matrix=Table(rows,header=header)
         q=Paragraphs(
-            [Text("Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones:"),
+            [Text("Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones. Justificar en cada caso."),
             correlation_matrix,
             Text("a) Los atributos Desarrollo y Población son aproximadamente independientes.\n"
                  "b) Es probable que si sube el Desarrollo, también suba la Calidad de Vida.\n"

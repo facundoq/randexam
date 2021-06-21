@@ -97,7 +97,7 @@ class Exam:
         return question_sheet,answer_sheet
 
 
-def generate_and_save(exam: Exam, base_folderpath: Path, filename: str, pdf=False):
+def generate_and_save(exam: Exam, base_folderpath: Path, filename: str, pdf=False,delete_md=False):
     tags = ["questions", "answers"]
     q, a = exam.generate()
     for version, tag in zip((q, a), tags):
@@ -105,12 +105,15 @@ def generate_and_save(exam: Exam, base_folderpath: Path, filename: str, pdf=Fals
         folderpath.mkdir(exist_ok=True, parents=True)
         md_name = f"{filename}_{tag}.md"
         pdf_name = f"{filename}_{tag}.pdf"
-        filepath = folderpath / md_name
+        md_filepath = folderpath / md_name
         md = version.render()
-        with open(filepath, "w") as f:
+        with open(md_filepath, "w") as f:
             print(md, file=f)
         if pdf:
-            pypandoc.convert_file(str(filepath), 'pdf', outputfile=str(folderpath / pdf_name))
+            pypandoc.convert_file(str(md_filepath), 'pdf', outputfile=str(folderpath / pdf_name))
+        if delete_md:
+            Path(md_filepath).unlink()
+
 
 
 

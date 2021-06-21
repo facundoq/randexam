@@ -27,7 +27,7 @@ class InformationGain(DataQuestion):
                             f"En base a estos valores, indique cuál de los {m} atributos se elegiría para generar la raíz de un árbol de decisión.\n"
                             f"Utilice dos decimales para los cálculos. \n"
                             f"Recuerde que para los atributos numéricos debe calcular la ganancia de información de todos los puntos de corte.\n"
-                            f"Utilice logaritmo con base 2 para todos los cálculo"
+                            f"Utilice logaritmo con base 2 para todos los cálculos."
                             f""),
                         ])
         y = self.d.column(self.class_index)
