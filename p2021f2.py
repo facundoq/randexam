@@ -81,7 +81,7 @@ if __name__ == "__main__":
     seed = 2
     random.seed(seed)
     np.random.seed(seed)
-    n_exams=2
+    n_exams=10
     folderpath=Path("p2021/p2")
     for i in tqdm(range(n_exams)):
         exam=parcial1(i+1)
