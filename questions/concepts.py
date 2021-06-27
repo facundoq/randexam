@@ -83,7 +83,7 @@ class Concepts3(QAQuestion):
 
     def __init__(self):
         title = "Conceptos de Minería de Datos"
-        instructions = "Indique el valor de verdad de a las siguientes afirmaciones. Justifique sus respuestas."
+        instructions = "Responda las preguntas o indique el valor de verdad de las afirmaciones. Justifique sus respuestas en ambos casos."
         qas= [
             QA("La normalización lineal uniforme ¿es sensible a valores anómalos? ¿y la normalización por media/varianza?",
                "Lineal si, media/varianza también pero menos",
@@ -92,7 +92,7 @@ class Concepts3(QAQuestion):
             QA("En un árbol de clasificación ¿a qué corresponden los nodos intermedios, los nodos hoja y las aristas?",
                "Los nodos intermedios corresponden a atributos, las aristas a valores de esos atributos, y los nodos hoja a decisiones o predicciones de la clase",
                ),
-            QA("Dado un itemset con 3 items A,B,C, ¿cuántas reglas pueden generarse en base al itemset?",
+            QA("Dado un itemset con 3 items A,B,C, ¿cuántas reglas de asociación pueden generarse en base al itemset?",
                "6, A->(B,C) B->(A,C) C->(A,B), idem con 2 items en el antecedente",),
             QA("El algoritmo Apriori ¿genera reglas de Asociación?",
                "No, genera itemsets",),
@@ -100,9 +100,13 @@ class Concepts3(QAQuestion):
             #    "No, genera itemsets",),
             # QA("Al generar reglas con APriori o FPGrowth ¿es necesario generar itemsets?",
             #    "Si, justamente generan itemsets",),
-            QA("Dado conjunto de datos de 10 ejemplos con 2 columnas, una la de clase (con 3 clases distintas), y la otra es un atributo nominal de 5 valores. ¿Cuántos valores serán necesarios para almacenar un modelo Naive Bayes para clasificar los ejemplos?"
+            QA("Dado un conjunto de datos de 10 ejemplos con 2 columnas, una es la de la clase con 3 valores distintos, "
+               "y la otra es un atributo nominal de 5 valores distintos. ¿Cuántos valores serán necesarios para almacenar un "
+               "modelo Naive Bayes para clasificar los ejemplos?"
                ,"$3 \\times 5=15$, ya que para cada clase (3) debemos almacenar la distribución de probabilidad de los valores (5)"),
-            QA("Para un problema de clasificación de 100 ejemplos, 2 atributos y 5 clases, y dado un atributo numérico con 20 valores, el modelo de Naive Bayes ¿cuántas distribuciones gaussianas se estiman?",
+            QA("""Se tiene un problema de clasificación de 100 ejemplos con 2 columnas, una es la de la clase con 5 valores distintos,
+               y la otra es de un atributo numérico con 20 valores distintos. 
+               Si se entrena un modelo de Naive Bayes ¿cuántas distribuciones gaussianas se deberán estimar?""",
                "Se estima una gaussiana para cada clase, o sea, 5 gaussianas."),
             QA("Dado un conjunto de atributos, puede afirmarse que los que tengan el mismo valor de entropía también tendrán el mismo valor de Ganancia de Información (Information Gain).",
                 "Verdadero, ya que I(A) = E - E(A) "

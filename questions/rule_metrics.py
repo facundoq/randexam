@@ -42,7 +42,7 @@ class RuleMetrics(DataQuestion):
                        Text("Presentar los resultados en forma de tabla, e incluir los cálculos realizados en la hoja.")])
 
         def format_row(r: Rule, res: {}):
-            values = [f"{v:.2f}" for v in res.values()]
+            values = [f"{v:.3f}" for v in res.values()]
             return [str(r)] + values
 
         data = [format_row(r, res) for r, res in zip(rules, results)]

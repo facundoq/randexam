@@ -3,6 +3,14 @@ from random import randrange,seed
 
 class Perceptron(DataQuestion):
 
+    def __init__(self,d:Dataset,class_column:int):
+        super().__init__(d)
+        self.class_column=class_column
+        self.class_values = list(set(self.d.column(class_column)))
+        self.c0,self.c1 = self.class_values
+        self.classes = {0:self.c0,1:self.c1}
+        assert len(self.class_values) == 2, "Should have only 2 class values for a perceptron"
+
     def generate_w(self):
         n_cols=3
         cols=[self.d.column(i) for i in range(n_cols)]
@@ -34,17 +42,18 @@ class Perceptron(DataQuestion):
         return self.calculate_input(w,b,a1,a2)
 
     def calculate_input(self,w,b,a1,a2):
+        c0,c1 = self.class_values
         w0,w1,w2=w
         a0_equilibrium=(b-w1*a1-w2*a2)/w0
         if w[0]>0:
-            klass="No"
+            klass=c1
             sign="positivo"
         else:
             sign="negativo"
-            klass="Si"
-        clases={0:"No",1:"Si"}
+            klass=c0
 
-        q=Text(f"a) Asumiendo que Clase=No está codificado con un 0, y Clase=Si con un 1, ¿cuál es el valor máximo del atributo {self.d.attributes[0]}  para que un ejemplo con {self.d.attributes[1]}={a1} y {self.d.attributes[2]}={a2} pertenezca a la Clase={klass}?")
+
+        q=Text(f"a) Asumiendo que Clase={c0} está codificado con un 0, y Clase={c1} con un 1, ¿cuál es el valor máximo del atributo {self.d.attributes[0]}  para que un ejemplo con {self.d.attributes[1]}={a1} y {self.d.attributes[2]}={a2} pertenezca a la Clase={klass}?")
         w_str=', '.join([str(v) for v in w])
         valores=Text(f"Recordamos que w={w_str} y b={b}")
         attributes_str=", ".join(self.d.attributes)
@@ -68,8 +77,7 @@ class Perceptron(DataQuestion):
         sample=sample[:3]
         p0,p1,p2 = [f"{a} vale {v}" for a,v in zip(self.d.attributes,sample)]
         attributes=f"{p0}, {p1} y {p2}"
-        clases={0:"No",1:"Si"}
-        enunciado=Text(f"b) Asumiendo que Clase={clases[0]} está codificado con un 0, y Clase={clases[1]} con un 1, ¿cómo clasificaría el modelo a un ejemplo donde {attributes}?")
+        enunciado=Text(f"b) Asumiendo que Clase={self.c0} está codificado con un 0, y Clase={self.c1} con un 1, ¿cómo clasificaría el modelo a un ejemplo donde {attributes}?")
 
         q= Paragraphs([enunciado,
         ])
@@ -85,7 +93,7 @@ class Perceptron(DataQuestion):
             salida_s=f"0 ({neta}<{b})" if neta<b else f"1 ({neta}>={b})"
             return neta_s,salida_s, salida
         neta_s,salida_s,salida=perceptron_output(w,b,sample)
-        calculo=Text(f"La salida neta es {neta_s}, y por ende la salida es {salida_s}, con clase {clases[salida]}")
+        calculo=Text(f"La salida neta es {neta_s}, y por ende la salida es {salida_s}, con clase {self.classes[salida]}")
         a=Paragraphs([enunciado,calculo])
         return q,a
 

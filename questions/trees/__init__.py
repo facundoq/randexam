@@ -1,6 +1,10 @@
 
 import numpy as np
 
+log_base = 10
+
+def log(p:np.ndarray):
+    return np.log2(p)/np.log2(log_base)
 
 def entropy(classes):
     # frecuencia de c/valor del atributo
@@ -12,7 +16,8 @@ def entropy(classes):
     E = 0
     for i in counts_elements:
         p=i/n
-        E = E - p*np.log2(p)
+        E = E - p*log(p)
+
     return E
     
 def entropy_nominal(values, y):

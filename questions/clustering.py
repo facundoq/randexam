@@ -53,8 +53,8 @@ class Clustering(DataQuestion):
         # b_q, b_a = self.silhouette_values()
         q = Paragraphs(
             [Text(
-                f"Utilizando la numerización de los datos de la tabla, y dados los centroides **c1** y **c2**, "
-                f"calcule la distancia euclídea de los {n_samples} primeros ejemplos hacia estos centroides, "
+                f"Dados los datos de los {n_samples} primeros ejemplos de la tabla donde se numerizaron las columnas nominales, y dados los centroides **c1** y **c2**, "
+                f"calcule la distancia euclídea de los ejemplos hacia estos centroides, "
                 f"y a cuál de ellos estarían asignados. No utilizar la clase en este ejercicio."),
              data_table,
              centroid_table,

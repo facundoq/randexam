@@ -3,11 +3,12 @@ from test_generator import *
 import numpy as np
 
 class InformationGain(DataQuestion):
-    def __init__(self, d:Dataset, numeric_attribute:int,nominal_attribute:int,class_index:int):
+    def __init__(self, d:Dataset, numeric_attribute:int,nominal_attribute:int,class_index:int,log_base=2):
         super().__init__(d)
         self.numeric_attribute=numeric_attribute
         self.nominal_attribute = nominal_attribute
         self.class_index=class_index
+        self.log_base=log_base
 
     def generate(self, seed=None):
         attribute_indices=[self.nominal_attribute,self.numeric_attribute]
@@ -20,15 +21,22 @@ class InformationGain(DataQuestion):
 
         infogain_table = Table(data, header=header)
         att = " y ".join(attributes)
+        trees.log_base = self.log_base
+        n = self.d.n
+        log_values = [["$-\infty$"]+[f"{trees.log( (i + 1) / n):.2f}" for i in range(n)]]
+        log_header = [f"log({i}/{n})" for i in range(n+1)]
+        log_table = Table(log_values, header=log_header)
         q = Paragraphs([Text(
-            f"Calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos {att}. Utilice la siguiente tabla para presentar los resultados:"),
+            f"Utilizando los datos originales, calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos {att}. Utilice la siguiente tabla para presentar los resultados:"),
                         infogain_table,
                         Text(
                             f"En base a estos valores, indique cuál de los {m} atributos se elegiría para generar la raíz de un árbol de decisión.\n"
                             f"Utilice dos decimales para los cálculos. \n"
                             f"Recuerde que para los atributos numéricos debe calcular la ganancia de información de todos los puntos de corte.\n"
-                            f"Utilice logaritmo con base 2 para todos los cálculos."
+                            f"Utilice logaritmo con base {self.log_base} para todos los cálculos (obligatorio)."
                             f""),
+                        Text(f"Tabla de logaritmos base {self.log_base}:"),
+                        log_table
                         ])
         y = self.d.column(self.class_index)
         y = np.array(y)
@@ -37,6 +45,7 @@ class InformationGain(DataQuestion):
         nominal = self.d.column(self.nominal_attribute)
 
         # values
+
         entropy_general = trees.entropy(y)
         entropy_nominal = trees.entropy_nominal(nominal, y)
         infogain_nominal = trees.information_gain_nominal(nominal, y)
@@ -62,8 +71,9 @@ class InformationGain(DataQuestion):
         numeric_data = list(zip(discretization_points, entropies_numeric, infogains_numeric))
 
         numeric_table = Table(numeric_data, header=numeric_header)
+        base_text = Text(f"Entropías calculadas con logaritmo con base {self.log_base}")
         entropy_text = Text(f"Entropía general: {entropy_general}")
-        a = Paragraphs([entropy_text, results_table, numeric_table])
+        a = Paragraphs([base_text,entropy_text, results_table, numeric_table])
         return q, a
 
     def title(self):
