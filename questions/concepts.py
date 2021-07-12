@@ -25,7 +25,7 @@ class RandomQuestions(MultipleQuestions):
         title = "Conceptos de Minería de Datos"
         instructions = "Indique la respuesta a las siguientes preguntas. Justifique sus respuestas."
         questions = [
-            "La normalización lineal uniforme ¿es sensible a valores anómalos? ¿y la normalización por media/varianza?",
+            "Entre la normalización lineal uniforme y la normalización por media/varianza ¿cuál es más sensible a valores extremos?",
             "En un árbol de clasificación ¿a qué corresponden los nodos intermedios, los nodos hoja y las aristas?",
             "Dado un itemset con 3 items A,B,C, ¿cuántas reglas pueden generarse en base al itemset?",
             "El algoritmo Apriori ¿genera reglas de Asociación?",
@@ -33,11 +33,11 @@ class RandomQuestions(MultipleQuestions):
             "Al generar reglas con APriori o FPGrowth ¿es necesario generar itemsets?",
             "Dados los items A y B, si A->B tiene soporte 0.7 ¿cuál será el soporte de B->A?",
             "¿Cuáles son las dos propiedades que deben cumplir los grupos (clusters) para obtener un buen agrupamiento?",
-            "El peso de una red neuronal correspondiente al atributo A es negativo. Dado un ejemplo, si el valor de A sube, ¿a qué clase se acercará el ejemplo?",
+            "El peso de una red neuronal correspondiente al atributo A es negativo. Dado un ejemplo, si el valor de A baja, ¿a qué clase se acercará el ejemplo?",
         ]
 
         answers = [
-            "Lineal si, media/varianza también pero menos",
+            "La lineal, la de media/varianza también pero menos",
             "Los nodos intermedios corresponden a atributos, las aristas a valores de esos atributos, y los nodos hoja a decisiones o predicciones de la clase",
             "6, A->(B,C) B->(A,C) C->(A,B), idem con 2 items en el antecedente",
             "No, genera itemsets",
