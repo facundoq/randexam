@@ -9,7 +9,8 @@ class InformationGain(DataQuestion):
         self.nominal_attribute = nominal_attribute
         self.class_index=class_index
         self.log_base=log_base
-
+    def points(self) -> str:
+        return 2
     def generate(self, seed=None):
         attribute_indices=[self.nominal_attribute,self.numeric_attribute]
         attributes = [self.d.attributes[i] for i in attribute_indices]

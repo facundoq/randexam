@@ -4,7 +4,8 @@ class Clustering(DataQuestion):
     def __init__(self,d:Dataset,include_dataset=False):
         super().__init__(d)
         self.include_dataset=include_dataset
-
+    def points(self) -> str:
+        return 2
     def generate_centroids(self):
         col0 = self.d.column(0)
         col1 = self.d.column(1)

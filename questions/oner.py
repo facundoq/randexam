@@ -4,6 +4,9 @@ from questions.rules import *
 
 class OneRQuestion(DataQuestion):
 
+    def points(self) -> str:
+        return 2
+        
     def generate(self, seed=None):
         # rule1,rule2=self.generate_rules()
         # rules=[rule1,rule2]

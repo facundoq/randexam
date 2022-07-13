@@ -68,32 +68,41 @@ class MultipleQuestions(Question):
         return self.title_str
 
 class Exam:
-    def __init__(self,title:str,intro:Renderable,questions:[Question],subtitle=None,date=None,geometry=None):
+    def __init__(self,title:str,intro:Renderable,questions:[Question],subtitle=None,date=None,geometry=None, show_points = False):
         self.intro=intro
         self.title=title
         self.questions=questions
         self.subtitle=subtitle
         self.date=date
         self.geometry=geometry
+        self.show_points = show_points
         
 
-    def generate_exam(self,intro:Renderable,titles:[str],section_bodies:[Renderable],points:[int]=None)->Renderable:
+    def generate_exam(self,title:str,intro:Renderable,titles:[str],section_bodies:[Renderable],points:[int])->Renderable:
         depth=3
-        
-        if not points is None:
-            titles=[f"{t} (puntos: {p})" for t,p in zip(titles,points)]
+
         s=Sections(titles,section_bodies,depth=depth)
         body=Paragraphs([intro,s])
-        d=Document(self.title,body,subtitle=self.subtitle,date=self.date,geometry=self.geometry)
+        d=Document(title,body,subtitle=self.subtitle,date=self.date,geometry=self.geometry)
         return d
 
     def generate(self,seed:int=None)->(Renderable,Renderable):
         qa=[q.generate() for q in self.questions]
         points=[q.points() for q in self.questions]
         questions,answers= zip(*qa)
-        titles=[q.title() for q in self.questions]
-        question_sheet=self.generate_exam(self.intro,titles,questions)
-        answer_sheet=self.generate_exam(self.intro,titles,answers,points=points)
+        if self.show_points:
+            titles=[ f"{q.title()}\n **Puntaje:** \t &nbsp;&nbsp;&nbsp;    /{q.points()}\n" for q in self.questions]
+            total_points = sum(points)
+            point_form = Text(f"**Puntaje total:** ___ /{total_points}")
+            titles = [point_form] + titles
+            intro_question = Paragraphs([point_form,self.intro])
+        else:
+            intro_question = self.intro
+            titles=[q.title() for q in self.questions]
+        titles_answer=[ f"{q.title()} (Puntos: {q.points()})" for q in self.questions]
+        
+        question_sheet=self.generate_exam(self.title,intro_question,titles,questions,points)
+        answer_sheet=self.generate_exam(self.title+" (Respuestas)",Text(""),titles_answer,answers,points)
         return question_sheet,answer_sheet
 
 

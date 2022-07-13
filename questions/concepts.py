@@ -79,6 +79,8 @@ ganancia de información será la resta de 2 valores iguales."""),
         super().__init__(title,instructions,qas)
 
 
+
+
 class Concepts3(QAQuestion):
 
     def __init__(self):
@@ -113,6 +115,43 @@ class Concepts3(QAQuestion):
                ),
             QA("El índice Silhouette se calcula en base a la dispersión de los ejemplos de cada grupo (cluster) y la distancia entre los centros.",
                "Falso, solo entre ejemplos"
+            ),
+        ]
+
+        super().__init__(title,instructions,qas)
+
+
+
+
+class Concepts4(QAQuestion):
+
+    def __init__(self):
+        title = "Conceptos de Minería de Datos"
+        instructions = "Responda las preguntas o indique el valor de verdad de las afirmaciones. Justifique sus respuestas en ambos casos."
+        qas= [
+            QA("¿Cuál de las normalizaciones vistas es más sensible a los valores anómalos/extremos?",
+               "La lineal, ya que si hay un valor extremo afecta al máximo/mínimo directamente.",
+               ),
+
+            QA("Los modelos de Reglas de Clasificación son casos particulares de los modelos de Árboles de Clasificación",
+               "Falso, es al revés, ya que todo árbol puede expresarse como un conjunto de reglas pero no viceversa.",
+               ),
+            QA("Dada una regla, (A=Si,B=No) → C=Si, con soporte 0.3, ¿Puedo inferir el soporte de la regla (A=Si) → (B=No, C=Si) sin los datos?",
+               "No se puede; se podría inferir la de (A=Si,B=No) ← C=Si ya que es la misma, pero para la del enunciado se requieren los datos.  ",),
+            QA("Los algoritmos de reglas de asociación vistos ¿pueden generar las reglas directamente, sin generar itemsets intermedios con filtro por soporte? ",
+               "Falso, deben generar itemsets y luego generar reglas a partir de los mismos, ya que la generación de las reglas directamente sería computacionalmente imposible.",),
+            QA("Dado un conjunto de datos de 5 ejemplos con 2 columnas, una es la de la clase con 3 valores distintos, "
+               "y la otra es un atributo nominal de 4 valores distintos. ¿Cuántos valores serán necesarios para almacenar un "
+               "modelo Naive Bayes para clasificar los ejemplos?"
+               ,"$4 \\times 5=20$, ya que para cada clase (5) debemos almacenar la distribución de probabilidad de los valores (4)"),
+            QA("""Se tiene un problema de clasificación de 100 ejemplos con 3 atributos/columnas, la primera es la de la clase con 3 valores distintos, la segunda tiene valores nominales con 4 valores distintos y la tercera tiene valores numéricos con 5 valores distintos. 
+               Si se entrena un modelo de Naive Bayes ¿cuántas distribuciones gaussianas se deberán estimar?""",
+               "Se estima una gaussiana para cada clase y atributo numérico, o sea, 3x1 = 3 gaussianas."),
+            QA("Dado un conjunto de datos con 3 clases, 5 atributos nominales y 100000 ejemplos. Si se entrena un árbol de clasificación con este conjunto de datos ¿puedo saber cuántos nodos tendrá como máximo el árbol?",
+                "No, ya que también debería saber cuántos valores hay en cada atributo nominal."
+               ),
+            QA("El índice Davies Bouldin se calcula en base a la dispersión de los ejemplos de cada grupo (cluster) y la distancia entre los centros.",
+               "Verdadero"
             ),
         ]
 
