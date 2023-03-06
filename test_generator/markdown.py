@@ -1,5 +1,7 @@
 
 import abc
+from collections.abc import Iterable
+
 
 
 class Renderable(abc.ABC):
@@ -7,7 +9,9 @@ class Renderable(abc.ABC):
     @abc.abstractmethod
     def render(self)->str:
         pass
+    
 
+    
 
 class Table(Renderable):
     def __init__(self,data,header=None,number_rows=False):
@@ -58,9 +62,20 @@ class Text(Renderable):
     def __repr__(self):
         return f"Text({self.text})"
 
+def make_renderable(x:object):
+    if isinstance(x, Renderable):
+        return x
+    elif isinstance(x, str):
+        return Text(x)
+    elif isinstance(x,Iterable):
+        return Paragraphs(x)
+    else:
+        raise Exception(f"Rendering not supported for type {type(x)}, value {x}")
+
 class Paragraphs(Renderable):
-    def __init__(self,items:[Renderable],separator="\n\n"):
-        assert(isinstance(items,list))
+    def __init__(self,items:list[Renderable],separator="\n\n"):
+        assert(isinstance(items,Iterable))
+        items = [make_renderable(x) for x in items]
         self.items=items
         self.separator=separator
 
@@ -72,9 +87,12 @@ class Paragraphs(Renderable):
         
 class Sections(Renderable):
     def __init__(self,titles:[str],bodies:[Renderable],depth=2):
+        bodies = [make_renderable(x) for x in bodies]
+
         self.depth=depth
         self.titles=titles
         self.bodies=bodies
+        
 
     def render(self)->str:
         dm="#"*self.depth
@@ -88,7 +106,7 @@ class Sections(Renderable):
 class Document(Renderable):
     def __init__(self,title:str, body:Renderable,subtitle:str=None,date:str=None,geometry:str=None):
         self.title=title
-        self.body=body
+        self.body=make_renderable(body)
         self.subtitle=subtitle
         self.date=date
         self.geometry=geometry

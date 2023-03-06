@@ -68,7 +68,7 @@ class MultipleQuestions(Question):
         return self.title_str
 
 class Exam:
-    def __init__(self,title:str,intro:Renderable,questions:[Question],subtitle=None,date=None,geometry=None, show_points = False):
+    def __init__(self,title:str,intro:Renderable,questions:[Question],subtitle=None,date=None,geometry=None, show_points = False,questions_in_answers = False):
         self.intro=intro
         self.title=title
         self.questions=questions
@@ -76,6 +76,7 @@ class Exam:
         self.date=date
         self.geometry=geometry
         self.show_points = show_points
+        self.questions_in_answers = questions_in_answers
         
 
     def generate_exam(self,title:str,intro:Renderable,titles:[str],section_bodies:[Renderable],points:[int])->Renderable:
@@ -102,7 +103,12 @@ class Exam:
         titles_answer=[ f"{q.title()} (Puntos: {q.points()})" for q in self.questions]
         
         question_sheet=self.generate_exam(self.title,intro_question,titles,questions,points)
-        answer_sheet=self.generate_exam(self.title+" (Respuestas)",Text(""),titles_answer,answers,points)
+        if self.questions_in_answers:
+            answers = [ ["**Pregunta**:",q,"**Respuesta**",a]  for q,a in qa]
+            intro_answers = intro_question
+        else:
+            intro_answers = ""
+        answer_sheet=self.generate_exam(self.title+" (Respuestas)",intro_answers,titles_answer,answers,points)
         return question_sheet,answer_sheet
 
 

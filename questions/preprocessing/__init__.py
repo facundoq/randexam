@@ -30,19 +30,20 @@ class Interval:
         return f"[{self.start},{self.end}{end_sign}"
 
 
-def discretize_value(v,intervals:[Interval]):
+def discretize_value(v,intervals:[Interval],values:list):
     for i,interval in enumerate(intervals):
         if interval.contains(v):
-            return i
+            return values[i]
     raise ValueError(f"No interval defined for value {v}")
 
-def discretize_values(values,intervals:[Interval]):
-    return [discretize_value(v,intervals) for v in values]
+def discretize_values(x,intervals:[Interval],values:list):
+    return [discretize_value(v,intervals,values) for v in x]
 
 
-def discretize_by_range(values,n_intervals):
-    values=np.array(values)
-    mi,ma=values.min(),values.max()
+def discretize_by_range(x,values:list):
+    n_intervals=len(values)
+    x=np.array(x)
+    mi,ma=x.min(),x.max()
     interval_size=(ma-mi)/n_intervals
     intervals=[]
     for i in range(n_intervals):
@@ -55,14 +56,16 @@ def discretize_by_range(values,n_intervals):
         interval=Interval(start,end,include_end=include_end)
         intervals.append(interval)
     
-    return intervals,discretize_values(values,intervals)
+    return intervals,discretize_values(x,intervals,values)
 
 
 
-def discretize_by_frequency(values,n_intervals:int):
-    values=np.array(values)
-    sorted_values=sorted(values)
-    n=len(values)
+def discretize_by_frequency(x,values:list):
+    
+    n_intervals=len(values)
+    x=np.array(x)
+    sorted_values=sorted(x)
+    n=len(x)
     
     interval_indexes=np.linspace(0,n-1,n_intervals,endpoint=False)
     interval_indexes=[int(np.ceil(i)) for i in interval_indexes]
@@ -76,7 +79,7 @@ def discretize_by_frequency(values,n_intervals:int):
             end=sorted_values[interval_indexes[i+1]]
             intervals.append(Interval(start,end))
 
-    return intervals,discretize_values(values,intervals)
+    return intervals,discretize_values(x,intervals,values)
 
 
 

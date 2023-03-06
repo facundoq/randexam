@@ -50,7 +50,7 @@ def parcial1(id:int):
     # d_discretized=d_discretized.discretize(1, ["Pocos","Muchos"], preprocessing.Discretization.frequency)
 
     question_list=[
-                questions.correlation.CorrelationMatrix(d_numerized),
+                questions.correlation.CorrelationMatrixJuego(d_numerized),
                 questions.rule_metrics.RuleMetrics(d),
                 # questions.oner.OneRQuestion(d_discretized),
                 questions.clustering.Clustering(d_numerized,include_dataset=True),

@@ -1,6 +1,51 @@
 from test_generator import *
+import numpy as np
 
 class CorrelationMatrix(DataQuestion):
+    def generate(self,seed=None):
+        q = ["Calcule la matriz de correlación entre los atributos del conjunto de datos"]
+        v = np.array(self.d.rows)
+        correlation_matrix = np.corrcoef(v.T)
+        covariance_matrix = np.cov(v.T)
+        a = [f"Medias: {v.mean(axis=0)}",
+             f"Desviaciones: {v.std(axis=0)}",
+             "Covarianza:",
+             Table(covariance_matrix,header=self.d.header),
+            "Correlación:",
+             Table(correlation_matrix,header=self.d.header)],
+        return q,a
+    def title(self):
+        return "Matriz de Correlación"
+    
+class CorrelationCoefficient(DataQuestion):
+    def __init__(self,d:Dataset,a:int,b:int):
+        super().__init__(d)
+        self.a=a
+        self.b=b
+        x = np.array(self.d.rows)
+        self.covariance = np.cov(x.T)[a,b]
+        self.correlation = np.corrcoef(x.T)[a,b]
+        self.means = (x.mean(axis=0)[a],x.mean(axis=0)[b])
+        self.stds = (x.std(axis=0)[a],x.std(axis=0)[b])
+        
+        absc = abs(self.correlation)
+        self.direction = "Positiva" if self.correlation>0 else "Negativa"
+        self.intensity = "No hay" if absc< 0.3 else ("Débil" if absc<0.8 else "Fuerte")
+
+    def generate(self,seed=None):
+        q = [f"Calcule la matriz de correlación entre los atributos {self.d.attributes[self.a]}  y {self.d.attributes[self.b]} del conjunto de datos"]
+        a = [f"Medias: {self.means}",
+             f"Desviaciones: {self.stds}",
+             f"Covarianza: {self.covariance}",
+            f"Correlación: {self.correlation}",
+            f"Intensidad: {self.intensity}",
+            f"Tipo: {self.direction}",
+        ]
+        return q,a
+    def title(self):
+        return "Coeficiente de correlación"
+    
+class CorrelationMatrixJuego(DataQuestion):
 
     def generate(self,seed=None):
         attributes=["Ambiente","Temperatura","Humedad","Viento","Juega"]
@@ -20,7 +65,7 @@ class CorrelationMatrix(DataQuestion):
             correlation_matrix,
             Text("a) Los atributos Ambiente y Viento son independientes.\nb) Es posible que si sube la Humedad, también suba el valor del atributo Juega.\nc) Los atributos Humedad y Temperatura están correlacionados linealmente, y la correlación es **fuerte**.\nd) La mayoría de los pares de atributos no están correlacionados linealmente."),
             ])
-        aa=Text("a) Falso, ya que pueden estar correlacionados igual aunque no de forma lineal, por ejemplo, viente=ambiente^2")
+        aa=Text("a) Falso, ya que pueden estar correlacionados igual aunque no de forma lineal, por ejemplo, viento=ambiente^2")
         ab=Text("b) Falso,  la correlación es negativa")
         ac=Text("c) Falso, la correlación es débil (0.5<x<0.8)")
         ad=Text("d) Verdadero, de los 10 pares solo 2 tienen correlación lineal débil o fuerte.")

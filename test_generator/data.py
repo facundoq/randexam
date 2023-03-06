@@ -2,8 +2,24 @@ from .exam import Question
 from questions import preprocessing
 import copy
 
+from pathlib import Path
+import pandas as pd
 
 class Dataset:
+
+    @classmethod
+    def from_csv(cls,path:Path,class_index:int):
+        df = pd.read_csv(path)
+        header = list(df.columns)
+        attributes = header[:class_index]+header[class_index+1:]
+        class_values = df.iloc[class_index].unique()
+        rows = df.to_numpy().tolist()
+        # rows = df.to_string(header=False,
+        #           index=False,
+        #           index_names=False).split('\n')
+        # rows = [row.strip().split(" ") for row in rows]
+        return Dataset(rows,header,attributes,class_values)
+
     def __init__(self, rows, header: [str], attributes: [str], class_values: [str], ordinal_values=None):
         self.rows = rows
         self.header = header
@@ -53,7 +69,10 @@ class Dataset:
         attributes = copy.deepcopy(self.attributes)
         class_values = copy.deepcopy(self.class_values)
         return Dataset(rows, header, attributes, class_values, self.ordinal_values)
-
+    
+    def __repr__(self) -> str:
+        rows_str = [", ".join(map(str,row)) for row in self.str_rows]
+        return "Dataset:\n"+self.header+"\n"+"\n".join(rows_str)
     # @classmethod
     # def people(cls, n=8):
     #     attributes = ["Edad", "Altura", "Habilidad"]
