@@ -17,7 +17,7 @@ class Numerization(DataQuestion):
 
         original = Text(f"Valores originales: {self.d.column(col)}\n")
         nuevos = Text(f"Valores nuevos: {self.d_numerized.column(col)}\n")
-        t = Table(self.d_numerized.str_rows, header=self.d_numerized.header, number_rows=True)
+        t = Table(self.d_numerized.str_rows, header=self.d_numerized.header, row_header=True)
         a = Paragraphs([original, nuevos, t])
 
         return q, a

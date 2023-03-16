@@ -1,10 +1,13 @@
 
 import abc
 from collections.abc import Iterable
+import pandas as pd
 
-
-
+import uuid
 class Renderable(abc.ABC):
+    def __init__(self) -> None:
+        super().__init__()
+        self.id = uuid.uuid1()
 
     @abc.abstractmethod
     def render(self)->str:
@@ -14,32 +17,36 @@ class Renderable(abc.ABC):
     
 
 class Table(Renderable):
-    def __init__(self,data,header=None,number_rows=False):
+    def __init__(self,data,header=None,row_header=None):
         self.data=data
         self.header=header
-        self.number_rows=number_rows
+        self.row_header=row_header
 
     def render(self):
         header=self.header
         data=self.data
+        row_header = self.row_header
+        if row_header == "numbers":
+            row_header = [f"{i+1}" for i in range(len(data))]        
+        
         if len(data)==0 and header is None:
             return ""
         if len(data)>0:
             columns=len(data[0])
         else:
             columns=len(header)
-        if self.number_rows:
+        if not row_header is None:
             columns+=1
-
+        
         table="\n"
         if not header is None:
-            if self.number_rows:
+            if not row_header is None:
                 header=["Fila"]+header
             table+=self.render_row(header)+"\n"
         table+=self.render_header_separator(columns)+"\n"
         for i,row in enumerate(data):
-            if self.number_rows:
-                row=[f"{i+1}"]+row
+            if not row_header is None:
+                row=[row_header[i]]+row
             table+=self.render_row(row)+"\n"
         return table
 
@@ -47,13 +54,24 @@ class Table(Renderable):
         row = ["----------" for i in range(columns)]
         return self.render_row(row)
 
-    def render_row(self,row:[str])->str:
+    def render_row(self,row:list[str])->str:
         middle="|".join([str(a) for a in row])
         return f"|{middle}|"
 
     def __repr__(self):
         return f"Table({self.header},rows={len(self.data)})"
 
+class DisplayDataFrame(Renderable):
+    def __init__(self,d:pd.DataFrame,title="**Datos**",row_header=None):
+        self.d=d
+        self.title=title
+        self.row_header=row_header
+    def render(self, seed=None):
+        rows = self.d.to_numpy().tolist()
+        t=Table(rows,header=self.d.columns.tolist(),row_header=self.row_header)
+        p=Paragraphs([self.title,t])
+        return p.render()
+    
 class Text(Renderable):
     def __init__(self,text):
         self.text=text
@@ -69,6 +87,8 @@ def make_renderable(x:object):
         return Text(x)
     elif isinstance(x,Iterable):
         return Paragraphs(x)
+    elif isinstance(x,pd.DataFrame):
+        return DisplayDataFrame(x)
     else:
         raise Exception(f"Rendering not supported for type {type(x)}, value {x}")
 
@@ -86,7 +106,7 @@ class Paragraphs(Renderable):
         return f"Paragraphs(items={len(self.items)})"
         
 class Sections(Renderable):
-    def __init__(self,titles:[str],bodies:[Renderable],depth=2):
+    def __init__(self,titles:list[str],bodies:list[Renderable],depth=2):
         bodies = [make_renderable(x) for x in bodies]
 
         self.depth=depth

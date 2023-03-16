@@ -104,7 +104,7 @@ class DisplayTable(Renderable):
         self.d=d
     def render(self, seed=None):
         title=Text("**Tabla de datos**")
-        t=Table(self.d.str_rows,header=self.d.header,number_rows=True)
+        t=Table(self.d.str_rows,header=self.d.header,row_header=True)
         p=Paragraphs([title,t])
         return p.render()
 
@@ -311,7 +311,7 @@ class Numerization(DataQuestion):
 
         original=Text(f"Valores originales: {self.d.column(col)}\n")
         nuevos = Text(f"Valores nuevos: {self.d_numerized.column(col)}\n")
-        t=Table(self.d_numerized.str_rows,header=self.d_numerized.header,number_rows=True)
+        t=Table(self.d_numerized.str_rows,header=self.d_numerized.header,row_header=True)
         a=Paragraphs([original,nuevos,t])
         
         return q,a
@@ -502,7 +502,7 @@ class Clustering(DataQuestion):
             distances_table
             ])
         
-        results_table=Table(distances.str_rows[:n_samples],distances.header,number_rows=True)
+        results_table=Table(distances.str_rows[:n_samples],distances.header,row_header=True)
         a = Paragraphs([results_table,b_a])
         return q,a
 

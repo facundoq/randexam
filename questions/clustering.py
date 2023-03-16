@@ -48,7 +48,7 @@ class Clustering(DataQuestion):
         rows_with_id = [[f"**c{i + 1}**"] + row for i, row in enumerate(centroids.str_rows)]
         centroid_table = Table(rows_with_id, header=header)
         n_samples = 3
-        data_table = Table(self.d.str_rows[:n_samples], self.d.header, number_rows=True)
+        data_table = Table(self.d.str_rows[:n_samples], self.d.header, row_header=True)
 
 
         # b_q, b_a = self.silhouette_values()
@@ -66,7 +66,7 @@ class Clustering(DataQuestion):
              distances_table
              ])
 
-        results_table = Table(distances.str_rows[:n_samples], distances.header, number_rows=True)
+        results_table = Table(distances.str_rows[:n_samples], distances.header, row_header=True)
         a = Paragraphs([results_table])
         return q, a
 

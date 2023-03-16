@@ -4,9 +4,11 @@ from pathlib import Path
 import pypandoc
 import string
 
+RenderableQA = tuple[Renderable,Renderable]
+
 class Question(abc.ABC):
     @abc.abstractmethod
-    def generate(self,seed:int=None)->(Renderable,Renderable):
+    def generate(self,seed:int=None)->RenderableQA:
         pass
 
     @abc.abstractmethod
@@ -20,7 +22,8 @@ class QA:
     def __init__(self,q:str,a:str):
         self.q=q
         self.a=a
-def to_enumeration(a: [str]):
+
+def to_enumeration(a: list[str]):
         items = string.ascii_lowercase
         if len(a)> len(items):
             raise ValueError(f"Not enough item ids for the enumeration (max {len(items)})")
@@ -29,13 +32,13 @@ def to_enumeration(a: [str]):
         return "\n\n".join(a)
 
 class QAQuestion(Question):
-    def __init__(self,title_str:str,instructions:str,qas:[QA]):
+    def __init__(self,title_str:str,instructions:str,qas:list[QA]):
         super().__init__()
         self.instructions=instructions
         self.title_str=title_str
         self.qas=qas
 
-    def generate(self,seed:int=None) ->(Renderable,Renderable):
+    def generate(self,seed:int=None) ->RenderableQA:
         questions = to_enumeration([qa.q for qa in self.qas])
         enunciado = Text(self.instructions)
         q = Paragraphs([enunciado, Text(questions)])
@@ -46,7 +49,7 @@ class QAQuestion(Question):
         return self.title_str
 
 class MultipleQuestions(Question):
-    def __init__(self,title_str:str,instructions:str,questions:[str],answers:[str]):
+    def __init__(self,title_str:str,instructions:str,questions:list[str],answers:list[str]):
         super().__init__()
         nq,na=len(questions),len(answers)
         assert nq==na, f"The number of questions ({nq}) must match the number of answers ({na})."
@@ -55,7 +58,7 @@ class MultipleQuestions(Question):
         self.answers=answers
         self.title_str=title_str
 
-    def generate(self,seed:int=None) ->(Renderable,Renderable):
+    def generate(self,seed:int=None) ->RenderableQA:
 
 
         questions = to_enumeration(self.questions)
@@ -68,7 +71,7 @@ class MultipleQuestions(Question):
         return self.title_str
 
 class Exam:
-    def __init__(self,title:str,intro:Renderable,questions:[Question],subtitle=None,date=None,geometry=None, show_points = False,questions_in_answers = False):
+    def __init__(self,title:str,intro:Renderable,questions:list[Question],subtitle=None,date=None,geometry=None, show_points = False,questions_in_answers = False):
         self.intro=intro
         self.title=title
         self.questions=questions
@@ -79,7 +82,7 @@ class Exam:
         self.questions_in_answers = questions_in_answers
         
 
-    def generate_exam(self,title:str,intro:Renderable,titles:[str],section_bodies:[Renderable],points:[int])->Renderable:
+    def generate_exam(self,title:str,intro:Renderable,titles:list[str],section_bodies:list[Renderable],points:list[int])->Renderable:
         depth=3
 
         s=Sections(titles,section_bodies,depth=depth)
@@ -87,7 +90,7 @@ class Exam:
         d=Document(title,body,subtitle=self.subtitle,date=self.date,geometry=self.geometry)
         return d
 
-    def generate(self,seed:int=None)->(Renderable,Renderable):
+    def generate(self,seed:int=None)->RenderableQA:
         qa=[q.generate() for q in self.questions]
         points=[q.points() for q in self.questions]
         questions,answers= zip(*qa)

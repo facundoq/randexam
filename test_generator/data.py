@@ -1,7 +1,7 @@
 from .exam import Question
 from questions import preprocessing
 import copy
-
+import pandas as pd
 from pathlib import Path
 import pandas as pd
 
@@ -14,13 +14,9 @@ class Dataset:
         attributes = header[:class_index]+header[class_index+1:]
         class_values = df.iloc[class_index].unique()
         rows = df.to_numpy().tolist()
-        # rows = df.to_string(header=False,
-        #           index=False,
-        #           index_names=False).split('\n')
-        # rows = [row.strip().split(" ") for row in rows]
         return Dataset(rows,header,attributes,class_values)
 
-    def __init__(self, rows, header: [str], attributes: [str], class_values: [str], ordinal_values=None):
+    def __init__(self, rows, header: list[str], attributes: list[str], class_values: list[str], ordinal_values=None):
         self.rows = rows
         self.header = header
         self.attributes = attributes
@@ -73,34 +69,6 @@ class Dataset:
     def __repr__(self) -> str:
         rows_str = [", ".join(map(str,row)) for row in self.str_rows]
         return "Dataset:\n"+self.header+"\n"+"\n".join(rows_str)
-    # @classmethod
-    # def people(cls, n=8):
-    #     attributes = ["Edad", "Altura", "Habilidad"]
-    #     header = attributes + ["Clase"]
-    #     class_values = ["Si", "No"]
-    #     skill_values = ["Baja", "Media", "Alta"]
-    #
-    #     def random_person():
-    #         age = randrange(15, 20)
-    #         height = int(np.random.normal(loc=170, scale=20))
-    #
-    #         skill = skill_values[randrange(len(skill_values))]
-    #         klass = class_values[randrange(len(class_values))]
-    #         return [age, height, skill, klass]
-    #
-    #     rows = [random_person() for i in range(n)]
-    #
-    #     d = Dataset(rows, header, attributes, class_values, skill_values)
-    #     # ensure all values appear at least once
-    #     for i, values in [(2, skill_values), (3, class_values)]:
-    #         col = d.column(i)
-    #         missing_values = []
-    #         for val in values:
-    #             if not val in col:
-    #                 missing_values.append(val)
-    #         for j, v in enumerate(missing_values):
-    #             d.rows[j][i] = v
-    #     return d
 
     def numerize(self):
         # self.ordinal_values
@@ -118,6 +86,11 @@ class DataQuestion(Question):
         self.d = d
 
 
+
+class DataFrameQuestion(Question):
+    def __init__(self, d: pd.DataFrame):
+        self.d = d
+
 from .markdown import *
 
 class DisplayTable(Renderable):
@@ -125,6 +98,30 @@ class DisplayTable(Renderable):
         self.d=d
     def render(self, seed=None):
         title=Text("**Tabla de datos**")
-        t=Table(self.d.str_rows,header=self.d.header,number_rows=True)
+        t=Table(self.d.str_rows,header=self.d.header,row_header=True)
         p=Paragraphs([title,t])
         return p.render()
+    
+import matplotlib.pyplot as plt
+import tempfile
+
+from pathlib import Path
+
+temp_dir = Path("temp")
+
+class MatplotlibFigure(Renderable):
+    
+    temp_dir.mkdir(exist_ok=True,parents=True)
+    temp_dir = temp_dir
+
+    def __init__(self,figure,alt="",title=""):
+        super().__init__()
+        self.alt=alt
+        self.title=title
+        self.figure=figure
+        self.path= temp_dir / f"{self.id}.png"
+        print(f"Saving image to {self.path}")
+        figure.savefig(self.path)
+        plt.close(figure)
+    def render(self,seed=None):
+        return f"![{self.alt}]({self.path} \"{self.title}\")"

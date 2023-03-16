@@ -1,6 +1,7 @@
 from . import preprocessing,rules,trees
 from .concepts import RandomQuestions,TrueOrFalse
 from .clustering import Clustering,ClusteringEvaluationQuestions
+from .clustering_generic import ClusteringGeneric
 from .correlation import CorrelationMatrixJuego
 from .discretization import Discretization
 from .info_gain import InformationGain
