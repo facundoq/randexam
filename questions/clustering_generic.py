@@ -33,11 +33,12 @@ class ClusteringGeneric(DataFrameQuestion):
     def generate_step(self,c:pd.DataFrame,distances:np.array,assignments:np.array):
         k = len(c)
         columns = [f"d(c{i})" for i in range(k)]+ ["Centroide asignado"]
-        
+        centroid_row_header = [f"c{i}" for i in range(len(c))]
+
         distance_assignments = np.hstack([distances,assignments])
         distance_assignments_df =pd.DataFrame(distance_assignments,columns=columns)
-        distances_table = DisplayDataFrame(distance_assignments_df,title="Distancias y asignaciones")
-        centroids_table = DisplayDataFrame(c,title="Centroides resultantes")
+        distances_table = DisplayDataFrame(distance_assignments_df,title="Distancias y asignaciones",row_header="numbers")
+        centroids_table = DisplayDataFrame(c,title="Centroides resultantes",row_header=centroid_row_header)
         return [distances_table,centroids_table]
     
     def generate_steps(self):

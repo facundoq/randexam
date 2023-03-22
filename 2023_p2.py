@@ -25,7 +25,6 @@ def parcial(id:int):
                 questions.clustering_generic.ClusteringGeneric(d2,c1,n_steps=3,include_dataset=True),
                 questions.clustering_generic.ClusteringGeneric(d2,c2,n_steps=3,include_dataset=True),
                 questions.clustering_generic.ClusteringGeneric(d2,c3,n_steps=3,include_dataset=True),
- 
                 ]
     required_data = f"""
 **Datos personales**

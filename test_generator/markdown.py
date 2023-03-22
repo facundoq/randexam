@@ -39,10 +39,11 @@ class Table(Renderable):
             columns+=1
         
         table="\n"
-        if not header is None:
-            if not row_header is None:
-                header=["Fila"]+header
-            table+=self.render_row(header)+"\n"
+        if header is None:
+            header = [" "]*columns
+        if not row_header is None:
+                header=[" "]+header
+        table+=self.render_row(header)+"\n"
         table+=self.render_header_separator(columns)+"\n"
         for i,row in enumerate(data):
             if not row_header is None:

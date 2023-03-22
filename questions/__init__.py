@@ -12,3 +12,4 @@ from .rule_metrics import RuleMetrics
 from .perceptron import Perceptron
 from .quantiles import Quantiles
 from .boxplot import Boxplot
+from .naivebayes import ApplyNaiveBayes

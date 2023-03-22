@@ -1,34 +1,56 @@
 from test_generator import *
 
-class ApplyNaiveBayes(DataQuestion):
+import pandas as pd
+import numpy as np
+
+from questions.naive_bayes.model import NaiveBayes
+
+class GenerateNaiveBayes(DataFrameQuestion):
+    def __init__(self,x:pd.DataFrame,y:np.ndarray):
+        super().__init__(x)
+        self.x=x
+        self.y=y
 
     def generate(self, seed=None):
+        d = self.x.copy()
+        d["Clase"]=self.y
+        q = [f"Dado el conjunto de datos, generar un modelo de Naive Bayes sin corrección de Laplace.",
+             DisplayDataFrame(d)]
+        model = NaiveBayes.fit(self.x,self.y)
+        y_pred = model.predict_classes(self.x)
+        accuracy = np.mean(self.y==y_pred)
+        a = [Table(model.table(),header=["NB estrellas",f"Accuracy {accuracy:.2f}"])]
+        return q, a
 
+    def title(self):
+        return "Entrenar Clasificador Bayesiano"
 
-        # header = ["Ejemplo"]
-        # distances_table = Table([["1", "$\sqrt{valor}$", "$\sqrt{valor}$", "(c1 o c2)"], ["..."] * 4], header=header)
-        #
-        # header = ["Centroide"] + self.d.attributes
-        #
-        # rows_with_id = [[f"**c{i + 1}**"] + row for i, row in enumerate(centroids.str_rows)]
-        # centroid_table = Table(rows_with_id, header=header)
-        n_samples = 3
-        # b_q, b_a = self.silhouette_values()
-        q = Paragraphs(
-            [Text(
-                f"Dado el modelo de Naive Bayes siguiente, indicar la clase de los 2 primeros ejemplos del conjunto de datos."),
-             # centroid_table,
+from test_generator.utils import capture
+class ApplyNaiveBayes(DataQuestion):
+    def __init__(self,model:NaiveBayes,samples:pd.DataFrame):
+        self.model=model
+        self.samples=samples
+        
+    def generate(self, seed=None):
 
-             ])
-        a = Paragraphs([Text("Resultado")])
+        q = [f"Dado el modelo de Naive Bayes siguiente, indicar la clase de los ejemplos de la tabla. Incluir todos los cálculos intermedios ",
+             Table(self.model.table()),
+             DisplayDataFrame(self.samples)
+             ]
+        prediction,details = self.model.predict(self.samples,debug=True)
+        pred = self.model.predict_classes(self.samples)
+        columns=[f"p(c={i})" for i in self.model.class_names]
+        prediction_df = pd.DataFrame(prediction,columns=columns)
+        prediction_df["Predicción"] = pred
+        a = ["Resultado",
+             DisplayDataFrame(prediction_df),
+             Table(details)]
         return q, a
 
     def title(self):
         return "Clasificador Bayesiano"
 
-    class NaiveBayesQuestions(MultipleQuestions):
+class NaiveBayesQuestions(MultipleQuestions):
 
-        def __init__(self):
-
-        def title(self):
-            return "Conceptos sobre Clasificador Bayesiano"
+    def title(self):
+        return "Conceptos sobre Clasificador Bayesiano"
