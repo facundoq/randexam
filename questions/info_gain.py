@@ -47,7 +47,7 @@ class InformationGain(DataQuestion):
 
         # values
 
-        entropy_general = trees.entropy(y)
+        entropy_general = trees.score(y)
         entropy_nominal = trees.entropy_nominal(nominal, y)
         infogain_nominal = trees.information_gain_nominal(nominal, y)
 
