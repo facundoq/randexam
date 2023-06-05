@@ -53,7 +53,7 @@ def parcial1(id:int):
                 questions.correlation.CorrelationMatrixJuego(d_numerized),
                 questions.rule_metrics.RuleMetrics(d),
                 # questions.oner.OneRQuestion(d_discretized),
-                questions.clustering.Clustering(d_numerized,include_dataset=True),
+                questions.clustering.ClusteringAssignments(d_numerized,include_dataset=True),
                 questions.perceptron.Perceptron(d_numerized,class_column=3),
                 questions.concepts.Concepts3(),
                 questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3),

@@ -7,6 +7,10 @@ import string
 RenderableQA = tuple[Renderable,Renderable]
 
 class Question(abc.ABC):
+    def __init__(self,points=1) -> None:
+        super().__init__()
+        self._points=points
+
     @abc.abstractmethod
     def generate(self,seed:int=None)->RenderableQA:
         pass
@@ -14,9 +18,9 @@ class Question(abc.ABC):
     @abc.abstractmethod
     def title(self)->str:
         pass
-
+    
     def points(self)->str:
-        return 1
+        return self._points
 
 class QA:
     def __init__(self,q:str,a:str):
@@ -32,11 +36,12 @@ def to_enumeration(a: list[str]):
         return "\n\n".join(a)
 
 class QAQuestion(Question):
-    def __init__(self,title_str:str,instructions:str,qas:list[QA]):
-        super().__init__()
+    def __init__(self,title_str:str,instructions:str,qas:list[QA],points:int):
+        super().__init__(points=points)
         self.instructions=instructions
         self.title_str=title_str
         self.qas=qas
+        
 
     def generate(self,seed:int=None) ->RenderableQA:
         questions = to_enumeration([qa.q for qa in self.qas])
@@ -44,31 +49,10 @@ class QAQuestion(Question):
         q = Paragraphs([enunciado, Text(questions)])
         answers = to_enumeration([qa.a for qa in self.qas])
         return q, Text(answers)
-
+    
     def title(self) ->str:
         return self.title_str
 
-class MultipleQuestions(Question):
-    def __init__(self,title_str:str,instructions:str,questions:list[str],answers:list[str]):
-        super().__init__()
-        nq,na=len(questions),len(answers)
-        assert nq==na, f"The number of questions ({nq}) must match the number of answers ({na})."
-        self.instructions=instructions
-        self.questions=questions
-        self.answers=answers
-        self.title_str=title_str
-
-    def generate(self,seed:int=None) ->RenderableQA:
-
-
-        questions = to_enumeration(self.questions)
-        enunciado = Text(self.instructions)
-        q = Paragraphs([enunciado, Text(questions)])
-        answers = to_enumeration(self.answers)
-        return q, Text(answers)
-
-    def title(self) ->str:
-        return self.title_str
 
 class Exam:
     def __init__(self,title:str,intro:Renderable,questions:list[Question],subtitle=None,date=None,geometry=None, show_points = False,questions_in_answers = False):
@@ -97,9 +81,9 @@ class Exam:
         if self.show_points:
             titles=[ f"{q.title()}\n **Puntaje:** \t &nbsp;&nbsp;&nbsp;    /{q.points()}\n" for q in self.questions]
             total_points = sum(points)
-            point_form = Text(f"**Puntaje total:** ___ /{total_points}")
-            titles = [point_form] + titles
-            intro_question = Paragraphs([point_form,self.intro])
+            point_form =f"**Puntaje total:** ___ /{total_points}"
+            titles = titles
+            intro_question = [point_form,self.intro]
         else:
             intro_question = self.intro
             titles=[q.title() for q in self.questions]
@@ -115,20 +99,20 @@ class Exam:
         return question_sheet,answer_sheet
 
 
-def generate_and_save(exam: Exam, base_folderpath: Path, filename: str, pdf=False,delete_md=False):
+def generate_and_save(exam: Exam, base_folderpath: Path, filename: str,delete_md=False,format="pdf"):
     tags = ["questions", "answers"]
     q, a = exam.generate()
     for version, tag in zip((q, a), tags):
         folderpath = base_folderpath / tag
         folderpath.mkdir(exist_ok=True, parents=True)
         md_name = f"{filename}_{tag}.md"
-        pdf_name = f"{filename}_{tag}.pdf"
+        pdf_name = f"{filename}_{tag}.{format}"
         md_filepath = folderpath / md_name
         md = version.render()
         with open(md_filepath, "w") as f:
             print(md, file=f)
-        if pdf:
-            pypandoc.convert_file(str(md_filepath), 'pdf', outputfile=str(folderpath / pdf_name))
+        if not format is None:
+            pypandoc.convert_file(str(md_filepath), format, outputfile=str(folderpath / pdf_name))
         if delete_md:
             Path(md_filepath).unlink()
 

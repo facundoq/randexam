@@ -23,8 +23,8 @@ def fruit_models():
     esfericidad_manzana = GaussianVariable(0.5,0.3)
     manzana = NaiveBayesSingleClass(dict(zip(columns,[color_manzana,esfericidad_manzana])))
 
-    color_pera = CategoricalVariable({"Amarillo":0.1,"Mezcla":0.5,"Rojo":0.4})
-    esfericidad_pera = GaussianVariable(0.3,0.8)
+    color_pera = CategoricalVariable({"Amarillo":0.1,"Mezcla":0.6,"Rojo":0.3})
+    esfericidad_pera = GaussianVariable(0.8,0.2)
     pera = NaiveBayesSingleClass(dict(zip(columns,[color_pera,esfericidad_pera])))
 
     class_probabilities1 = CategoricalVariable(dict(zip(class_names,[0.5,0.5])))
@@ -49,12 +49,13 @@ def ejercicio(id:int):
     x1,y1,estrellas_model1 = estrellas("data/estrellas_p3.xlsx")
     x2,y2,estrellas_model2 = estrellas("data/estrellas_p3_d.xlsx")
     question_list=[
-                questions.naivebayes.ApplyNaiveBayes(estrellas_model1,x1),
-                questions.naivebayes.GenerateNaiveBayes(x1,y1),
-                questions.naivebayes.ApplyNaiveBayes(estrellas_model1,x1),
-                questions.naivebayes.GenerateNaiveBayes(x2,y2),
                 questions.naivebayes.ApplyNaiveBayes(fruta_model1,fruta_df),
                 questions.naivebayes.ApplyNaiveBayes(fruta_model2,fruta_df),
+                # questions.naivebayes.GenerateNaiveBayes(x1,y1),
+                # questions.naivebayes.ApplyNaiveBayes(estrellas_model1,x1),
+                # questions.naivebayes.GenerateNaiveBayes(x2,y2),
+                # questions.naivebayes.ApplyNaiveBayes(estrellas_model1,x1),
+                
                 
  
                 ]

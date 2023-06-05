@@ -41,7 +41,7 @@ class RuleMetrics(DataQuestion):
                         rules_table,
                        Text("Presentar los resultados en forma de tabla, e incluir los cálculos realizados en la hoja.")])
 
-        def format_row(r: Rule, res: {}):
+        def format_row(r: Rule, res: dict):
             values = [f"{v:.3f}" for v in res.values()]
             return [str(r)] + values
 

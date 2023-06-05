@@ -1,12 +1,10 @@
 from test_generator import *
 from questions.rules import *
+from test_generator.data import Dataset
 
 
 class OneRQuestion(DataQuestion):
 
-    def points(self) -> str:
-        return 2
-        
     def generate(self, seed=None):
         # rule1,rule2=self.generate_rules()
         # rules=[rule1,rule2]

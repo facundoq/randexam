@@ -14,18 +14,18 @@ import numpy as np
 
 
 def cerveza(n=8):
-    attributes = ["IBU", "Color", "Fuerza"]
+    attributes = ["Visión ", "Dolor", "Diabetes"]
     header = attributes + ["Clase"]
-    class_values = ["Lager", "Ale"]
-    skill_values = ["Baja", "Media", "Alta"]
+    class_values = ["Normal", "Retinopatía"]
+    skill_values = ["Tipo 1", "Tipo 2", "Gestacional"]
 
     def random_example():
-        ibu = int(np.random.normal(loc=50, scale=12))
-        intensidad = randrange(1, 10)
-        fuerza = skill_values[randrange(len(skill_values))]
+        vision = int(np.random.normal(loc=50, scale=12))
+        dolor = randrange(1, 10)
+        diabetes = skill_values[randrange(len(skill_values))]
         klass = class_values[randrange(len(class_values))]
 
-        return [ibu, intensidad, fuerza, klass]
+        return [vision, dolor, diabetes, klass]
 
     rows = [random_example() for i in range(n)]
 
@@ -45,16 +45,19 @@ def parcial(id:int):
     
     d=cerveza(n=8)
     d_numerized=d.numerize()
+    d_numerized.delete_column(3)
+    values=["Bajo","Alto"]
     d_discretized=d.discretize(0, ["Bajo","Medio","Alto"], preprocessing.Discretization.frequency)
-    d_discretized=d_discretized.discretize(1, ["Rubia","Negra"], preprocessing.Discretization.frequency)
+    d_discretized=d_discretized.discretize(1, ["Leve","Grave"], preprocessing.Discretization.frequency)
 
     question_list=[
-                questions.discretization.Discretization(d,0,2),
-                questions.oner.OneRQuestion(d_discretized),
+                questions.discretization.Discretization(d,0,values),
+                questions.oner.OneRQuestion(d_discretized,points=1),
                 questions.rule_metrics.RuleMetrics(d),
-                questions.clustering.ClusteringAssignments(d_numerized,include_dataset=True),
-                questions.correlation.CorrelationMatrixJugador(d),
-                questions.concepts.Concepts4(),
+                questions.clustering.ClusteringAssignments(d_numerized,3,include_dataset=True,points=1),
+                questions.clustering.ClusteringCentroids(d_numerized,2,3,include_dataset=True,points=1),
+                questions.correlation.CorrelationMatrixFumar(d),
+                questions.concepts.ConceptsRandom(8,2),
                 questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3),
                 ]
     required_data = f"""
@@ -66,9 +69,15 @@ def parcial(id:int):
  * Cantidad de hojas entregadas:
 
 """
-    intro=Paragraphs([Text(required_data),DisplayTable(d)])
+    space="&nbsp;"*12
+    header = [f"Nombres","Apellidos","DNI/N° Legajo","#Hojas"]
+    header = [h+space for h in header]
+    t=Table([["","","",""]],header=header,row_header=None)
+
+
+    intro=Paragraphs([t,DisplayTable(d)])
     exam=Exam(f"Minería de Datos usando Sistemas Inteligentes - Tema {id}",intro,question_list,
-    subtitle=f" Primera Fecha - 15 de Junio de 2022 - Promoción\n",geometry="margin=1.8cm",show_points=True)
+    subtitle=f" Primera Fecha - 9 de Junio de 2023 - Promoción\n",geometry="margin=1.6cm",show_points=True)
     return exam
 
 if __name__ == "__main__":
@@ -76,9 +85,9 @@ if __name__ == "__main__":
     random.seed(seed)
     np.random.seed(seed)
     n_exams=1
-    folderpath=Path("p2022/f1")
+    folderpath=Path("p2023/f1")
     for i in tqdm(range(n_exams)):
         exam=parcial(i+1+1)
         filename = f"exam{i+1:02d}"
-        generate_and_save(exam,folderpath,filename,pdf=True,delete_md=True)
+        generate_and_save(exam,folderpath,filename,delete_md=False,format="pdf")
 

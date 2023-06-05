@@ -52,7 +52,7 @@ def parcial1(id:int):
                 # questions.correlation.CorrelationMatrix(d_numerized),
                 questions.oner.OneRQuestion(d_discretized),
                 questions.rule_metrics.RuleMetrics(d),
-                questions.clustering.Clustering(d_numerized,include_dataset=True),
+                questions.clustering.ClusteringAssignments(d_numerized,include_dataset=True),
                 questions.perceptron.Perceptron(d_numerized,class_column=3),
                 questions.concepts.RandomQuestions(),
                 questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3),

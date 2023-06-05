@@ -36,7 +36,7 @@ class InformationGain(DataQuestion):
                             f"Recuerde que para los atributos numéricos debe calcular la ganancia de información de todos los puntos de corte.\n"
                             f"Utilice logaritmo con base {self.log_base} para todos los cálculos (obligatorio)."
                             f""),
-                        Text(f"Tabla de logaritmos base {self.log_base}:"),
+                        Text(f"Algunos de logaritmos base {self.log_base} (use su calculadora para otros):"),
                         log_table
                         ])
         y = self.d.column(self.class_index)

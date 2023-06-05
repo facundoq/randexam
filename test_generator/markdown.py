@@ -1,7 +1,11 @@
-
 import abc
 from collections.abc import Iterable
+
+
 import pandas as pd
+
+def is_iterable(obj):
+    return isinstance(obj, Iterable)
 
 import uuid
 class Renderable(abc.ABC):
@@ -17,10 +21,12 @@ class Renderable(abc.ABC):
     
 
 class Table(Renderable):
-    def __init__(self,data,header=None,row_header=None):
+    def __init__(self,data,header=None,row_header=None,column_separator=""):
+        assert row_header in [None,"numbers"]
         self.data=data
         self.header=header
         self.row_header=row_header
+        self.column_separator = column_separator
 
     def render(self):
         header=self.header

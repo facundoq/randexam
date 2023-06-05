@@ -56,7 +56,7 @@ def parcial1():
                 questions.rule_metrics.RuleMetrics(d),
                 questions.OneRQuestion(d_discretized),
                 questions.numerization.Numerization(d,d_numerized,attribute_index=2),
-                questions.clustering.Clustering(d_numerized),
+                questions.clustering.ClusteringAssignments(d_numerized),
                 questions.clustering.ClusteringEvaluationQuestions2(),
                 questions.correlation.CorrelationMatrix3(d_numerized),
                 questions.concepts.Concepts2(),

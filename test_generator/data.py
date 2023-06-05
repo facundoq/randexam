@@ -16,7 +16,7 @@ class Dataset:
         rows = df.to_numpy().tolist()
         return Dataset(rows,header,attributes,class_values)
 
-    def __init__(self, rows, header: list[str], attributes: list[str], class_values: list[str], ordinal_values=None):
+    def __init__(self, rows:list, header: list[str], attributes: list[str], class_values: list[str], ordinal_values=None):
         self.rows = rows
         self.header = header
         self.attributes = attributes
@@ -46,18 +46,28 @@ class Dataset:
         return self.rows[row]
 
     def discretize(self, col, new_values, strategy: preprocessing.Discretization):
-        n_intervals = len(new_values)
+        
         d = self.copy()
         values = d.column(col)
-        intervals, values = preprocessing.discretize(values, n_intervals, strategy)
+        
+        intervals, values = preprocessing.discretize(values, new_values, strategy)
 
-        values = [new_values[i] for i in values]
+        #values = [new_values[i] for i in values]
         d.replace_column(col, values)
         return d
 
     def replace_column(self, col, values):
         for r, v in zip(self.rows, values):
             r[col] = v
+    def delete_column(self,col):
+        for r in self.rows:
+            del r[col]
+        del self.header[col]
+
+    def insert_column(self,values,header,index):
+        self.header.insert(index,header)
+        for r,v in zip(self.rows,values):
+            r.insert(index,v)
 
     def copy(self):
         rows = copy.deepcopy(self.rows)
@@ -68,27 +78,28 @@ class Dataset:
     
     def __repr__(self) -> str:
         rows_str = [", ".join(map(str,row)) for row in self.str_rows]
-        return "Dataset:\n"+self.header+"\n"+"\n".join(rows_str)
+        header_str = ", ".join(self.header)
+        return "Dataset:\n"+header_str+"\n"+"\n".join(rows_str)
 
     def numerize(self):
         # self.ordinal_values
         # ordinal = self.column(2)
-        rows = [row.copy() for row in self.rows]
-        for i in range(len(rows)):
-            v = rows[i][2]
-            rows[i][2] = self.ordinal_values.index(v) + 1
+        d = self.copy()
+        for i in range(d.n):
+            v = d.rows[i][2]
+            d.rows[i][2] = self.ordinal_values.index(v) + 1
 
-        return Dataset(rows, self.header, self.attributes, self.class_values)
+        return d
 
 
 class DataQuestion(Question):
-    def __init__(self, d: Dataset):
+    def __init__(self, d: Dataset,points:int=1):
+        super().__init__(points=points)
         self.d = d
 
-
-
 class DataFrameQuestion(Question):
-    def __init__(self, d: pd.DataFrame):
+    def __init__(self, d: pd.DataFrame,points:int=1):
+        super().__init__(points=points)
         self.d = d
 
 from .markdown import *
@@ -98,7 +109,7 @@ class DisplayTable(Renderable):
         self.d=d
     def render(self, seed=None):
         title=Text("**Tabla de datos**")
-        t=Table(self.d.str_rows,header=self.d.header,row_header=True)
+        t=Table(self.d.str_rows,header=self.d.header,row_header="numbers")
         p=Paragraphs([title,t])
         return p.render()
     

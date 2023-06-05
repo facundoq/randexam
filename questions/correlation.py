@@ -61,15 +61,15 @@ class CorrelationMatrixJuego(DataQuestion):
 
         correlation_matrix=Table(rows,header=header)
         q=Paragraphs(
-            [Text("Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones:"),
+            ["Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones:",
             correlation_matrix,
-            Text("a) Los atributos Ambiente y Viento son independientes.\nb) Es posible que si sube la Humedad, también suba el valor del atributo Juega.\nc) Los atributos Humedad y Temperatura están correlacionados linealmente, y la correlación es **fuerte**.\nd) La mayoría de los pares de atributos no están correlacionados linealmente."),
+            "a) Los atributos Ambiente y Viento son independientes.\nb) Es posible que si sube la Humedad, también suba el valor del atributo Juega.\nc) Los atributos Humedad y Temperatura están correlacionados linealmente, y la correlación es **fuerte**.\nd) La mayoría de los pares de atributos no están correlacionados linealmente.",
             ])
-        aa=Text("a) Falso, ya que pueden estar correlacionados igual aunque no de forma lineal, por ejemplo, viento=ambiente^2")
-        ab=Text("b) Falso,  la correlación es negativa")
-        ac=Text("c) Falso, la correlación es débil (0.5<x<0.8)")
-        ad=Text("d) Verdadero, de los 10 pares solo 2 tienen correlación lineal débil o fuerte.")
-        a=Paragraphs([Text("F,F,F,V"),aa,ab,ac,ad])
+        aa="a) Falso, ya que pueden estar correlacionados igual aunque no de forma lineal, por ejemplo, viento=ambiente^2"
+        ab="b) Falso,  la correlación es negativa"
+        ac="c) Falso, la correlación es débil (0.5<x<0.8)"
+        ad="d) Verdadero, de los 10 pares solo 2 tienen correlación lineal débil o fuerte."
+        a=Paragraphs(["F,F,F,V",aa,ab,ac,ad])
         return q,a
     def title(self):
         return "Matriz de Correlación"
@@ -91,15 +91,15 @@ class CorrelationMatrixAmbiente(DataQuestion):
 
         correlation_matrix=Table(rows,header=header)
         q=Paragraphs(
-            [Text("Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones:"),
+            ["Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones:",
             correlation_matrix,
-            Text("a) Los atributos Ambiente y Humedad son independientes.\nb) Los atributos Juega y Humedad son independientes \nc) Los atributos Viento y Temperatura están correlacionados linealmente, y la correlación es **fuerte**.\nd) La mayoría de los pares de atributos están correlacionados linealmente."),
+            "a) Los atributos Ambiente y Humedad son independientes.\nb) Los atributos Juega y Humedad son independientes \nc) Los atributos Viento y Temperatura están correlacionados linealmente, y la correlación es **fuerte**.\nd) La mayoría de los pares de atributos están correlacionados linealmente.",
             ])
-        aa=Text("a) Falso, un valor de 1 indica que son linealmente dependientes con dependencia positiva ")
-        ab=Text("b) Falso,  un valor de -1 indica que son linealmente dependientes con dependencia positiva")
-        ac=Text("c) Verdadero, la correlación es fuerte (<-0.8)")
-        ad=Text("d) Falso, de los 5*4/2=10 pares solo 4 tienen correlación lineal débil o fuerte.")
-        a=Paragraphs([Text("F,F,V,F"),aa,ab,ac,ad])
+        aa="a) Falso, un valor de 1 indica que son linealmente dependientes con dependencia positiva "
+        ab="b) Falso,  un valor de -1 indica que son linealmente dependientes con dependencia positiva"
+        ac="c) Verdadero, la correlación es fuerte (<-0.8)"
+        ad="d) Falso, de los 5*4/2=10 pares solo 4 tienen correlación lineal débil o fuerte."
+        a=Paragraphs(["F,F,V,F",aa,ab,ac,ad])
         return q,a
     def title(self):
         return "Matriz de Correlación"
@@ -121,25 +121,58 @@ class CorrelationMatrixBienestar(DataQuestion):
 
         correlation_matrix=Table(rows,header=header)
         q=Paragraphs(
-            [Text("Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones. Justificar en cada caso."),
+            ["Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones. Justificar en cada caso.",
             correlation_matrix,
-            Text("a) Los atributos Desarrollo y Población son aproximadamente independientes.\n"
+            "a) Los atributos Desarrollo y Población son aproximadamente independientes.\n"
                  "b) Es probable que si sube el Desarrollo, también suba la Calidad de Vida.\n"
                  "c) Los atributos Desarrollo y Contaminación están correlacionados linealmente, y la correlación es **Débil**.\n"
                  "d) Los atributos Población y Contaminación están correlacionados linealmente, y la correlación es **Débil**.\n"
-                 "e) La mayoría de los pares de atributos no están correlacionados linealmente."),
+                 "e) La mayoría de los pares de atributos no están correlacionados linealmente.",
             ])
-        aa=Text("a) Falso, si bien la correlación es casi 0, pueden estar correlacionados igual aunque no de forma lineal, por ejemplo, viente=ambiente^2")
-        ab=Text("b) Verdadero,  la correlación es positiva y fuerte")
-        ac=Text("c) Falso, no hay correlación (|x|<0.5)")
-        ad=Text("d) Verdadero, la correlación es débil y negativa ya que 0.5 < |x| < 0.8.")
-        ae=Text("e) Falso, justo la mitad está correlacionada y la mitad no.")
+        aa="a) Falso, si bien la correlación es casi 0, pueden estar correlacionados igual aunque no de forma lineal, por ejemplo, viente=ambiente^2"
+        ab="b) Verdadero,  la correlación es positiva y fuerte"
+        ac="c) Falso, no hay correlación (|x|<0.5)"
+        ad="d) Verdadero, la correlación es débil y negativa ya que 0.5 < |x| < 0.8."
+        ae="e) Falso, justo la mitad está correlacionada y la mitad no."
         a=Paragraphs([aa,ab,ac,ad,ae])
         return q,a
     def title(self):
         return "Matriz de Correlación"
 
 
+class CorrelationMatrixFumar(DataQuestion):
+
+    def generate(self,seed=None):
+        attributes=["#Cigarrillo/día","Capacidad pulmonar","Riesgo cardiovascular","Cancer"]
+        header = [" "]+attributes
+        rows=[[ 1,    -0.6, 0.7,  0.8],
+              [-0.6,  1,    -0.4,  -0.1],
+              [ 0.7,  -0.4, 1,      0.14],
+              [ 0.8,  -0.1, 0.14,  1],
+             ]
+        rows = [[str(v) for v in row] for row in rows]
+        rows = [[a]+row for a,row in zip(attributes,rows)]
+
+        correlation_matrix=Table(rows,header=header)
+        q=Paragraphs(
+            ["Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones. Justificar en cada caso.",
+            correlation_matrix,
+            f"a) Los atributos {attributes[1]} y {attributes[3]} son aproximadamente independientes.\n"
+                 f"b) Es probable que si sube {attributes[0]}, también suba {attributes[3]}.\n"
+                 f"c) Los atributos {attributes[0]} y {attributes[2]} están correlacionados linealmente, y la correlación es **Fuerte**.\n"
+                 f"d) Los atributos {attributes[0]} y {attributes[1]} están correlacionados linealmente, y la correlación es **Débil**.\n"
+                 f"e) Si dos atributos A y B están fuertemente correlacionados, y los atributos B y C también lo estánm eso implica que A y C también lo deben estar. Justificar en el contexto de los atributos presentados.",
+            ])
+        aa="a) Falso, si bien la correlación es casi 0, pueden estar correlacionados igual aunque no de forma lineal, por ejemplo, de forma cuadrática"
+        ab="b) Verdadero,  la correlación es positiva y fuerte"
+        ac="c) Falso, la correlación es positiva pero débil (|x|<0.8)"
+        ad="d) Verdadero, la correlación es débil y negativa ya que 0.5 < |x| < 0.8."
+        ae="e) Falso, es posible que tener alto riesgo cardiovascular y fumar estén correlacionados de forma intensa, y también tener cancer y fumar, pero no tener riesgo cardiovascular y tener cancer."
+        a=Paragraphs([aa,ab,ac,ad,ae])
+        return q,a
+    def title(self):
+        return "Matriz de Correlación"
+    
 
 class CorrelationMatrixJugador(DataQuestion):
 
@@ -156,19 +189,19 @@ class CorrelationMatrixJugador(DataQuestion):
 
         correlation_matrix=Table(rows,header=header)
         q=Paragraphs(
-            [Text("Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones. Justificar en cada caso."),
+            ["Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones. Justificar en cada caso.",
             correlation_matrix,
-            Text("a) Los atributos Velocidad y Resistencia son aproximadamente independientes.\n"
+            "a) Los atributos Velocidad y Resistencia son aproximadamente independientes.\n"
                  "b) Es probable que si sube la Destreza, también suba la Velocidad.\n"
                  "c) Los atributos Velocidad y Fuerza están correlacionados linealmente, y la correlación es **Fuerte**.\n"
                  "d) Los atributos Destreza y Fuerza están correlacionados linealmente, y la correlación es **Débil**.\n"
-                 "e) Hay más pares de atributos correlacionados que no correlacionados linealmente."),
+                 "e) Hay más pares de atributos correlacionados que no correlacionados linealmente.",
             ])
-        aa=Text("a) Falso, si bien la correlación es casi 0, pueden estar correlacionados igual aunque no de forma lineal, por ejemplo, Velocidad=Resistencia^2")
-        ab=Text("b) Verdadero,  la correlación es positiva y fuerte")
-        ac=Text("c) Falso, la correlación es positiva pero débil (|x|<0.8)")
-        ad=Text("d) Verdadero, la correlación es débil y negativa ya que 0.5 < |x| < 0.8.")
-        ae=Text("e) Falso, justo la mitad está correlacionada y la mitad no.")
+        aa="a) Falso, si bien la correlación es casi 0, pueden estar correlacionados igual aunque no de forma lineal, por ejemplo, Velocidad=Resistencia^2"
+        ab="b) Verdadero,  la correlación es positiva y fuerte"
+        ac="c) Falso, la correlación es positiva pero débil (|x|<0.8)"
+        ad="d) Verdadero, la correlación es débil y negativa ya que 0.5 < |x| < 0.8."
+        ae="e) Falso, justo la mitad está correlacionada y la mitad no."
         a=Paragraphs([aa,ab,ac,ad,ae])
         return q,a
     def title(self):

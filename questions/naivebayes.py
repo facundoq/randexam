@@ -50,7 +50,3 @@ class ApplyNaiveBayes(DataQuestion):
     def title(self):
         return "Clasificador Bayesiano"
 
-class NaiveBayesQuestions(MultipleQuestions):
-
-    def title(self):
-        return "Conceptos sobre Clasificador Bayesiano"
