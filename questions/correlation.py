@@ -143,12 +143,12 @@ class CorrelationMatrixBienestar(DataQuestion):
 class CorrelationMatrixFumar(DataQuestion):
 
     def generate(self,seed=None):
-        attributes=["#Cigarrillo/día","Capacidad pulmonar","Riesgo cardiovascular","Cancer"]
+        attributes=["#Cigarrillo/día","Capacidad pulmonar","Riesgo cardiovascular","Cáncer"]
         header = [" "]+attributes
-        rows=[[ 1,    -0.6, 0.7,  0.8],
-              [-0.6,  1,    -0.4,  -0.1],
+        rows=[[ 1,    -0.6, 0.7,  0.85],
+              [-0.6,  1,    -0.4,  -0.05],
               [ 0.7,  -0.4, 1,      0.14],
-              [ 0.8,  -0.1, 0.14,  1],
+              [ 0.85,  -0.05, 0.14,  1],
              ]
         rows = [[str(v) for v in row] for row in rows]
         rows = [[a]+row for a,row in zip(attributes,rows)]
@@ -157,17 +157,17 @@ class CorrelationMatrixFumar(DataQuestion):
         q=Paragraphs(
             ["Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones. Justificar en cada caso.",
             correlation_matrix,
-            f"a) Los atributos {attributes[1]} y {attributes[3]} son aproximadamente independientes.\n"
+            f"a) Es posible afirmar que los atributos {attributes[1]} y {attributes[3]} son aproximadamente independientes.\n"
                  f"b) Es probable que si sube {attributes[0]}, también suba {attributes[3]}.\n"
                  f"c) Los atributos {attributes[0]} y {attributes[2]} están correlacionados linealmente, y la correlación es **Fuerte**.\n"
                  f"d) Los atributos {attributes[0]} y {attributes[1]} están correlacionados linealmente, y la correlación es **Débil**.\n"
-                 f"e) Si dos atributos A y B están fuertemente correlacionados, y los atributos B y C también lo estánm eso implica que A y C también lo deben estar. Justificar en el contexto de los atributos presentados.",
+                 f"e) Si dos atributos A y B están  correlacionados, y los atributos B y C también lo están, eso implica que A y C están  correlacionados. Justificar en el contexto de los atributos presentados.",
             ])
         aa="a) Falso, si bien la correlación es casi 0, pueden estar correlacionados igual aunque no de forma lineal, por ejemplo, de forma cuadrática"
         ab="b) Verdadero,  la correlación es positiva y fuerte"
         ac="c) Falso, la correlación es positiva pero débil (|x|<0.8)"
         ad="d) Verdadero, la correlación es débil y negativa ya que 0.5 < |x| < 0.8."
-        ae="e) Falso, es posible que tener alto riesgo cardiovascular y fumar estén correlacionados de forma intensa, y también tener cancer y fumar, pero no tener riesgo cardiovascular y tener cancer."
+        ae="e) Falso, es posible que tener alto riesgo cardiovascular y fumar estén correlacionados de forma intensa, y también tener Cáncer y fumar, pero no tener riesgo cardiovascular y tener Cáncer."
         a=Paragraphs([aa,ab,ac,ad,ae])
         return q,a
     def title(self):

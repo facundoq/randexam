@@ -21,7 +21,7 @@ class Renderable(abc.ABC):
     
 
 class Table(Renderable):
-    def __init__(self,data,header=None,row_header=None,column_separator=""):
+    def __init__(self,data,header=None,row_header=None,column_separator=" "):
         assert row_header in [None,"numbers"]
         self.data=data
         self.header=header

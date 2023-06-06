@@ -41,32 +41,32 @@ Mejor atributo: Dolor
 |Reglas con Visión  (accuracy=0.625)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
 |Visión  = Alto → Clase = Normal|0.67|3|
-|Visión  = Medio → Clase = Normal|0.50|2|
 |Visión  = Bajo → Clase = Retinopatía|0.67|3|
+|Visión  = Medio → Clase = Normal|0.50|2|
 
 
 
 |Reglas con Dolor (accuracy=0.75)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Dolor = Leve → Clase = Normal|0.75|4|
 |Dolor = Grave → Clase = Retinopatía|0.75|4|
+|Dolor = Leve → Clase = Normal|0.75|4|
 
 
 
 |Reglas con Diabetes (accuracy=0.625)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Diabetes = Tipo 2 → Clase = Retinopatía|0.67|3|
 |Diabetes = Gestacional → Clase = Normal|0.67|3|
 |Diabetes = Tipo 1 → Clase = Normal|0.50|2|
+|Diabetes = Tipo 2 → Clase = Retinopatía|0.67|3|
 
 
 ### 3. Métricas de Reglas (Puntos: 1)
  
 |Regla|Soporte|Cobertura|Confianza|Interés|
 |----------|----------|----------|----------|----------|
-|Diabetes = Gestacional → Clase = Retinopatía|0.125|0.375|0.333|0.667|
-|Clase = Retinopatía → Diabetes = Gestacional|0.125|0.500|0.250|0.667|
-|Visión  < 43 and Diabetes = Tipo 1 → Dolor < 5|0.000|0.000|1.000|inf|
+|Diabetes = Tipo 1 → Clase = Retinopatía|0.125|0.250|0.500|1.000|
+|Clase = Retinopatía → Diabetes = Tipo 1|0.125|0.500|0.250|1.000|
+|Visión  < 43 and Diabetes = Tipo 2 → Dolor < 5|0.125|0.250|0.500|1.333|
 
 
 ### 4. Agrupamiento de datos - Cálculo de asignaciones (Puntos: 1)
@@ -81,8 +81,9 @@ Mejor atributo: Dolor
 ### 5. Agrupamiento de datos - Cálculo de centroides (Puntos: 1)
  
 | |Visión |Dolor|Diabetes|Cluster Asignado|
-|----------|----------|----------|----------|----------|
-|1|46.5|3.5|1.0|0.0|
+|----------|----------|----------|----------|
+|1|42.0|8.0|2.5|
+|2|37.0|5.0|2.0|
 
 
 ### 6. Matriz de Correlación (Puntos: 1)
@@ -94,7 +95,7 @@ c) Falso, la correlación es positiva pero débil (|x|<0.8)
 
 d) Verdadero, la correlación es débil y negativa ya que 0.5 < |x| < 0.8.
 
-e) Falso, es posible que tener alto riesgo cardiovascular y fumar estén correlacionados de forma intensa, y también tener cancer y fumar, pero no tener riesgo cardiovascular y tener cancer.
+e) Falso, es posible que tener alto riesgo cardiovascular y fumar estén correlacionados de forma intensa, y también tener Cáncer y fumar, pero no tener riesgo cardiovascular y tener Cáncer.
 
 ### 7. Conceptos de Minería de Datos (Puntos: 2)
  a) VERDADERO. Vimos en clase como hacerlo

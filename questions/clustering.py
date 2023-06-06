@@ -56,7 +56,7 @@ class ClusteringAssignments(ClusteringQuestion):
         
         q = Paragraphs(
             [Text(
-                f"Dados los datos de los {self.n_samples} primeros ejemplos de la tabla, donde se numerizaron las columnas nominales, y dados los centroides **c1** y **c2**, "
+                f"Dado el siguiente conjunto de ejemplos numerizado, y dados los centroides **c1** y **c2**, "
                 f"calcule la distancia euclídea de los ejemplos hacia estos centroides, "
                 f"y a cuál de ellos estarían asignados. No utilizar la clase en este ejercicio."),
              data_table,
@@ -86,7 +86,7 @@ class ClusteringCentroids(ClusteringQuestion):
         super().__init__(d, n_samples,include_dataset,points=points)
         self.k=k
     def calculate_centroids(self,d:Dataset,assignments:list[int]):
-        n_assignments = max(assignments)
+        n_assignments = max(assignments)+1
         centroids = []
         for i in range(n_assignments):
             samples = [d.rows[j] for j in indices_of(assignments,i)]
@@ -96,7 +96,7 @@ class ClusteringCentroids(ClusteringQuestion):
         
     def generate(self,  seed=None):
         d = self.d.copy()
-        d.rows = d.rows[:self.n_samples]
+        d.rows = d.rows[-self.n_samples:]
         # generate assigments
         # ensure each centroid has a sample
         assert self.k<=d.n
@@ -104,15 +104,17 @@ class ClusteringCentroids(ClusteringQuestion):
         assignments = list(range(self.k))
         assignments += [random.randrange(0,self.k) for _ in range(rest)]
         random.shuffle(assignments)
+        centroids = self.calculate_centroids(d,assignments)
+        
         d.insert_column(assignments,"Cluster Asignado",d.m)
         
-        centroids = self.calculate_centroids(d,assignments)
+        
         data_table = Table(d.rows,d.header,row_header="numbers")
 
         # b_q, b_a = self.silhouette_values()
         q = Paragraphs(
             [
-                f"Dados los datos de los {self.n_samples} primeros ejemplos de la tabla donde se numerizaron las columnas nominales, y la asignación a distintos clusters, calcule los nuevos valores de los centroides. No utilizar la clase en este ejercicio.",
+                f"Dado el siguiente conjunto de ejemplos numerizado, calcule los valores de los {self.k} centroides numerados desde 0 hasta {self.k-1} usando la asignación provista. No utilizar la clase en este ejercicio. Este ejercicio es independiente del resto del examen. Utilice una tabla con {self.k} filas y tantas columnas como atributos haya para presentar los centroides resultantes.",
              data_table,
              ])
 

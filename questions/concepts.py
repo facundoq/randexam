@@ -107,7 +107,7 @@ ganancia de información será la resta de 2 valores iguales."""),
 class ConceptsQuestion(QAQuestion):
     def __init__(self, qas: list[QA],points:int):
         title = "Conceptos de Minería de Datos"
-        instructions = "Responda las preguntas o indique el valor de verdad de a las siguientes afirmaciones. Justifique sus respuestas."
+        instructions = "Responda las preguntas o indique el valor de verdad de  las siguientes afirmaciones. Justifique sus respuestas."
         super().__init__(title, instructions, qas,points)
 
 class Concepts2(ConceptsQuestion):

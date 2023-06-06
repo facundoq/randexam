@@ -76,9 +76,9 @@ Mostrar el accuracy de cada atributo, y las reglas finales del OneR:
 
 |Regla|Soporte|Cobertura|Confianza|Interés|
 |----------|----------|----------|----------|----------|
-|Diabetes = Gestacional → Clase = Retinopatía|||||
-|Clase = Retinopatía → Diabetes = Gestacional|||||
-|Visión  < 43 and Diabetes = Tipo 1 → Dolor < 5|||||
+|Diabetes = Tipo 1 → Clase = Retinopatía|||||
+|Clase = Retinopatía → Diabetes = Tipo 1|||||
+|Visión  < 43 and Diabetes = Tipo 2 → Dolor < 5|||||
 
 
 Presentar los resultados en forma de tabla, e incluir los cálculos realizados en la hoja.
@@ -86,7 +86,7 @@ Presentar los resultados en forma de tabla, e incluir los cálculos realizados e
 ### 4. Agrupamiento de datos - Cálculo de asignaciones
  **Puntaje:** 	 &nbsp;&nbsp;&nbsp;    /1
 
- Dados los datos de los 3 primeros ejemplos de la tabla, donde se numerizaron las columnas nominales, y dados los centroides **c1** y **c2**, calcule la distancia euclídea de los ejemplos hacia estos centroides, y a cuál de ellos estarían asignados. No utilizar la clase en este ejercicio.
+ Dado el siguiente conjunto de ejemplos numerizado, y dados los centroides **c1** y **c2**, calcule la distancia euclídea de los ejemplos hacia estos centroides, y a cuál de ellos estarían asignados. No utilizar la clase en este ejercicio.
 
 
 | |Visión |Dolor|Diabetes|
@@ -115,14 +115,15 @@ Nota: Para presentar los resultados, no calcule las raíces cuadradas.En lugar d
 ### 5. Agrupamiento de datos - Cálculo de centroides
  **Puntaje:** 	 &nbsp;&nbsp;&nbsp;    /1
 
- Dados los datos de los 3 primeros ejemplos de la tabla donde se numerizaron las columnas nominales, y la asignación a distintos clusters, calcule los nuevos valores de los centroides. No utilizar la clase en este ejercicio.
+ Dado el siguiente conjunto de ejemplos numerizado, calcule los valores de los 2 centroides numerados desde 0 hasta 1 usando la asignación provista. No utilizar la clase en este ejercicio. Este ejercicio es independiente del resto del examen. Utilice una tabla con 2 filas y tantas columnas como atributos haya para presentar los centroides resultantes.
 
 
 | |Visión |Dolor|Diabetes|Cluster Asignado|
 |----------|----------|----------|----------|----------|
-|1|44|1|1|0|
-|2|49|6|1|0|
-|3|24|5|3|1|
+|1|28|7|3|0|
+|2|39|9|2|1|
+|3|56|9|2|0|
+|4|35|1|2|1|
 
 
 ### 6. Matriz de Correlación
@@ -131,24 +132,24 @@ Nota: Para presentar los resultados, no calcule las raíces cuadradas.En lugar d
  Dada la siguiente matriz de correlación, indique la verdad (V) o falsedad (F) de las afirmaciones. Justificar en cada caso.
 
 
-| |#Cigarrillo/día|Capacidad pulmonar|Riesgo cardiovascular|Cancer|
+| |#Cigarrillo/día|Capacidad pulmonar|Riesgo cardiovascular|Cáncer|
 |----------|----------|----------|----------|----------|
-|#Cigarrillo/día|1|-0.6|0.7|0.8|
-|Capacidad pulmonar|-0.6|1|-0.4|-0.1|
+|#Cigarrillo/día|1|-0.6|0.7|0.85|
+|Capacidad pulmonar|-0.6|1|-0.4|-0.05|
 |Riesgo cardiovascular|0.7|-0.4|1|0.14|
-|Cancer|0.8|-0.1|0.14|1|
+|Cáncer|0.85|-0.05|0.14|1|
 
 
-a) Los atributos Capacidad pulmonar y Cancer son aproximadamente independientes.
-b) Es probable que si sube #Cigarrillo/día, también suba Cancer.
+a) Es posible afirmar que los atributos Capacidad pulmonar y Cáncer son aproximadamente independientes.
+b) Es probable que si sube #Cigarrillo/día, también suba Cáncer.
 c) Los atributos #Cigarrillo/día y Riesgo cardiovascular están correlacionados linealmente, y la correlación es **Fuerte**.
 d) Los atributos #Cigarrillo/día y Capacidad pulmonar están correlacionados linealmente, y la correlación es **Débil**.
-e) Si dos atributos A y B están fuertemente correlacionados, y los atributos B y C también lo estánm eso implica que A y C también lo deben estar. Justificar en el contexto de los atributos presentados.
+e) Si dos atributos A y B están  correlacionados, y los atributos B y C también lo están, eso implica que A y C están  correlacionados. Justificar en el contexto de los atributos presentados.
 
 ### 7. Conceptos de Minería de Datos
  **Puntaje:** 	 &nbsp;&nbsp;&nbsp;    /2
 
- Responda las preguntas o indique el valor de verdad de a las siguientes afirmaciones. Justifique sus respuestas.
+ Responda las preguntas o indique el valor de verdad de  las siguientes afirmaciones. Justifique sus respuestas.
 
 a) Es posible calcular la mediana de un atributo ordinal
 
@@ -182,11 +183,3 @@ En base a estos valores, indique cuál de los 2 atributos se elegiría para gene
 Utilice dos decimales para los cálculos. 
 Recuerde que para los atributos numéricos debe calcular la ganancia de información de todos los puntos de corte.
 Utilice logaritmo con base 2 para todos los cálculos (obligatorio).
-
-Algunos de logaritmos base 2 (use su calculadora para otros):
-
-
-|log(0/8)|log(1/8)|log(2/8)|log(3/8)|log(4/8)|log(5/8)|log(6/8)|log(7/8)|log(8/8)|
-|----------|----------|----------|----------|----------|----------|----------|----------|----------|
-|$-\infty$|-0.90|-0.60|-0.43|-0.30|-0.20|-0.12|-0.06|0.00|
-

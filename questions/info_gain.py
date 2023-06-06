@@ -24,9 +24,9 @@ class InformationGain(DataQuestion):
         att = " y ".join(attributes)
         trees.log_base = self.log_base
         n = self.d.n
-        log_values = [["$-\infty$"]+[f"{trees.log( (i + 1) / n):.2f}" for i in range(n)]]
-        log_header = [f"log({i}/{n})" for i in range(n+1)]
-        log_table = Table(log_values, header=log_header)
+        # log_values = [["$-\infty$"]+[f"{trees.log( (i + 1) / n):.2f}" for i in range(n)]]
+        # log_header = [f"log({i}/{n})" for i in range(n+1)]
+        # log_table = Table(log_values, header=log_header)
         q = Paragraphs([Text(
             f"Utilizando los datos originales, calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos {att}. Utilice la siguiente tabla para presentar los resultados:"),
                         infogain_table,
@@ -36,8 +36,8 @@ class InformationGain(DataQuestion):
                             f"Recuerde que para los atributos numéricos debe calcular la ganancia de información de todos los puntos de corte.\n"
                             f"Utilice logaritmo con base {self.log_base} para todos los cálculos (obligatorio)."
                             f""),
-                        Text(f"Algunos de logaritmos base {self.log_base} (use su calculadora para otros):"),
-                        log_table
+                        # Text(f"Algunos de logaritmos base {self.log_base} (use su calculadora para otros):"),
+                        # log_table
                         ])
         y = self.d.column(self.class_index)
         y = np.array(y)

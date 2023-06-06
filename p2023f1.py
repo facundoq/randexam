@@ -55,20 +55,12 @@ def parcial(id:int):
                 questions.oner.OneRQuestion(d_discretized,points=1),
                 questions.rule_metrics.RuleMetrics(d),
                 questions.clustering.ClusteringAssignments(d_numerized,3,include_dataset=True,points=1),
-                questions.clustering.ClusteringCentroids(d_numerized,2,3,include_dataset=True,points=1),
+                questions.clustering.ClusteringCentroids(d_numerized,2,4,include_dataset=True,points=1),
                 questions.correlation.CorrelationMatrixFumar(d),
                 questions.concepts.ConceptsRandom(8,2),
                 questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3),
                 ]
-    required_data = f"""
-**Datos personales**
-
- * Nombres:
- * Apellidos:
- * DNI / Nº Legajo:
- * Cantidad de hojas entregadas:
-
-"""
+    
     space="&nbsp;"*12
     header = [f"Nombres","Apellidos","DNI/N° Legajo","#Hojas"]
     header = [h+space for h in header]
