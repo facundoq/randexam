@@ -9,7 +9,7 @@ class ClusteringQuestion(DataQuestion):
 
     def calculate_distances(self, cd: Dataset):
         n_samples = self.d.n
-        samples = [r[:-1] for r in self.d.rows]
+        samples = self.d.rows#[r[:-1] for r in self.d.rows]
         centroids = cd.rows
         n_centroids = cd.n
         distances_rows = []
