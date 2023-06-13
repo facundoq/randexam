@@ -3,14 +3,13 @@ from test_generator import *
 import numpy as np
 
 class InformationGain(DataQuestion):
-    def __init__(self, d:Dataset, numeric_attribute:int,nominal_attribute:int,class_index:int,log_base=2):
-        super().__init__(d)
+    def __init__(self, d:Dataset, numeric_attribute:int,nominal_attribute:int,class_index:int,log_base=2,points=2):
+        super().__init__(d,points=points)
         self.numeric_attribute=numeric_attribute
         self.nominal_attribute = nominal_attribute
         self.class_index=class_index
         self.log_base=log_base
-    def points(self) -> str:
-        return 2
+  
     def generate(self, seed=None):
         attribute_indices=[self.nominal_attribute,self.numeric_attribute]
         attributes = [self.d.attributes[i] for i in attribute_indices]
@@ -47,12 +46,12 @@ class InformationGain(DataQuestion):
 
         # values
 
-        entropy_general = trees.score(y)
-        entropy_nominal = trees.entropy_nominal(nominal, y)
-        infogain_nominal = trees.information_gain_nominal(nominal, y)
+        entropy_general = trees.score(y,log_base=self.log_base)
+        entropy_nominal = trees.entropy_nominal(nominal, y,log_base=self.log_base)
+        infogain_nominal = trees.information_gain_nominal(nominal, y,log_base=self.log_base)
 
-        entropies_numeric, discretization_points = trees.entropy_numeric(numeric, y)
-        infogains_numeric, _ = trees.information_gain_numeric(numeric, y)
+        entropies_numeric, discretization_points = trees.entropy_numeric(numeric, y,log_base=self.log_base)
+        infogains_numeric, _ = trees.information_gain_numeric(numeric, y,log_base=self.log_base)
         # all
         entropy_numeric = entropies_numeric.min()
         infogain_numeric = infogains_numeric.max()

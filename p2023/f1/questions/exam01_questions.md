@@ -76,8 +76,8 @@ Mostrar el accuracy de cada atributo, y las reglas finales del OneR:
 
 |Regla|Soporte|Cobertura|Confianza|Interés|
 |----------|----------|----------|----------|----------|
-|Diabetes = Tipo 1 → Clase = Retinopatía|||||
-|Clase = Retinopatía → Diabetes = Tipo 1|||||
+|Diabetes = Gestacional → Clase = Normal|||||
+|Clase = Normal → Diabetes = Gestacional|||||
 |Visión  < 43 and Diabetes = Tipo 2 → Dolor < 5|||||
 
 

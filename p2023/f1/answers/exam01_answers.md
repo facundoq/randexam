@@ -40,9 +40,9 @@ Mejor atributo: Dolor
 
 |Reglas con Visión  (accuracy=0.625)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Visión  = Alto → Clase = Normal|0.67|3|
 |Visión  = Bajo → Clase = Retinopatía|0.67|3|
-|Visión  = Medio → Clase = Normal|0.50|2|
+|Visión  = Alto → Clase = Normal|0.67|3|
+|Visión  = Medio → Clase = Retinopatía|0.50|2|
 
 
 
@@ -55,8 +55,8 @@ Mejor atributo: Dolor
 
 |Reglas con Diabetes (accuracy=0.625)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
+|Diabetes = Tipo 1 → Clase = Retinopatía|0.50|2|
 |Diabetes = Gestacional → Clase = Normal|0.67|3|
-|Diabetes = Tipo 1 → Clase = Normal|0.50|2|
 |Diabetes = Tipo 2 → Clase = Retinopatía|0.67|3|
 
 
@@ -64,8 +64,8 @@ Mejor atributo: Dolor
  
 |Regla|Soporte|Cobertura|Confianza|Interés|
 |----------|----------|----------|----------|----------|
-|Diabetes = Tipo 1 → Clase = Retinopatía|0.125|0.250|0.500|1.000|
-|Clase = Retinopatía → Diabetes = Tipo 1|0.125|0.500|0.250|1.000|
+|Diabetes = Gestacional → Clase = Normal|0.250|0.375|0.667|1.333|
+|Clase = Normal → Diabetes = Gestacional|0.250|0.500|0.500|1.333|
 |Visión  < 43 and Diabetes = Tipo 2 → Dolor < 5|0.125|0.250|0.500|1.333|
 
 
@@ -117,20 +117,20 @@ h) VERDADERO. Esto ocurre cuando hay valores repetidos.
 ### 8. Ganancia de Información (Puntos: 2)
  Entropías calculadas con logaritmo con base 2
 
-Entropía general: 0.3010299956639812
+Entropía general: 1.0
 
 
 |Atributo|Diabetes|Dolor|
 |----------|----------|----------|
-|Entropía|0.24|0.28|
-|Ganancia|0.06|0.02|
+|Entropía|0.81|0.94|
+|Ganancia|0.19|0.06|
 
 
 
 |Punto de corte|Entropía|Info Gain|
 |----------|----------|----------|
-|3.0|0.29|0.01|
-|5.5|0.24|0.06|
-|6.5|0.29|0.01|
-|8.0|0.3|0.0|
+|3.0|0.95|0.05|
+|5.5|0.81|0.19|
+|6.5|0.95|0.05|
+|8.0|1.0|0.0|
 

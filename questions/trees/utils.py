@@ -1,12 +1,12 @@
 
 import numpy as np
 
-log_base = 10
 
-def log(p:np.ndarray):
+
+def log(p:np.ndarray,log_base=2):
     return np.log2(p)/np.log2(log_base)
 
-def score(classes):
+def score(classes,log_base=2):
     # frecuencia de c/valor del atributo
     unique_elements, counts_elements = np.unique(classes, return_counts=True)
     # N = cant.total de valores
@@ -16,12 +16,12 @@ def score(classes):
     E = 0
     for i in counts_elements:
         p=i/n
-        E = E - p*log(p)
+        E = E - p*log(p,log_base=log_base)
 
     return E
     
 
-def calculate_entropy(p:np.ndarray)->float:
+def calculate_entropy(p:np.ndarray,log_base=2)->float:
     '''
     :param p: 1D vector of size C with class probabilities/relative frequencies
     :return: entropy of p
@@ -29,7 +29,7 @@ def calculate_entropy(p:np.ndarray)->float:
     E=0
     for i in range(len(p)):
         if p[i]>0:
-            E += -p[i]*np.log2(p[i])
+            E += -p[i]*log(p[i],log_base=log_base)
         else:
             E += 0
     #Alternative implementation
@@ -37,7 +37,7 @@ def calculate_entropy(p:np.ndarray)->float:
     return E
 
 
-def entropy_nominal(values, y):
+def entropy_nominal(values, y,log_base=2):
     if isinstance(values[0],str):
         #reencode as int
         unique_values=list(set(values))
@@ -54,7 +54,7 @@ def entropy_nominal(values, y):
     for v,c in zip(unique_values,counts):
         # analizando una rama
         value_y = y[values==v]
-        value_entropy = score(value_y)
+        value_entropy = score(value_y,log_base=log_base)
         p=c/n
         E = E + p * value_entropy
     return E
@@ -67,7 +67,7 @@ def binary_discretize(values:np.ndarray,discretization_point:float):
     values[values>=discretization_point]=1
     return values
 
-def entropy_numeric(values, y):
+def entropy_numeric(values, y,log_base=2):
     indices=np.argsort(values)
     values=values[indices]
     y=y[indices]
@@ -75,19 +75,19 @@ def entropy_numeric(values, y):
     entropies=[]
     for p in discretization_points:
         discretized_values=binary_discretize(values,p)
-        entropies.append(entropy_nominal(discretized_values,y))
+        entropies.append(entropy_nominal(discretized_values,y,log_base=log_base))
     
     return np.array(entropies), discretization_points
 
 
-def information_gain_nominal(values,y):
-    E=score(y)
-    values_E=entropy_nominal(values,y)
+def information_gain_nominal(values,y,log_base=2):
+    E=score(y,log_base=log_base)
+    values_E=entropy_nominal(values,y,log_base=log_base)
     return E-values_E
 
-def information_gain_numeric(values,y):
-    E=score(y)
-    entropies,values=entropy_numeric(values,y)
+def information_gain_numeric(values,y,log_base=2):
+    E=score(y,log_base=log_base)
+    entropies,values=entropy_numeric(values,y,log_base=log_base)
     return E-entropies,values
 
 
