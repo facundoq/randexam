@@ -40,7 +40,7 @@ class Quantiles(DataQuestion):
         ]
         
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         attribute_index=self.attribute_index
         q=[f"Calcule la mediana y los dos cuartiles del atributo {self.d.attributes[attribute_index]}.\n\n Nota: Utilice la definición de cuartil vista en la teoría."]
         return q,self.answer()

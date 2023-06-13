@@ -1,6 +1,7 @@
 from test_generator import *
 from questions.rules import *
-from random import randrange
+import random
+
 
 class RuleMetrics(DataQuestion):
     def dataset_rule(self, index: int, value, op=Operator.eq):
@@ -8,8 +9,8 @@ class RuleMetrics(DataQuestion):
         return AttributeRange(index, value, op, name=attribute_name)
 
     def dataset_rule_random_value(self,index:int,op=Operator.eq):
-        values =list(set(self.d.column(index)))
-        rand_index = randrange(0, len(values))
+        values =self.d.column(index)
+        rand_index = random.randrange(0, len(values))
         value = values[rand_index]
         return self.dataset_rule(index,value,op)
 
@@ -29,8 +30,9 @@ class RuleMetrics(DataQuestion):
         # rule2=f"{self.d.attributes[1]} y {self.d.attributes[2]} → {self.d.attributes[0]}"
         return [rule1, rule2,rule3]
 
-    def generate(self, seed=None):
+    def _generate(self):
         rules = self.generate_rules()
+        
         results = [DatasetMetric.eval_all(r, self.d.rows) for r in rules]
 
         header = ["Regla"] + list(results[0].keys())

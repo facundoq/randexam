@@ -10,8 +10,8 @@ class InformationGain(DataQuestion):
         self.class_index=class_index
         self.log_base=log_base
   
-    def generate(self, seed=None):
-        attribute_indices=[self.nominal_attribute,self.numeric_attribute]
+    def _generate(self, seed=None):
+        attribute_indices=[self.numeric_attribute,self.nominal_attribute]
         attributes = [self.d.attributes[i] for i in attribute_indices]
         m = len(attributes)
         header = ["Atributo"] + attributes
@@ -26,8 +26,9 @@ class InformationGain(DataQuestion):
         # log_values = [["$-\infty$"]+[f"{trees.log( (i + 1) / n):.2f}" for i in range(n)]]
         # log_header = [f"log({i}/{n})" for i in range(n+1)]
         # log_table = Table(log_values, header=log_header)
+        numeric_attribute_name = self.d.attributes[self.numeric_attribute]
         q = Paragraphs([Text(
-            f"Utilizando los datos originales, calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos {att}. Utilice la siguiente tabla para presentar los resultados:"),
+            f"Utilizando los datos originales, calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos {att}. Tenga en cuenta que el atributo {numeric_attribute_name} es numérico.  Utilice la siguiente tabla para presentar los resultados:"),
                         infogain_table,
                         Text(
                             f"En base a estos valores, indique cuál de los {m} atributos se elegiría para generar la raíz de un árbol de decisión.\n"

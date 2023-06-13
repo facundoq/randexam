@@ -128,7 +128,7 @@ class Perceptron(DataQuestion):
         return q,a
 
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         w,b=self.generate_w()
 
         attributes=", ".join(self.d.attributes)

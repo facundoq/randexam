@@ -76,9 +76,9 @@ Mostrar el accuracy de cada atributo, y las reglas finales del OneR:
 
 |Regla|Soporte|Cobertura|Confianza|Interés|
 |----------|----------|----------|----------|----------|
-|Diabetes = Gestacional → Clase = Normal|||||
-|Clase = Normal → Diabetes = Gestacional|||||
-|Visión  < 43 and Diabetes = Tipo 2 → Dolor < 5|||||
+|Diabetes = Tipo 2 → Clase = Retinopatía|||||
+|Clase = Retinopatía → Diabetes = Tipo 2|||||
+|Visión  < 43 and Diabetes = Gestacional → Dolor < 5|||||
 
 
 Presentar los resultados en forma de tabla, e incluir los cálculos realizados en la hoja.
@@ -121,8 +121,8 @@ Nota: Para presentar los resultados, no calcule las raíces cuadradas.En lugar d
 | |Visión |Dolor|Diabetes|Cluster Asignado|
 |----------|----------|----------|----------|----------|
 |1|28|7|3|0|
-|2|39|9|2|1|
-|3|56|9|2|0|
+|2|39|9|2|0|
+|3|56|9|2|1|
 |4|35|1|2|1|
 
 
@@ -155,7 +155,7 @@ a) Es posible calcular la mediana de un atributo ordinal
 
 b) Dados los items A y B, si A->B tiene soporte 0.7 ¿cuál será el soporte de B->A?
 
-c) Es posible calcular la tasa de acierto (accuracy) de un conjunto de reglas de asociación utilizando una matriz de confusión.
+c) Es posible calcular la tasa de acierto (accuracy) de un conjunto de reglas de asociación.
 
 d) Si se busca construir un árbol de clasificación, el atributo de clase (marcado como label) debe ser de tipo ordinal.
 
@@ -163,17 +163,17 @@ e) El índice Davies Bouldin se calcula en base a la dispersión de los ejemplos
 
 f) En el índice Silhouette, el clustering es perfecto cuando vale 0, y los valores extremos -1 y 1 indican desviaciones negativas y positivas del óptimo.
 
-g) Dado un itemset con 3 items A,B,C, ¿cuántas reglas de asociación pueden generarse en base al itemset?
+g) Dado un itemset con 3 items A,B,C, ¿cuántas reglas de asociación con los 3 items pueden generarse en base al itemset?
 
 h) Es posible que al representar el diagrama de barras de un atributo discretizado por frecuencia se observen barras con alturas diferentes.
 
 ### 8. Ganancia de Información
  **Puntaje:** 	 &nbsp;&nbsp;&nbsp;    /2
 
- Utilizando los datos originales, calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos Diabetes y Dolor. Utilice la siguiente tabla para presentar los resultados:
+ Utilizando los datos originales, calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos Dolor y Diabetes. Utilice la siguiente tabla para presentar los resultados:
 
 
-|Atributo|Diabetes|Dolor|
+|Atributo|Dolor|Diabetes|
 |----------|----------|----------|
 |Entropía| | |
 |Ganancia de Información| | |

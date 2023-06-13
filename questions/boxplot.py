@@ -31,7 +31,7 @@ class Boxplot(DataQuestion):
         ]+ [f"{name}: {i}, valores: {outliers(i)}" for name,i in self.intervals.items()]
         
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         
         q=[f"Calcule los cuartiles, el rango intercuartil, los valores de los bigotes, y los rangos de valores atípicos leves y extremos dados por el diagrama de caja del atributo  {self.d.attributes[self.q.attribute_index]}.\n\n Nota: Utilice la definición de cuartil vista en la teoría."]
         return q,self.answer()

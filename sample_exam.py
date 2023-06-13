@@ -4,7 +4,7 @@ from test_generator.exam import Exam,Question,generate_and_save
 from random import randrange
 
 class SimpleQuestion(Question):
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         header=["Chorizos","Mortadelas","Cúrcuma"]
         def rs():
             return str(randrange(10))

@@ -6,14 +6,26 @@ import string
 
 RenderableQA = tuple[Renderable,Renderable]
 
+import random
+import numpy as np
+# reset random seed when generating each exercise
+random_seed = None
+
 class Question(abc.ABC):
     def __init__(self,points=1) -> None:
         super().__init__()
         self._points=points
 
+    def generate(self)->RenderableQA:
+        if random_seed is not None:
+            random.seed(random_seed)
+            np.random.seed(random_seed)
+        return self._generate()
+
     @abc.abstractmethod
-    def generate(self,seed:int=None)->RenderableQA:
+    def _generate(self)->RenderableQA:
         pass
+    
 
     @abc.abstractmethod
     def title(self)->str:
@@ -43,7 +55,7 @@ class QAQuestion(Question):
         self.qas=qas
         
 
-    def generate(self,seed:int=None) ->RenderableQA:
+    def _generate(self) ->RenderableQA:
         questions = to_enumeration([qa.q for qa in self.qas])
         enunciado = Text(self.instructions)
         q = Paragraphs([enunciado, Text(questions)])

@@ -5,7 +5,7 @@ from test_generator.data import Dataset
 
 class OneRQuestion(DataQuestion):
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         # rule1,rule2=self.generate_rules()
         # rules=[rule1,rule2]
         # results=[DatasetMetric.eval_all(r,self.d.rows) for r in rules]

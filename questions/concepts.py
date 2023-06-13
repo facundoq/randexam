@@ -15,22 +15,22 @@ clustering_qas= [  QA("El costo computacional del cálculo del índice Silhouett
 ),]
 
 all_qa = [QA("Es posible calcular la mediana de un atributo ordinal",
-                "VERDADERO. Vimos en clase como hacerlo"),
+                "VERDADERO. La mediana es el valor de la posición floor(N/2) aunque el atributo sea ordinal."),
             QA("""El valor de la Ganancia de Información (Information Gain) de un atributo que toma siempre el mismo valor en todos los ejemplos es cero.""",
 """ Verdadero. Si sólo tiene 1 valor, no separa los ejemplos por lo
 que su entropía coincide con la entroía de conjunto original. Luego la
 ganancia de información será la resta de 2 valores iguales."""),
             QA("Si se busca construir un árbol de clasificación, el atributo de clase (marcado como label) debe ser de tipo ordinal.",
-                "FALSO. En realidad debe ser CUALITATIVO, es decir, ordinal o nominal."),
+                "FALSO. No debe ser solo ordinal, en realidad debe ser cualitativo, es decir, ordinal o nominal."),
             QA("No es posible calcular la Tasa de Ganancia (Gain Ratio) de un atributo numérico continuo (con decimales).",
                "FALSO. La cantidad de valores del atributo será finita por lo que se ordenan los valores "
                "distintos (no importa que tenga decimales) y se calcula como vimos en clase."),
             QA("Es posible que al representar el diagrama de barras de un atributo discretizado por frecuencia se observen barras con alturas diferentes.",
-                "VERDADERO. Esto ocurre cuando hay valores repetidos."),
+                "Verdadero, las barras de altura diferente en la discretización por frecuencia ocurren cuando hay valores repetidos."),
             QA(" Un atributo nominal puede tener 2 modas.",
                "VERDADERO. Si dos de sus valores ocurren con la misma frecuencia y se trata del valor con más apariciones, ambos serán valores de MODA."),
-            QA("Es posible calcular la tasa de acierto (accuracy) de un conjunto de reglas de asociación utilizando una matriz de confusión.",
-               "Verdadero. Las reglas de asociación son un modelo descriptivo."),
+            QA("Es posible calcular la tasa de acierto (accuracy) de un conjunto de reglas de asociación.",
+               "Falso. Las reglas de asociación son un modelo descriptivo, y no se utiliza la tasa de acierto como métrica."),
                QA("La normalización lineal uniforme ¿es sensible a valores anómalos? ¿y la normalización por media/varianza?",
                "Lineal si, media/varianza también pero menos",
                ),
@@ -38,12 +38,12 @@ ganancia de información será la resta de 2 valores iguales."""),
             QA("En un árbol de clasificación ¿a qué corresponden los nodos intermedios, los nodos hoja y las aristas?",
                "Los nodos intermedios corresponden a atributos, las aristas a valores de esos atributos, y los nodos hoja a decisiones o predicciones de la clase",
                ),
-            QA("Dado un itemset con 3 items A,B,C, ¿cuántas reglas de asociación pueden generarse en base al itemset?",
-               "6, A->(B,C) B->(A,C) C->(A,B), idem con 2 items en el antecedente",),
+            QA("Dado un itemset con 3 items A,B,C, ¿cuántas reglas de asociación con los 3 items pueden generarse en base al itemset?",
+               "Se pueden generar 6 reglas a partir de (A,B,C): A->(B,C) B->(A,C) C->(A,B), idem con 2 items en el antecedente",),
             QA("El algoritmo Apriori ¿genera reglas de Asociación?",
-               "No, genera itemsets",),
+               "No, Apriori genera itemsets",),
             QA("El algoritmo FPGrowth ¿genera reglas de Asociación?",
-               "No, genera itemsets",),
+               "No, FPGrowth genera itemsets",),
             
             
             QA("""Se tiene un problema de clasificación de 100 ejemplos con 3 columnas, una es la de la clase con 4 valores distintos, otra es nominal con 5 valores,
@@ -80,7 +80,7 @@ ganancia de información será la resta de 2 valores iguales."""),
                 "No, ya que también debería saber cuántos valores hay en cada atributo nominal."
                ),
             QA("El índice Davies Bouldin se calcula en base a la dispersión de los ejemplos de cada grupo (cluster) y la distancia entre los centros.",
-               "Verdadero"
+               "Verdadero, Davies Bouldin se calcula en base a la dispersión de los ejemplos de cada grupo (cluster) y la distancia entre los centros, mientras que sillhouete no utiliza el concepto de centros, solo distancias entre ejemplos"
             ),
              QA("Dado un conjunto de atributos, puede afirmarse que los que tengan el mismo valor de entropía también tendrán el mismo valor de Ganancia de Información (Information Gain).", "V"),
             QA("El índice Silhouette se calcula en base a la dispersión de los ejemplos de cada grupo (cluster) y la distancia entre los centros.","F"),
@@ -95,7 +95,7 @@ ganancia de información será la resta de 2 valores iguales."""),
             QA("El algoritmo Apriori ¿genera reglas de Asociación?","No, genera itemsets"),
             QA("El algoritmo FPGrowth ¿genera reglas de Asociación?","No, genera itemsets"),
             QA("Al generar reglas con APriori o FPGrowth ¿es necesario generar itemsets?","Si, justamente generan itemsets"),
-            QA("Dados los items A y B, si A->B tiene soporte 0.7 ¿cuál será el soporte de B->A?","El mismo"),
+            QA("Dados los items A y B, si A->B tiene soporte 0.7 ¿cuál será el soporte de B->A?","El soporte será el mismo, ya que se cuentan la cantidad de veces que aparecen A y B juntos en cada ejemplo."),
             QA("¿Cuáles son las dos propiedades que deben cumplir los grupos (clusters) para obtener un buen agrupamiento?", "Alta cohesión intra cluster y alta separación intercluster.") ,
             QA("El peso de una red neuronal correspondiente al atributo A es negativo (por ejemplo, -10). Dado un ejemplo, si el valor del ejemplo para el atributo de A baja, ¿a qué clase se acercará el ejemplo?","A la clase 0, ya que a mayor valor de A, menor valor de la entrada neta.")
             ]+clustering_qas

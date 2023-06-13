@@ -56,25 +56,25 @@ Mejor atributo: Dolor
 |Reglas con Diabetes (accuracy=0.625)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
 |Diabetes = Tipo 1 → Clase = Retinopatía|0.50|2|
-|Diabetes = Gestacional → Clase = Normal|0.67|3|
 |Diabetes = Tipo 2 → Clase = Retinopatía|0.67|3|
+|Diabetes = Gestacional → Clase = Normal|0.67|3|
 
 
 ### 3. Métricas de Reglas (Puntos: 1)
  
 |Regla|Soporte|Cobertura|Confianza|Interés|
 |----------|----------|----------|----------|----------|
-|Diabetes = Gestacional → Clase = Normal|0.250|0.375|0.667|1.333|
-|Clase = Normal → Diabetes = Gestacional|0.250|0.500|0.500|1.333|
-|Visión  < 43 and Diabetes = Tipo 2 → Dolor < 5|0.125|0.250|0.500|1.333|
+|Diabetes = Tipo 2 → Clase = Retinopatía|0.250|0.375|0.667|1.333|
+|Clase = Retinopatía → Diabetes = Tipo 2|0.250|0.500|0.500|1.333|
+|Visión  < 43 and Diabetes = Gestacional → Dolor < 5|0.000|0.250|0.000|0.000|
 
 
 ### 4. Agrupamiento de datos - Cálculo de asignaciones (Puntos: 1)
  
 | |d(c1)|d(c2)|Centroide asignado|
 |----------|----------|----------|----------|
-|1|97|89|2|
-|2|197|9|2|
+|1|101|93|2|
+|2|201|13|2|
 |3|121|641|1|
 
 
@@ -82,8 +82,8 @@ Mejor atributo: Dolor
  
 | |Visión |Dolor|Diabetes|Cluster Asignado|
 |----------|----------|----------|----------|
-|1|42.0|8.0|2.5|
-|2|37.0|5.0|2.0|
+|1|33.5|8.0|2.5|
+|2|45.5|5.0|2.0|
 
 
 ### 6. Matriz de Correlación (Puntos: 1)
@@ -98,21 +98,21 @@ d) Verdadero, la correlación es débil y negativa ya que 0.5 < |x| < 0.8.
 e) Falso, es posible que tener alto riesgo cardiovascular y fumar estén correlacionados de forma intensa, y también tener Cáncer y fumar, pero no tener riesgo cardiovascular y tener Cáncer.
 
 ### 7. Conceptos de Minería de Datos (Puntos: 2)
- a) VERDADERO. Vimos en clase como hacerlo
+ a) VERDADERO. La mediana es el valor de la posición floor(N/2) aunque el atributo sea ordinal.
 
-b) El mismo
+b) El soporte será el mismo, ya que se cuentan la cantidad de veces que aparecen A y B juntos en cada ejemplo.
 
-c) Verdadero. Las reglas de asociación son un modelo descriptivo.
+c) Falso. Las reglas de asociación son un modelo descriptivo, y no se utiliza la tasa de acierto como métrica.
 
-d) FALSO. En realidad debe ser CUALITATIVO, es decir, ordinal o nominal.
+d) FALSO. No debe ser solo ordinal, en realidad debe ser cualitativo, es decir, ordinal o nominal.
 
-e) Verdadero
+e) Verdadero, Davies Bouldin se calcula en base a la dispersión de los ejemplos de cada grupo (cluster) y la distancia entre los centros, mientras que sillhouete no utiliza el concepto de centros, solo distancias entre ejemplos
 
 f) Falso, como el indice se define como (b(i)-a(i))/max(b(i),a(i)), donde b es la distancia inter cluster promedio y a es la intracluster, entonces si vale 1 quiere decir que la distancia intercluster es grande y la intracluster es baja
 
-g) 6, A->(B,C) B->(A,C) C->(A,B), idem con 2 items en el antecedente
+g) Se pueden generar 6 reglas a partir de (A,B,C): A->(B,C) B->(A,C) C->(A,B), idem con 2 items en el antecedente
 
-h) VERDADERO. Esto ocurre cuando hay valores repetidos.
+h) Verdadero, las barras de altura diferente en la discretización por frecuencia ocurren cuando hay valores repetidos.
 
 ### 8. Ganancia de Información (Puntos: 2)
  Entropías calculadas con logaritmo con base 2
@@ -120,7 +120,7 @@ h) VERDADERO. Esto ocurre cuando hay valores repetidos.
 Entropía general: 1.0
 
 
-|Atributo|Diabetes|Dolor|
+|Atributo|Dolor|Diabetes|
 |----------|----------|----------|
 |Entropía|0.81|0.94|
 |Ganancia|0.19|0.06|

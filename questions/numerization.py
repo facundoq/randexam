@@ -7,7 +7,7 @@ class Numerization(DataQuestion):
         self.d_numerized = d_numerized
         self.attribute_index=attribute_index
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         col = self.attribute_index
         q = Text(
             f"Numerizar el atributo **{self.d.attributes[col]}** del conjunto de datos original. "

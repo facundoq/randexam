@@ -118,7 +118,7 @@ class Discretization(DataQuestion):
         a= Paragraphs([e,v,i])
         return a
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         n_intervals=3
         attribute_index=1#randrange(2)
         q=Paragraphs([Text(f"Discretice el atributo {self.d.attributes[attribute_index]}  por a) frecuencia y b) rango en {n_intervals} valores. En ambos casos, indique los intervalos resultantes. Realice un gráfico de barras para visualizar la frecuencia de los valores resultantes.\n\n Nota: La discretización es solo para este ejercicio; utilizar los datos originales en los siguientes.")])
@@ -142,7 +142,7 @@ class Normalization(DataQuestion):
         v=Text(f"Valores normalizados: {normalized_values}")
         return Paragraphs([a,v])
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         attribute_index=0#randrange(2)
         q=Paragraphs([Text(f"Normalice el atributo {self.d.attributes[attribute_index]} mediante a) rango lineal uniforme y b) media/varianza. En ambos casos, indicar los valores resultantes. \n Nota: La normalización es solo para este ejercicio; utilizar los datos originales en los siguientes.")])
         values=self.d.column(attribute_index)
@@ -158,7 +158,7 @@ class Normalization(DataQuestion):
 
 class InformationGain(DataQuestion):
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         
         attributes=[self.d.attributes[0],self.d.attributes[2]]
         m=len(attributes)
@@ -214,7 +214,7 @@ from questions.rules import *
 class OneRQuestion(DataQuestion):
 
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         # rule1,rule2=self.generate_rules()
         # rules=[rule1,rule2]
         # results=[DatasetMetric.eval_all(r,self.d.rows) for r in rules]
@@ -278,7 +278,7 @@ class RuleMetrics(DataQuestion):
         #rule2=f"{self.d.attributes[1]} y {self.d.attributes[2]} → {self.d.attributes[0]}"
         return rule1,rule2
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         rule1,rule2=self.generate_rules()
         rules=[rule1,rule2]
         results=[DatasetMetric.eval_all(r,self.d.rows) for r in rules]
@@ -305,7 +305,7 @@ class Numerization(DataQuestion):
         super().__init__(d)
         self.d_numerized=d_numerized
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         col=2
         q=Text(f"Numerizar el atributo {self.d.attributes[col]} del conjunto de datos, con la estrategia de generar un valor entero por cada valor numérico. Comenzar con el valor 1, y respetar el orden natural de dicho atributo (Baja < Media < Alta). Mostrar los valores resultantes.")
 
@@ -319,7 +319,7 @@ class Numerization(DataQuestion):
         return "Numerización de datos"    
 
 class CorrelationMatrix(DataQuestion):
-    def generate(self,seed=None):
+    def _generate(self,seed=None):
         attributes=["Ambiente","Temperatura","Humedad","Viento","Juega"]
         header = [" "]+attributes
         rows=[[1,0.28,0.11,0,-0.18],
@@ -348,7 +348,7 @@ class CorrelationMatrix(DataQuestion):
 
 
 class CorrelationMatrix2(DataQuestion):
-    def generate(self,seed=None):
+    def _generate(self,seed=None):
         attributes=["Ambiente","Temperatura","Humedad","Viento","Juega"]
         header = [" "]+attributes
         rows=[[1,0.28,1,0,-0.18],
@@ -378,7 +378,7 @@ class CorrelationMatrix2(DataQuestion):
 
 class TrueOrFalse(Question):
 
-    def generate(self):
+    def _generate(self):
         questions=["Dado un conjunto de atributos, puede afirmarse que los que tengan el mismo valor de entropía también tendrán el mismo valor de Ganancia de Información (Information Gain).",
         "El índice Silhouette se calcula en base a la dispersión de los ejemplos de cada grupo (cluster) y la distancia entre los centros.",
         "Si se busca construir un árbol de clasificación, el atributo de clase no puede ser numérico.",
@@ -400,7 +400,7 @@ class TrueOrFalse(Question):
 
 class RandomQuestions(Question):
 
-    def generate(self):
+    def _generate(self):
         questions=[
         "La normalización lineal uniforme ¿es sensible a valores anómalos? ¿y la normalización por media/varianza?",
         "En un árbol de clasificación ¿a qué corresponden los nodos intermedios, los nodos hoja y las aristas?"
@@ -482,7 +482,7 @@ class Clustering(DataQuestion):
         a= Text("b) Falso, 1 indica que el clustering es bueno (máxima cohesión y separación), y -1 que es malo (mínima cohesión y separación). ")
         return q,a
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         centroids=self.generate_centroids()
         distances=self.calculate_distances(centroids)
 
@@ -628,7 +628,7 @@ class Perceptron(DataQuestion):
         return q,a
 
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         w,b=self.generate_w()
 
         attributes=", ".join(self.d.attributes)

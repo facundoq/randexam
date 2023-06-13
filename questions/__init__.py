@@ -13,3 +13,5 @@ from .perceptron import Perceptron
 from .quantiles import Quantiles
 from .boxplot import Boxplot
 from .naivebayes import ApplyNaiveBayes
+
+random_seed = None

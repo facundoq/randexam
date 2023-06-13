@@ -19,7 +19,7 @@ class Normalization(DataQuestion):
         v=Text(f"Valores normalizados: {normalized_values}")
         return Paragraphs([a,v])
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         attribute_index=self.attribute_index
         text =f"Normalice el atributo {self.d.attributes[attribute_index]} mediante: \n\n"
         count=1

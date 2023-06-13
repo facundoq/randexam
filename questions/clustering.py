@@ -38,7 +38,7 @@ class ClusteringAssignments(ClusteringQuestion):
         c = Dataset([c1, c2], self.d.attributes[:3], self.d.attributes[:3], [])
         return c
     
-    def generate(self,  seed=None):
+    def _generate(self,  seed=None):
         centroids = self.initialize_centroids()
         distances = self.calculate_distances(centroids)
 
@@ -94,7 +94,7 @@ class ClusteringCentroids(ClusteringQuestion):
             centroids.append(list(centroid))
         return Dataset(centroids,d.header,d.attributes,d.class_values,d.ordinal_values)
         
-    def generate(self,  seed=None):
+    def _generate(self,  seed=None):
         d = self.d.copy()
         d.rows = d.rows[-self.n_samples:]
         # generate assigments

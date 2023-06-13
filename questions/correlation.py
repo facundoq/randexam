@@ -2,7 +2,7 @@ from test_generator import *
 import numpy as np
 
 class CorrelationMatrix(DataQuestion):
-    def generate(self,seed=None):
+    def _generate(self,seed=None):
         q = ["Calcule la matriz de correlación entre los atributos del conjunto de datos"]
         v = np.array(self.d.rows)
         correlation_matrix = np.corrcoef(v.T)
@@ -32,7 +32,7 @@ class CorrelationCoefficient(DataQuestion):
         self.direction = "Positiva" if self.correlation>0 else "Negativa"
         self.intensity = "No hay" if absc< 0.3 else ("Débil" if absc<0.8 else "Fuerte")
 
-    def generate(self,seed=None):
+    def _generate(self,seed=None):
         q = [f"Calcule la matriz de correlación entre los atributos {self.d.attributes[self.a]}  y {self.d.attributes[self.b]} del conjunto de datos"]
         a = [f"Medias: {self.means}",
              f"Desviaciones: {self.stds}",
@@ -47,7 +47,7 @@ class CorrelationCoefficient(DataQuestion):
     
 class CorrelationMatrixJuego(DataQuestion):
 
-    def generate(self,seed=None):
+    def _generate(self,seed=None):
         attributes=["Ambiente","Temperatura","Humedad","Viento","Juega"]
         header = [" "]+attributes
         rows=[[1,0.28,0.11,0,-0.18],
@@ -77,7 +77,7 @@ class CorrelationMatrixJuego(DataQuestion):
 
 
 class CorrelationMatrixAmbiente(DataQuestion):
-    def generate(self,seed=None):
+    def _generate(self,seed=None):
         attributes=["Ambiente","Temperatura","Humedad","Viento","Juega"]
         header = [" "]+attributes
         rows=[[1,0.28,1,0,-0.18],
@@ -108,7 +108,7 @@ class CorrelationMatrixAmbiente(DataQuestion):
 
 class CorrelationMatrixBienestar(DataQuestion):
 
-    def generate(self,seed=None):
+    def _generate(self,seed=None):
         attributes=["Desarrollo","Contaminación","Calidad de Vida","Población"]
         header = [" "]+attributes
         rows=[[ 1,    -0.25, 0.88,  0.0001],
@@ -142,7 +142,7 @@ class CorrelationMatrixBienestar(DataQuestion):
 
 class CorrelationMatrixFumar(DataQuestion):
 
-    def generate(self,seed=None):
+    def _generate(self,seed=None):
         attributes=["#Cigarrillo/día","Capacidad pulmonar","Riesgo cardiovascular","Cáncer"]
         header = [" "]+attributes
         rows=[[ 1,    -0.6, 0.7,  0.85],
@@ -176,7 +176,7 @@ class CorrelationMatrixFumar(DataQuestion):
 
 class CorrelationMatrixJugador(DataQuestion):
 
-    def generate(self,seed=None):
+    def _generate(self,seed=None):
         attributes=["Velocidad","Fuerza","Destreza","Resistencia"]
         header = [" "]+attributes
         rows=[[ 1,    0.72, 0.88,  0.0001],

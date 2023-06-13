@@ -60,7 +60,7 @@ class ClusteringGeneric(DataFrameQuestion):
         return Paragraphs(steps)
 
         
-    def generate(self,  seed=None):
+    def _generate(self,  seed=None):
         n_samples = len(self.d)
         data_table = DisplayDataFrame(self.d,row_header="numbers",title="Ejemplos")
         centroid_row_header = [f"c{i}" for i in range(len(self.c))]

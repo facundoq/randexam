@@ -11,7 +11,7 @@ class GenerateNaiveBayes(DataFrameQuestion):
         self.x=x
         self.y=y
 
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
         d = self.x.copy()
         d["Clase"]=self.y
         q = [f"Dado el conjunto de datos, generar un modelo de Naive Bayes sin corrección de Laplace.",
@@ -31,7 +31,7 @@ class ApplyNaiveBayes(DataQuestion):
         self.model=model
         self.samples=samples
         
-    def generate(self, seed=None):
+    def _generate(self, seed=None):
 
         q = [f"Dado el modelo de Naive Bayes siguiente, indicar la clase de los ejemplos de la tabla. Incluir todos los cálculos intermedios ",
              Table(self.model.table()),
