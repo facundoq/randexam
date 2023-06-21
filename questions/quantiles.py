@@ -4,8 +4,8 @@ import math
 
 class Quantiles(DataQuestion):
 
-    def __init__(self,d:Dataset,attribute_index:int):
-        super().__init__(d)
+    def __init__(self,d:Dataset,attribute_index:int,points=1):
+        super().__init__(d,points=points)
         self.attribute_index=attribute_index
         values = self.d.column(attribute_index)
         values = list(map(float,values))

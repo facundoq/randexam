@@ -2,11 +2,12 @@ from test_generator import *
 from test_generator.exam import QA
 
 clustering_qas= [  QA("El costo computacional del cálculo del índice Silhouette ¿suele ser mayor que el de Davies-Bouldin?", "La afirmación es verdadera porque el Silhouette calcula para cada ejemplo su distancia promedio con los de su grupo y con los del grupo más cercano con esto obtiene el índice de cada ejmplo y finalmente los promedia. Por otro lado, DB compara agrupamientos y se espera que la cantidad de grupos sea considerablemente menor a la de ejemplos. Si esto último no ocurre, podría darse que DB fuera más costoso computacionalmente hablando pero este escenario no tiene mucho sentido en un contexto donde se busca construir un modelo descriptivo."),
-            QA("¿Es preciso conocer la posición de los centros para calcular el índice Silhouette del agrupamiento?","Falso, ya que calcula distancias entre ejemplos y no centroides."),
+            QA("Se corre el algoritmo K-Medias sobre un conjunto de datos, encontrando algunos clusters con 1 solo ejemplo. Esto ¿indica que el algoritmo no pudo converger?","Falso, no necesariamente, puede indicar que hay valores anómalos."),
+            # QA("¿Es preciso conocer la posición de los centros para calcular el índice Silhouette del agrupamiento?","Falso, ya que calcula distancias entre ejemplos y no centroides."),
             QA("Indique si la siguiente afirmación es verdadera o falsa: \n En el índice Sillhouette, tanto -1 como 1 son buenos valores, donde -1 indica correlación negativa y 1 positiva, y 0 indica que el clustering no es bueno.","Falso, 1 es bueno y -1 es malo"),
              QA("El indice Silhouette es superior a Davies Bouldin ya que considera distancias inter e intra cluster.",
                 "Falso, ambos consideran esas distancias."),
-            QA("Es preciso conocer la posición de los centros para calcular el índice Davies-Bouldin del agrupamiento",
+            QA("Es preciso conocer la posición de los centros para calcular el índice Davies-Bouldin de un agrupamiento.",
                "Verdadero, ya que calcula distancias entre los centroides y los ejemplos de cada cluster."),
             QA("En el índice Silhouette, el clustering es perfecto cuando vale 0, y los valores extremos -1 y 1 indican desviaciones negativas y positivas del óptimo.",
                "Falso, como el indice se define como (b(i)-a(i))/max(b(i),a(i)), donde b es la distancia inter cluster promedio y a es la intracluster, entonces si vale 1 quiere decir que la distancia intercluster es grande y la intracluster es baja",),
@@ -60,12 +61,13 @@ ganancia de información será la resta de 2 valores iguales."""),
                "y la otra es un atributo nominal de 5 valores distintos. ¿Cuántos valores serán necesarios para almacenar un "
                "modelo Naive Bayes para clasificar los ejemplos?"
                ,"$3 \\times 5=15$, ya que para cada clase (3) debemos almacenar la distribución de probabilidad de los valores (5)"),
-            QA("¿Cuál de las normalizaciones vistas es más sensible a los valores anómalos/extremos?",
-               "La lineal, ya que si hay un valor extremo afecta al máximo/mínimo directamente.",
-               ),
+           
 
-            QA("Los modelos de Reglas de Clasificación son casos particulares de los modelos de Árboles de Clasificación",
+            QA("Los modelos de Reglas de Clasificación ¿son casos particulares de los modelos de Árboles de Clasificación?",
                "Falso, es al revés, ya que todo árbol puede expresarse como un conjunto de reglas pero no viceversa.",
+               ),
+             QA("¿Cuál de las normalizaciones vistas es más sensible a los valores anómalos/extremos?",
+               "La lineal, ya que si hay un valor extremo afecta al máximo/mínimo directamente.",
                ),
             QA("Dada una regla, (A=Si,B=No) → C=Si, con soporte 0.3, ¿Puedo inferir el soporte de la regla (A=Si) → (B=No, C=Si) sin los datos?",
                "No se puede; se podría inferir la de (A=Si,B=No) ← C=Si ya que es la misma, pero para la del enunciado se requieren los datos.  ",),
@@ -79,10 +81,11 @@ ganancia de información será la resta de 2 valores iguales."""),
             QA("Dado un conjunto de datos con 3 clases, 5 atributos nominales y 100000 ejemplos. Si se entrena un árbol de clasificación con este conjunto de datos ¿puedo saber cuántos nodos tendrá como máximo el árbol?",
                 "No, ya que también debería saber cuántos valores hay en cada atributo nominal."
                ),
+             QA("Dado un conjunto de atributos, puede afirmarse que los que tengan el mismo valor de entropía también tendrán el mismo valor de Ganancia de Información (Information Gain).", "Verdadero, ya que la ganancia de información (GI) es GI = Entropía - Entropía(Atributo)"),
             QA("El índice Davies Bouldin se calcula en base a la dispersión de los ejemplos de cada grupo (cluster) y la distancia entre los centros.",
                "Verdadero, Davies Bouldin se calcula en base a la dispersión de los ejemplos de cada grupo (cluster) y la distancia entre los centros, mientras que sillhouete no utiliza el concepto de centros, solo distancias entre ejemplos"
             ),
-             QA("Dado un conjunto de atributos, puede afirmarse que los que tengan el mismo valor de entropía también tendrán el mismo valor de Ganancia de Información (Information Gain).", "V"),
+            
             QA("El índice Silhouette se calcula en base a la dispersión de los ejemplos de cada grupo (cluster) y la distancia entre los centros.","F"),
             QA("Si se busca construir un árbol de clasificación, el atributo de clase no puede ser numérico.","V"),
             QA("Las reglas de clasificación que se generan con OneR pueden ejecutarse en cualquier orden a diferencia de las generadas con el método PART.","V"),
@@ -98,6 +101,7 @@ ganancia de información será la resta de 2 valores iguales."""),
             QA("Dados los items A y B, si A->B tiene soporte 0.7 ¿cuál será el soporte de B->A?","El soporte será el mismo, ya que se cuentan la cantidad de veces que aparecen A y B juntos en cada ejemplo."),
             QA("¿Cuáles son las dos propiedades que deben cumplir los grupos (clusters) para obtener un buen agrupamiento?", "Alta cohesión intra cluster y alta separación intercluster.") ,
             QA("El peso de una red neuronal correspondiente al atributo A es negativo (por ejemplo, -10). Dado un ejemplo, si el valor del ejemplo para el atributo de A baja, ¿a qué clase se acercará el ejemplo?","A la clase 0, ya que a mayor valor de A, menor valor de la entrada neta.")
+            
             ]+clustering_qas
 
 
