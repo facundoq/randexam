@@ -19,7 +19,7 @@ class GenerateNaiveBayes(DataFrameQuestion):
         model = NaiveBayes.fit(self.x,self.y)
         y_pred = model.predict_classes(self.x)
         accuracy = np.mean(self.y==y_pred)
-        a = [Table(model.table(),header=["NB estrellas",f"Accuracy {accuracy:.2f}"])]
+        a = [Table(model.table(),header=["NB",f"Accuracy {accuracy:.2f}"])]
         return q, a
 
     def title(self):

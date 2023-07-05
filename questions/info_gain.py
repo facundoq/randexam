@@ -28,7 +28,7 @@ class InformationGain(DataQuestion):
         # log_table = Table(log_values, header=log_header)
         numeric_attribute_name = self.d.attributes[self.numeric_attribute]
         q = Paragraphs([Text(
-            f"Utilizando los datos originales, calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos {att}. Tenga en cuenta que el atributo {numeric_attribute_name} es numérico.  Utilice la siguiente tabla para presentar los resultados:"),
+            f"Utilizando los datos originales, calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos {att}. Tenga en cuenta que el atributo {numeric_attribute_name} es numérico, por lo cual deberá utilizar la variante del algoritmo que busca la mejor discretización probando todos los puntos de corte posibles.  Utilice la siguiente tabla para presentar los resultados:"),
                         infogain_table,
                         Text(
                             f"En base a estos valores, indique cuál de los {m} atributos se elegiría para generar la raíz de un árbol de decisión.\n"

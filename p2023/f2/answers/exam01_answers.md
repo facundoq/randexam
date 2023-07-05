@@ -19,45 +19,45 @@ Valores normalizados: 1.96, 0.58, 0.24, -1.83, -0.19, -0.28, 0.06, -0.54
 
 ### 2. Modelo OneR (Puntos: 1)
  
-|Días |Llanto|Leche|Clase|
+|Edad|Llanto|Leche|Clase|
 |----------|----------|----------|----------|
-|Alto|Leve|Materna|Cólicos|
-|Alto|Grave|Fórmula|Otro|
-|Alto|Leve|Fórmula|Cólicos|
-|Bajo|Grave|Mixta|Cólicos|
-|Medio|Leve|Fórmula|Otro|
-|Bajo|Grave|Fórmula|Otro|
-|Medio|Grave|Fórmula|Cólicos|
-|Bajo|Leve|Fórmula|Cólicos|
+|Alta|Leve|Materna|Con Cólicos|
+|Alta|Grave|Fórmula|Sin Cólicos|
+|Alta|Leve|Fórmula|Con Cólicos|
+|Baja|Grave|Mixta|Con Cólicos|
+|Media|Leve|Fórmula|Sin Cólicos|
+|Baja|Grave|Fórmula|Sin Cólicos|
+|Media|Grave|Fórmula|Con Cólicos|
+|Baja|Leve|Fórmula|Con Cólicos|
 
 
-Mejor atributo: Días 
+Mejor atributo: Edad
 
 
-|Reglas con Días  (accuracy=0.625)|Confianza|Soporte(absoluto)|
+|Reglas con Edad (accuracy=0.625)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Días  = Bajo → Clase = Cólicos|0.67|3|
-|Días  = Alto → Clase = Cólicos|0.67|3|
-|Días  = Medio → Clase = Cólicos|0.50|2|
+|Edad = Media → Clase = Sin Cólicos|0.50|2|
+|Edad = Alta → Clase = Con Cólicos|0.67|3|
+|Edad = Baja → Clase = Con Cólicos|0.67|3|
 
 
 
 |Reglas con Llanto (accuracy=0.625)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Llanto = Leve → Clase = Cólicos|0.75|4|
-|Llanto = Grave → Clase = Cólicos|0.50|4|
+|Llanto = Leve → Clase = Con Cólicos|0.75|4|
+|Llanto = Grave → Clase = Sin Cólicos|0.50|4|
 
 
 
 |Reglas con Leche (accuracy=0.625)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Leche = Materna → Clase = Cólicos|1.00|1|
-|Leche = Mixta → Clase = Cólicos|1.00|1|
-|Leche = Fórmula → Clase = Cólicos|0.50|6|
+|Leche = Fórmula → Clase = Sin Cólicos|0.50|6|
+|Leche = Mixta → Clase = Con Cólicos|1.00|1|
+|Leche = Materna → Clase = Con Cólicos|1.00|1|
 
 
 ### 3. Cuartiles (Puntos: 1)
- Valores ordenados de  Días :
+ Valores ordenados de  Edad:
 
 [27.0, 42.0, 45.0, 46.0, 49.0, 51.0, 55.0, 71.0]
 
@@ -73,14 +73,14 @@ q1=42.75, q2=47.5, q3=54.0
  
 |Regla|Soporte|Cobertura|Confianza|Interés|
 |----------|----------|----------|----------|----------|
-|Leche = Fórmula → Clase = Cólicos|0.375|0.750|0.500|0.800|
-|Clase = Otro → Leche = Fórmula|0.375|0.375|1.000|1.333|
-|Días  < 48 and Leche = Fórmula → Llanto < 6|0.250|0.375|0.667|1.333|
+|Leche = Fórmula → Clase = Con Cólicos|0.375|0.750|0.500|0.800|
+|Clase = Sin Cólicos → Leche = Fórmula|0.375|0.375|1.000|1.333|
+|Edad < 48 and Leche = Fórmula → Llanto < 6|0.250|0.375|0.667|1.333|
 
 
 ### 5. Agrupamiento de datos - Cálculo de centroides (Puntos: 1)
  
-| |Días |Llanto|Leche|Cluster Asignado|
+| |Edad|Llanto|Leche|Cluster Asignado|
 |----------|----------|----------|----------|
 |1|47.5|5.5|3.0|
 |2|43.5|6.5|3.0|
@@ -126,11 +126,11 @@ Entropía general: 0.954434002924965
 
 
 ### 8. Perceptrón (Puntos: 1)
- a) Asumiendo que Clase=Cólicos está codificado con un 0, y Clase=Otro con un 1, ¿cuál es el valor máximo del atributo Días   para que un ejemplo con Llanto=2 y Leche=1 pertenezca a la Clase=Otro?
+ a) Asumiendo que Clase=Sin Cólicos está codificado con un 0, y Clase=Con Cólicos con un 1, ¿cuál es el valor máximo del atributo Edad  para que un ejemplo con Llanto=2 y Leche=1 pertenezca a la Clase=Con Cólicos?
 
 Recordamos que w=1, 9, 19 y b=147
 
-Dados esos valores, y asumiendo que $a_0$, $a_1$ y $a_2$ son los valores para los atributos Días , Llanto, Leche, para que el modelo esté entre generar 0 o 1 debe cumplirse:
+Dados esos valores, y asumiendo que $a_0$, $a_1$ y $a_2$ son los valores para los atributos Edad, Llanto, Leche, para que el modelo esté entre generar 0 o 1 debe cumplirse:
 
 $a_0 . w0 + a_1 . w_1 + a_2 . w_2 = b$
 
@@ -142,8 +142,8 @@ $a_0  = (147 - 2 . 9 - 1 19)/1$
 
 $a_0 = 110.0$
 
-Como buscamos que esté en clase Otro, y el signo de $w_0$ es positivo, necesitamos que $a_0$ tenga como valor máximo 110.0.
+Como buscamos que esté en clase Con Cólicos, y el signo de $w_0$ es positivo, necesitamos que $a_0$ tenga como valor máximo 110.0.
 
-b) Asumiendo que Clase=Cólicos está codificado con un 0, y Clase=Otro con un 1, ¿cómo clasificaría el modelo a un ejemplo donde Días  vale 49, Llanto vale 7 y Leche vale 3?
+b) Asumiendo que Clase=Sin Cólicos está codificado con un 0, y Clase=Con Cólicos con un 1, ¿cómo clasificaría el modelo a un ejemplo donde Edad vale 49, Llanto vale 7 y Leche vale 3?
 
-La salida neta es 1×49+9×7+19×3 =169, y por ende la salida es 1 (169>=147), con clase Otro
+La salida neta es 1×49+9×7+19×3 =169, y por ende la salida es 1 (169>=147), con clase Con Cólicos

@@ -7,7 +7,7 @@ clustering_qas= [  QA("El costo computacional del cálculo del índice Silhouett
             QA("Indique si la siguiente afirmación es verdadera o falsa: \n En el índice Sillhouette, tanto -1 como 1 son buenos valores, donde -1 indica correlación negativa y 1 positiva, y 0 indica que el clustering no es bueno.","Falso, 1 es bueno y -1 es malo"),
              QA("El indice Silhouette es superior a Davies Bouldin ya que considera distancias inter e intra cluster.",
                 "Falso, ambos consideran esas distancias."),
-            QA("Es preciso conocer la posición de los centros para calcular el índice Davies-Bouldin de un agrupamiento.",
+            QA("Es preciso conocer los valores de los centroides para calcular el índice Davies-Bouldin de un agrupamiento.",
                "Verdadero, ya que calcula distancias entre los centroides y los ejemplos de cada cluster."),
             QA("En el índice Silhouette, el clustering es perfecto cuando vale 0, y los valores extremos -1 y 1 indican desviaciones negativas y positivas del óptimo.",
                "Falso, como el indice se define como (b(i)-a(i))/max(b(i),a(i)), donde b es la distancia inter cluster promedio y a es la intracluster, entonces si vale 1 quiere decir que la distancia intercluster es grande y la intracluster es baja",),
@@ -100,8 +100,9 @@ ganancia de información será la resta de 2 valores iguales."""),
             QA("Al generar reglas con APriori o FPGrowth ¿es necesario generar itemsets?","Si, justamente generan itemsets"),
             QA("Dados los items A y B, si A->B tiene soporte 0.7 ¿cuál será el soporte de B->A?","El soporte será el mismo, ya que se cuentan la cantidad de veces que aparecen A y B juntos en cada ejemplo."),
             QA("¿Cuáles son las dos propiedades que deben cumplir los grupos (clusters) para obtener un buen agrupamiento?", "Alta cohesión intra cluster y alta separación intercluster.") ,
-            QA("El peso de una red neuronal correspondiente al atributo A es negativo (por ejemplo, -10). Dado un ejemplo, si el valor del ejemplo para el atributo de A baja, ¿a qué clase se acercará el ejemplo?","A la clase 0, ya que a mayor valor de A, menor valor de la entrada neta.")
-            
+            QA("El peso de una red neuronal correspondiente al atributo A es negativo (por ejemplo, -10). Dado un ejemplo, si el valor del ejemplo para el atributo de A baja, ¿a qué clase se acercará el ejemplo?","A la clase 0, ya que a mayor valor de A, menor valor de la entrada neta."),
+            QA("Liste las etapas de un proceso de minería de datos según KDD. Indique cuál suele ser la etapa más costosa del proceso","Recopilación de datos, preprocesamiento, extracción de características, modelado, evaluación, interpretación, despliegue. La más costosa suele ser la recopilación de datos."),
+            QA("Indique qué modelos vistos en la materia son interpretables y cuáles no lo son, e indique porqué los considera así","")
             ]+clustering_qas
 
 
@@ -111,7 +112,7 @@ ganancia de información será la resta de 2 valores iguales."""),
 class ConceptsQuestion(QAQuestion):
     def __init__(self, qas: list[QA],points:int):
         title = "Conceptos de Minería de Datos"
-        instructions = "Responda las preguntas o indique el valor de verdad de  las siguientes afirmaciones. Justifique sus respuestas."
+        instructions = "Responda las preguntas o indique el valor de verdad de  las siguientes afirmacione, y justifique sus respuestas. La justificación es necesaria en todos los casos para obtener puntaje."
         super().__init__(title, instructions, qas,points)
 
 class Concepts2(ConceptsQuestion):
@@ -139,6 +140,12 @@ class ConceptsRandom(ConceptsQuestion):
         super().__init__(qas[:n],points)
 
 
+class ConceptsSubset(ConceptsQuestion):
+
+    def __init__(self,subset:list[int],points:int):
+        qas = all_qa.copy()
+        qas = [qas[i] for i in subset]
+        super().__init__(qas,points)
 
 class ClusteringConcepts1(ConceptsQuestion):
        def __init__(self,points:int):

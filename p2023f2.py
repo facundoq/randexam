@@ -14,9 +14,9 @@ import numpy as np
 
 
 def bebes(n=8):
-    attributes = ["Días ", "Llanto", "Leche"]
+    attributes = ["Edad", "Llanto", "Leche"]
     header = attributes + ["Clase"]
-    class_values = ["Cólicos", "Otro"]
+    class_values = ["Con Cólicos", "Sin Cólicos"]
     skill_values = ["Materna", "Mixta", "Fórmula"]
 
     def random_example():
@@ -48,7 +48,7 @@ def parcial(id:int,fecha,year):
     d_numerized_unsupervised = d_numerized.copy()
     d_numerized_unsupervised.delete_column(3)
     values=["Bajo","Alto"]
-    d_discretized=d.discretize(0, ["Bajo","Medio","Alto"], preprocessing.Discretization.frequency)
+    d_discretized=d.discretize(0, ["Baja","Media","Alta"], preprocessing.Discretization.frequency)
     d_discretized=d_discretized.discretize(1, ["Leve","Grave"], preprocessing.Discretization.frequency)
 
     question_list=[
@@ -71,7 +71,7 @@ def parcial(id:int,fecha,year):
     
     intro=Paragraphs([t,DisplayTable(d)])
     exam=Exam(f"Minería de Datos usando Sistemas Inteligentes - Tema {id}",intro,question_list,
-    subtitle=f" Fecha {fecha} - 23 de Junio de {year} \n",geometry="margin=1.6cm",show_points=True)
+    subtitle=f" Fecha {fecha} - 23 de Junio de {year} \n",geometry="margin=1.6cm",show_points=False)
     return exam
 
 

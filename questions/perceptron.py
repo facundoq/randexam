@@ -3,8 +3,8 @@ from random import randrange,seed
 
 class Perceptron(DataQuestion):
 
-    def __init__(self,d:Dataset,class_column:int):
-        super().__init__(d)
+    def __init__(self,d:Dataset,class_column:int,points=1):
+        super().__init__(d,points=points)
         self.class_column=class_column
         self.class_values = list(set(self.d.column(class_column)))
         self.c0,self.c1 = self.class_values
