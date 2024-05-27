@@ -69,7 +69,7 @@ def parcial(id:int,fecha,year):
     
     intro=Paragraphs([t,DisplayTable(d)])
     exam=Exam(f"Minería de Datos usando Sistemas Inteligentes - Tema {id}",intro,question_list,
-    subtitle=f" Fecha {fecha} - 7 de Junio de {year} \n",geometry="margin=1.6cm",show_points=False)
+    subtitle=f" Fecha {fecha} - 7 de Julio de {year} \n",geometry="margin=1.6cm",show_points=False)
     return exam
 
 
@@ -79,8 +79,8 @@ if __name__ == "__main__":
     questions.random_seed = seed
     random.seed(seed)
     np.random.seed(seed)
-    fecha = 1
-    year = 2024
+    fecha = 3
+    year = 2023
     n_exams=1
     folderpath=Path(f"exams/{year}_f{fecha}")
     for i in tqdm(range(n_exams)):

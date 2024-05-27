@@ -5,27 +5,24 @@ from random import randrange
 from questions import preprocessing
 import random
 
-# TODO: Incluir cuentas en clustering
-
-
 from pathlib import Path
 import numpy as np
 
 
 
 def personajes(n=8):
-    attributes = ["Vida", "Fuerza", "Habilidad Especial"]
+    attributes = ["Peso", "Altura", "Color"]
     header = attributes + ["Clase"]
-    class_values = ["Mítico", "Normal"]
-    skill_values = ["Salto", "Rapidez", "Defensa"]
+    class_values = ["Común", "Raro"]
+    skill_values = ["Claro", "Tostado", "Oscuro"]
 
     def random_example():
-        vida = int(np.random.normal(loc=40, scale=20))
-        fuerza = randrange(1, 10)
-        habilidad = skill_values[randrange(len(skill_values))]
+        peso = int(np.random.normal(loc=40, scale=20))
+        altura = randrange(1, 100)
+        color = skill_values[randrange(len(skill_values))]
         klass = class_values[randrange(len(class_values))]
 
-        return [vida, fuerza, habilidad, klass]
+        return [peso, altura, color, klass]
 
     rows = [random_example() for i in range(n)]
 
@@ -47,9 +44,9 @@ def parcial(id:int,fecha,year):
     d_numerized=d.numerize()
     d_numerized_unsupervised = d_numerized.copy()
     d_numerized_unsupervised.delete_column(3)
-    values=["Débil","Normal","Robusto"]
-    d_discretized=d.discretize(0, ["Baja","Media","Alta"], preprocessing.Discretization.frequency)
-    d_discretized=d_discretized.discretize(1, ["Leve","Grave"], preprocessing.Discretization.frequency)
+    values=["Bajo","Medio","Alto"]
+    d_discretized=d.discretize(0, values, preprocessing.Discretization.frequency)
+    d_discretized=d_discretized.discretize(1, ["Bajo","Alto"], preprocessing.Discretization.frequency)
 
     question_list=[
                 questions.normalization.Normalization(d,0),
@@ -59,9 +56,9 @@ def parcial(id:int,fecha,year):
                 questions.rule_metrics.RuleMetrics(d),
                 questions.clustering.ClusteringAssignments(d_numerized,3,include_dataset=True,points=1.5),
                 #questions.clustering.ClusteringCentroids(d_numerized_unsupervised,2,4,include_dataset=True,points=1),
-                questions.concepts.ConceptsSubset([1,5,8,18,20,26,39,40],points=2),
-                # questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3,points=2),
-                questions.perceptron.Perceptron(d_numerized,class_column=3,points=1.5),
+                questions.concepts.ConceptsSubset([2,6,7,15,16,21,35,38],points=2),
+                questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3,points=2),
+                #questions.perceptron.Perceptron(d_numerized,class_column=3,points=1.5),
                 ]
     
     space="&nbsp;"*12
@@ -72,7 +69,7 @@ def parcial(id:int,fecha,year):
     
     intro=Paragraphs([t,DisplayTable(d)])
     exam=Exam(f"Minería de Datos usando Sistemas Inteligentes - Tema {id}",intro,question_list,
-    subtitle=f" Fecha {fecha} - 7 de Julio de {year} \n",geometry="margin=1.6cm",show_points=False)
+    subtitle=f" Fecha {fecha} - 7 de Junio de {year} \n",geometry="margin=1.6cm",show_points=False)
     return exam
 
 
