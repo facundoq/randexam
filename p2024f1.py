@@ -82,10 +82,10 @@ if __name__ == "__main__":
     questions.random_seed = seed
     random.seed(seed)
     np.random.seed(seed)
-    fecha = 3
-    year = 2023
+    fecha = 1
+    year = 2024
     n_exams=1
-    folderpath=Path(f"p{year}/f{fecha}")
+    folderpath=Path(f"exams/{year}_f{fecha}")
     for i in tqdm(range(n_exams)):
         exam=parcial(i+1+1,fecha,year)
         filename = f"exam{i+1:02d}"

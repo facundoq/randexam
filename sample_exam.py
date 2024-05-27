@@ -5,16 +5,21 @@ from random import randrange
 
 class SimpleQuestion(Question):
     def _generate(self, seed=None):
-        header=["Chorizos","Mortadelas","Cúrcuma"]
-        def rs():
-            return str(randrange(10))
-        rows = [[rs(),rs(),rs()] for i in range(5)]
+        header=["Health","Defense","Attack"]
+        n,m = 5, len(header)
+        rs = lambda: randrange(10)
+        rows = [[rs() for h in header] for i in range(n)]
         t=Table(rows,header=header)
-        q=Paragraphs([Text("¿Qué comiste ayer a la noche?"),t])
-        a=Text("Un salvavidas")
+        q=Paragraphs([Text("Compute the mean of each column."),t])
+        means = []
+        for i in range(m):
+            column = [row[i] for row in rows]
+            means.append(sum(column)/m)
+        t_a=Table([means],header=header)
+        a=["Result:",t_a]
         return q,a
     def title(self):
-        return "Una Pregunta Inconveniente"
+        return "A Very Interesting Question"
 
 
 from pathlib import Path
