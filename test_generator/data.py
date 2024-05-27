@@ -1,5 +1,5 @@
 from .exam import Question
-from questions import preprocessing
+from . import preprocessing
 import copy
 import pandas as pd
 from pathlib import Path

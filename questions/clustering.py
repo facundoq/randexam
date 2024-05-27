@@ -59,14 +59,12 @@ class ClusteringAssignments(ClusteringQuestion):
                 f"Dado el siguiente conjunto de ejemplos numerizado, y dados los centroides **c1** y **c2**, "
                 f"calcule la distancia euclídea de los ejemplos hacia estos centroides, "
                 f"y a cuál de ellos estarían asignados. No utilizar la clase en este ejercicio."),
-             data_table,
-             centroid_table,
-             Text(
-                 "Nota: Para presentar los resultados, no calcule las raíces cuadradas."
-                 "En lugar de eso, deje expresada los distancias como $\sqrt{valor}$. "
-                 "Utilice una tabla como la siguiente:"),
-             distances_table
-             ])
+            data_table,
+            centroid_table,
+            """Nota: Para presentar los resultados, no calcule las raíces cuadradas. En lugar de eso, deje expresadas las distancias como $\sqrt{valor}$. Utilice una tabla como la siguiente:"""
+            ,
+            distances_table
+            ])
 
         results_table = Table(distances.str_rows[:self.n_samples], distances.header, row_header="numbers")
         a = Paragraphs([results_table])

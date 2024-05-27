@@ -1,5 +1,4 @@
 from test_generator import *
-from questions import preprocessing
 import math
 
 class Quantiles(DataQuestion):

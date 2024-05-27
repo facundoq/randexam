@@ -1,5 +1,4 @@
 from test_generator import *
-from questions import preprocessing
 import numpy as np
 
 class Normalization(DataQuestion):

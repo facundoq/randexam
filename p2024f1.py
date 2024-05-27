@@ -1,12 +1,22 @@
 from tqdm import tqdm
-import questions
-from test_generator import *
-from random import randrange
-from questions import preprocessing
-import random
-
 from pathlib import Path
+
+import random
 import numpy as np
+# random seed fixing
+seed = 4
+random.seed(seed)
+np.random.seed(seed)
+from test_generator import *
+exam.random_seed = seed
+import questions
+questions.random_seed = seed
+
+from random import randrange
+
+
+
+
 
 
 
@@ -17,8 +27,14 @@ def personajes(n=8):
     skill_values = ["Claro", "Tostado", "Oscuro"]
 
     def random_example():
-        peso = int(np.random.normal(loc=40, scale=20))
-        altura = randrange(1, 100)
+        p = np.random.rand()
+        if p>0.4: 
+            peso = max(10,int(np.random.normal(loc=80, scale=5)))
+        elif p>0.1:
+            peso = max(10,int(np.random.normal(loc=45, scale=2)))
+        else:
+            peso = max(10,int(np.random.normal(loc=130, scale=30)))
+        altura = randrange(30, 100)
         color = skill_values[randrange(len(skill_values))]
         klass = class_values[randrange(len(class_values))]
 
@@ -50,13 +66,14 @@ def parcial(id:int,fecha,year):
 
     question_list=[
                 questions.normalization.Normalization(d,0),
-                questions.discretization.Discretization(d,0,values),
+                # questions.discretization.Discretization(d,0,values),
                 questions.oner.OneRQuestion(d_discretized,points=1),
-                questions.quantiles.Quantiles(d,0),
+                #questions.quantiles.Quantiles(d,0),
                 questions.rule_metrics.RuleMetrics(d),
                 questions.clustering.ClusteringAssignments(d_numerized,3,include_dataset=True,points=1.5),
                 #questions.clustering.ClusteringCentroids(d_numerized_unsupervised,2,4,include_dataset=True,points=1),
-                questions.concepts.ConceptsSubset([2,6,7,15,16,21,35,38],points=2),
+                questions.concepts.ConceptsSubset([2,6,7,15,16,35,38,41],points=2),
+                questions.boxplot.Boxplot(d,0),
                 questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3,points=2),
                 #questions.perceptron.Perceptron(d_numerized,class_column=3,points=1.5),
                 ]
@@ -75,10 +92,7 @@ def parcial(id:int,fecha,year):
 
 
 if __name__ == "__main__":
-    seed = 4
-    questions.random_seed = seed
-    random.seed(seed)
-    np.random.seed(seed)
+
     fecha = 1
     year = 2024
     n_exams=1

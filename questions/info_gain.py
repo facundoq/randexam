@@ -74,7 +74,7 @@ class InformationGain(DataQuestion):
         numeric_table = Table(numeric_data, header=numeric_header)
         base_text = Text(f"Entropías calculadas con logaritmo con base {self.log_base}")
         entropy_text = Text(f"Entropía general: {entropy_general}")
-        a = Paragraphs([base_text,entropy_text, results_table, numeric_table])
+        a = Paragraphs([base_text,entropy_text, results_table,f"Entropía de cortes del atributo {numeric_attribute_name}", numeric_table])
         return q, a
 
     def title(self):

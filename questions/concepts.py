@@ -1,5 +1,6 @@
 from test_generator import *
 from test_generator.exam import QA
+from .concepts_dynamic import *
 
 clustering_qas= [  QA("El costo computacional del cálculo del índice Silhouette ¿suele ser mayor que el de Davies-Bouldin?", "La afirmación es verdadera porque el Silhouette calcula para cada ejemplo su distancia promedio con los de su grupo y con los del grupo más cercano con esto obtiene el índice de cada ejmplo y finalmente los promedia. Por otro lado, DB compara agrupamientos y se espera que la cantidad de grupos sea considerablemente menor a la de ejemplos. Si esto último no ocurre, podría darse que DB fuera más costoso computacionalmente hablando pero este escenario no tiene mucho sentido en un contexto donde se busca construir un modelo descriptivo."),
             QA("Se corre el algoritmo K-Medias sobre un conjunto de datos, encontrando algunos clusters con 1 solo ejemplo. Esto ¿indica que el algoritmo no pudo converger?","Falso, no necesariamente, puede indicar que hay valores anómalos."),
@@ -30,7 +31,7 @@ ganancia de información será la resta de 2 valores iguales."""),
                 "Verdadero, las barras de altura diferente en la discretización por frecuencia ocurren cuando hay valores repetidos."),
             QA(" Un atributo nominal puede tener 2 modas.",
                "VERDADERO. Si dos de sus valores ocurren con la misma frecuencia y se trata del valor con más apariciones, ambos serán valores de MODA."),
-            QA("Es posible calcular la tasa de acierto (accuracy) de un conjunto de reglas de asociación.",
+            QA(" Dada una regla de asociación, la principal métrica para saber si es buena o mala es la tasa de acierto (accuracy) .",
                "Falso. Las reglas de asociación son un modelo descriptivo, y no se utiliza la tasa de acierto como métrica."),
                QA("La normalización lineal uniforme ¿es sensible a valores anómalos? ¿y la normalización por media/varianza?",
                "Lineal si, media/varianza también pero menos",
@@ -71,10 +72,7 @@ ganancia de información será la resta de 2 valores iguales."""),
                ),
             QA("Dada una regla, (A=Si,B=No) → C=Si, con soporte 0.3, ¿Puedo inferir el soporte de la regla (A=Si) → (B=No, C=Si) sin los datos?",
                "No se puede; se podría inferir la de (A=Si,B=No) ← C=Si ya que es la misma, pero para la del enunciado se requieren los datos.  ",),
-            QA("Dado un conjunto de datos de 5 ejemplos con 2 columnas, una es la de la clase con 3 valores distintos, "
-               "y la otra es un atributo nominal de 4 valores distintos. ¿Cuántos valores serán necesarios para almacenar un "
-               "modelo Naive Bayes para clasificar los ejemplos?"
-               ,"$4 \\times 5=20$, ya que para cada clase (5) debemos almacenar la distribución de probabilidad de los valores (4)"),
+            NBNominalValuesQA.random(),
             QA("""Se tiene un problema de clasificación de 100 ejemplos con 3 atributos/columnas, la primera es la de la clase con 3 valores distintos, la segunda tiene valores nominales con 4 valores distintos y la tercera tiene valores numéricos con 5 valores distintos. 
                Si se entrena un modelo de Naive Bayes ¿cuántas distribuciones gaussianas se deberán estimar?""",
                "Se estima una gaussiana para cada clase y atributo numérico, o sea, 3x1 = 3 gaussianas."),
@@ -92,17 +90,20 @@ ganancia de información será la resta de 2 valores iguales."""),
             QA("Dadas dos reglas con valor de confianza=1 (perfectas) será más interesante la que tenga un menor valor de soporte para el consecuente.","V"),
             QA("Un atributo nominal sólo aparecerá una vez en una misma regla generada con el método PART (recuerde que se generan como una rama de un árbol parcialmente construido con C4.5)","V"),
             QA("Para poder agrupar un conjunto de ejemplos utilizando el método K-Means es obligatorio que los valores de los atributos estén escalados.","F"),
-              QA("Entre la normalización lineal uniforme y la normalización por media/varianza ¿cuál es más sensible a valores extremos?","La lineal. La de media/varianza también pero menos"),
+            QA("Entre la normalización lineal uniforme y la normalización por media/varianza ¿cuál es más sensible a valores extremos?","La lineal. La de media/varianza también pero menos"),
             QA("En un árbol de clasificación ¿a qué corresponden los nodos intermedios, los nodos hoja y las aristas?","Los nodos intermedios corresponden a atributos, las aristas a valores de esos atributos, y los nodos hoja a decisiones o predicciones de la clase"),
             QA("Dado un itemset con 3 items A,B,C, ¿cuántas reglas pueden generarse en base al itemset?","6, A->(B,C) B->(A,C) C->(A,B), idem con 2 items en el antecedente"),
             QA("El algoritmo Apriori ¿genera reglas de Asociación?","No, genera itemsets"),
             QA("El algoritmo FPGrowth ¿genera reglas de Asociación?","No, genera itemsets"),
-            QA("Al generar reglas con APriori o FPGrowth ¿es necesario generar itemsets?","Si, justamente generan itemsets"),
+            QA("Al generar reglas de asociación, los algoritmos  APriori o FPGrowth ¿generan las reglas?","No, las reglas se generan luego, los algoritmos generan itemsets frecuentes."),
             QA("Dados los items A y B, si A->B tiene soporte 0.7 ¿cuál será el soporte de B->A?","El soporte será el mismo, ya que se cuentan la cantidad de veces que aparecen A y B juntos en cada ejemplo."),
             QA("¿Cuáles son las dos propiedades que deben cumplir los grupos (clusters) para obtener un buen agrupamiento?", "Alta cohesión intra cluster y alta separación intercluster.") ,
             QA("El peso de una red neuronal correspondiente al atributo A es negativo (por ejemplo, -10). Dado un ejemplo, si el valor del ejemplo para el atributo de A baja, ¿a qué clase se acercará el ejemplo?","A la clase 0, ya que a mayor valor de A, menor valor de la entrada neta."),
             QA("Liste las etapas de un proceso de minería de datos según KDD. Indique cuál suele ser la etapa más costosa del proceso","Recopilación de datos, preprocesamiento, extracción de características, modelado, evaluación, interpretación, despliegue. La más costosa suele ser la recopilación de datos."),
-            QA("Indique qué modelos vistos en la materia son interpretables y cuáles no lo son, e indique porqué los considera así","")
+            QA("Indique qué modelos vistos en la materia son interpretables y cuáles no lo son, e indique porqué los considera así",""),
+            TreeSizeNominalQA.random(),
+            TreeSizeNumericQA.random(),
+            TreeSizeUnknownQA.random(),
             ]+clustering_qas
 
 

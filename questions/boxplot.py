@@ -1,5 +1,4 @@
 from test_generator import *
-from questions import preprocessing
 import math
 from .quantiles import Quantiles
 
@@ -33,7 +32,7 @@ class Boxplot(DataQuestion):
 
     def _generate(self, seed=None):
         
-        q=[f"Calcule los cuartiles, el rango intercuartil, los valores de los bigotes, y los rangos de valores atípicos leves y extremos dados por el diagrama de caja del atributo  {self.d.attributes[self.q.attribute_index]}.\n\n Nota: Utilice la definición de cuartil vista en la teoría."]
+        q=[f"Calcule los cuartiles, el rango intercuartil, los valores de los bigotes, y los rangos de valores atípicos leves y extremos dados por el diagrama de caja del atributo  {self.d.attributes[self.q.attribute_index]}. Dibuje el diagrama.\n\n Nota: Utilice la definición de cuartil vista en la teoría. Presente los valores calculados como una tabla."]
         return q,self.answer()
 
     def title(self):
