@@ -101,7 +101,7 @@ class CenterScaleNormalization:
         return CenterScaleNormalization(center,scale)
     @classmethod
     def mu_std(cls,values):
-        return CenterScaleNormalization(values.mean(),values.std())
+        return CenterScaleNormalization(values.mean(),values.std(ddof=1))
 
     def __repr__(self):
         return f"(x-{self.center:.2f})/{self.scale:.2f}"
