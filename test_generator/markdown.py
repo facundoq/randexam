@@ -21,12 +21,13 @@ class Renderable(abc.ABC):
     
 
 class Table(Renderable):
-    def __init__(self,data,header=None,row_header=None,column_separator=" "):
+    def __init__(self,data,header=None,row_header=None,column_separator=" ",row_separator=False):
         assert row_header in [None,"numbers"]
         self.data=data
         self.header=header
         self.row_header=row_header
         self.column_separator = column_separator
+        self.row_separator=row_separator
 
     def render(self):
         header=self.header
@@ -55,6 +56,8 @@ class Table(Renderable):
             if not row_header is None:
                 row=[row_header[i]]+row
             table+=self.render_row(row)+"\n"
+            if self.row_separator:
+                table+="--------\n"
         return table
 
     def render_header_separator(self,columns:int)->str:

@@ -35,7 +35,12 @@ geometry: margin=1.6cm
 2. media/varianza
 
 
-Indicar los valores resultantes normalizados. 
+Indicar las ecuaciones utilizadas, y los valores resultantes normalizados.Inteprete los valores normalizados obtenidos para Peso=83. Para el rango lineal uniforme (min/max), indique qué significa en la escala 0-1.
+ Para la normalización media/varianza, indique qué significa en relación a estos valores.
+ 
+
+ Estas normalizaciones ¿Son equivalentes? ¿A qué valor de la normalización min/max corresponde la media de los valores?. Justifique. 
+
  Nota: La normalización es solo para este ejercicio. Utilizar los datos originales en los siguientes.
 
 ### 2. Modelo OneR
@@ -125,7 +130,7 @@ f) Al generar reglas de asociación, los algoritmos  APriori o FPGrowth ¿genera
 
 g) El peso de una red neuronal correspondiente al atributo A es negativo (por ejemplo, -10). Dado un ejemplo, si el valor del ejemplo para el atributo de A baja, ¿a qué clase se acercará el ejemplo?
 
-h) Dado un conjunto de datos con 3 clases, y 3 atributos de entrada nominales, cada uno con 6 valores, y 158 ejemplos. Si se entrena un árbol de clasificación con este conjunto de datos ¿puedo saber cuántos nodos tendrá como máximo el árbol?
+h) Dado un conjunto de datos con 3 clases, y 3 atributos de entrada nominales, cada uno con 6 valores, y 158 ejemplos. Si se entrena un árbol de clasificación con este conjunto de datos ¿puedo saber cuántas hojas tendrá como máximo el árbol?
 
 ### 6. Diagrama de Caja
  Calcule los cuartiles, el rango intercuartil, los valores de los bigotes, y los rangos de valores atípicos leves y extremos dados por el diagrama de caja del atributo  Peso. Dibuje el diagrama.
@@ -146,3 +151,18 @@ En base a estos valores, indique cuál de los 2 atributos se elegiría para gene
 Utilice dos decimales para los cálculos. 
 Recuerde que para los atributos numéricos debe calcular la ganancia de información de todos los puntos de corte.
 Utilice logaritmo con base 2 para todos los cálculos (obligatorio).
+
+Algunos de logaritmos base 2 (use su calculadora para otros):
+
+
+| | | | | | | | |
+|----------|----------|----------|----------|----------|----------|----------|----------|
+|$log_{2}(1/2)$|$log_{2}(1/3)$|$log_{2}(2/3)$|$log_{2}(1/4)$|$log_{2}(2/4)$|$log_{2}(3/4)$|$log_{2}(1/5)$|$log_{2}(2/5)$|
+|-1.000|-1.585|-0.585|-2.000|-1.000|-0.415|-2.322|-1.322|
+|$log_{2}(3/5)$|$log_{2}(4/5)$|$log_{2}(1/6)$|$log_{2}(2/6)$|$log_{2}(3/6)$|$log_{2}(4/6)$|$log_{2}(5/6)$|$log_{2}(1/7)$|
+|-0.737|-0.322|-2.585|-1.585|-1.000|-0.585|-0.263|-2.807|
+|$log_{2}(2/7)$|$log_{2}(3/7)$|$log_{2}(4/7)$|$log_{2}(5/7)$|$log_{2}(6/7)$|$log_{2}(1/8)$|$log_{2}(2/8)$|$log_{2}(3/8)$|
+|-1.807|-1.222|-0.807|-0.485|-0.222|-3.000|-2.000|-1.415|
+|$log_{2}(4/8)$|$log_{2}(5/8)$|$log_{2}(6/8)$|$log_{2}(7/8)$|
+|-1.000|-0.678|-0.415|-0.193|
+

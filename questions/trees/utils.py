@@ -95,8 +95,7 @@ def information_gain_numeric(values,y,log_base=2):
 
 def divide0(a:np.ndarray,b:np.ndarray)->np.ndarray:
     #make 0/0=0
-    print(a.shape,b.shape)
-    print(a,b)
+    
     return np.divide(a, b, out=np.zeros_like(a), where=b!=0)
 import pandas as pd
 

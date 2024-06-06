@@ -13,9 +13,9 @@ geometry: margin=1.6cm
 
 Valores normalizados: 0.47, 0.00, 0.33, 0.44, 0.40, 0.44, 1.00, 0.40
 
-Normalización mu/std con transformación (x-82.38)/24.32
+Normalización mu/std con transformación (x-82.38)/26.00
 
-Valores normalizados: 0.15, -1.70, -0.43, 0.03, -0.14, 0.03, 2.20, -0.14
+Valores normalizados: 0.14, -1.59, -0.40, 0.02, -0.13, 0.02, 2.06, -0.13
 
 ### 2. Modelo OneR (Puntos: 1)
  
@@ -36,24 +36,24 @@ Mejor atributo: Color
 
 |Reglas con Peso (accuracy=0.75)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Peso = Medio → Clase = Raro|0.50|2|
-|Peso = Alto → Clase = Común|0.75|4|
 |Peso = Bajo → Clase = Común|1.00|2|
+|Peso = Alto → Clase = Común|0.75|4|
+|Peso = Medio → Clase = Raro|0.50|2|
 
 
 
 |Reglas con Altura (accuracy=0.75)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Altura = Alto → Clase = Común|0.80|5|
 |Altura = Bajo → Clase = Común|0.67|3|
+|Altura = Alto → Clase = Común|0.80|5|
 
 
 
 |Reglas con Color (accuracy=0.875)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Color = Oscuro → Clase = Raro|1.00|1|
-|Color = Claro → Clase = Común|0.75|4|
 |Color = Tostado → Clase = Común|1.00|3|
+|Color = Claro → Clase = Común|0.75|4|
+|Color = Oscuro → Clase = Raro|1.00|1|
 
 
 ### 3. Métricas de Reglas (Puntos: 1)
@@ -89,7 +89,7 @@ f) No, las reglas se generan luego, los algoritmos generan itemsets frecuentes.
 
 g) A la clase 0, ya que a mayor valor de A, menor valor de la entrada neta.
 
-h) Como se sabe cuantos atributos hay y cuantos valores tiene cada uno, sabemos que en el peor de los casos, el arbol tendrá 6^3 nodos, ya que si el árbol llega al máximo de su complejidad, en cada nivel cada nodo se dividirá en 6 ramas .
+h) Como se sabe cuantos atributos hay y cuantos valores tiene cada uno, sabemos que en el peor de los casos, el arbol tendrá 6^3 hojas, ya que si el árbol llega al máximo de su complejidad, en cada nivel cada nodo se dividirá en 6 ramas.
 
 ### 6. Diagrama de Caja (Puntos: 1)
  Valores ordenados de  Peso:

@@ -4,11 +4,12 @@ import numpy as np
 class Normalization(DataQuestion):
 
 
-    def __init__(self,d:Dataset,attribute_index:int,range=True,meanstd=True):
+    def __init__(self,d:Dataset,attribute_index:int,range=True,meanstd=True,interpret_sample:int=None):
         super().__init__(d)
         self.attribute_index=attribute_index
         self.range=range
         self.meanstd=meanstd
+        self.interpret_sample=interpret_sample
 
 
     def answer(self, strategy:str, norm: preprocessing.CenterScaleNormalization, values):
@@ -28,10 +29,18 @@ class Normalization(DataQuestion):
         if self.meanstd:
             text += f"{count}. media/varianza\n\n"
             count += 1
-        note = f"\nIndicar los valores resultantes normalizados. " \
-               f"\n Nota: La normalización es solo para este ejercicio. "\
-               f"Utilizar los datos originales en los siguientes."
-        text+=note
+        text+= f"""\nIndicar las ecuaciones utilizadas, y los valores resultantes normalizados."""
+        if not self.interpret_sample is None:
+            value = self.d.rows[self.interpret_sample][self.attribute_index]
+            key = self.d.attributes[self.attribute_index]
+            text+=f"Inteprete los valores normalizados obtenidos para {key}={value}."
+            if self.range:
+                text+= f" Para el rango lineal uniforme (min/max), indique qué significa en la escala 0-1.\n"
+            if self.meanstd:
+                text+= f" Para la normalización media/varianza, indique qué significa en relación a estos valores.\n"
+        if self.meanstd and self.range:
+            text+=f""" \n\n Estas normalizaciones ¿Son equivalentes? ¿A qué valor de la normalización min/max corresponde la media de los valores?. Justifique."""
+        text+=f""" \n\n Nota: La normalización es solo para este ejercicio. Utilizar los datos originales en los siguientes."""
         q = Paragraphs([Text(text)])
         values = self.d.column(attribute_index)
         values = np.array(values,dtype=float)

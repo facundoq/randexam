@@ -65,7 +65,7 @@ def parcial(id:int,fecha,year):
     d_discretized=d_discretized.discretize(1, ["Bajo","Alto"], preprocessing.Discretization.frequency)
 
     question_list=[
-                questions.normalization.Normalization(d,0),
+                questions.normalization.Normalization(d,0,interpret_sample=3),
                 # questions.discretization.Discretization(d,0,values),
                 questions.oner.OneRQuestion(d_discretized,points=1),
                 #questions.quantiles.Quantiles(d,0),
@@ -74,7 +74,7 @@ def parcial(id:int,fecha,year):
                 #questions.clustering.ClusteringCentroids(d_numerized_unsupervised,2,4,include_dataset=True,points=1),
                 questions.concepts.ConceptsSubset([2,6,7,15,16,35,38,41],points=2),
                 questions.boxplot.Boxplot(d,0),
-                questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3,points=2),
+                questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3,points=2,log_base=2,include_table=True),
                 #questions.perceptron.Perceptron(d_numerized,class_column=3,points=1.5),
                 ]
     
