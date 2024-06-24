@@ -56,7 +56,7 @@ def parcial(id:int):
                 questions.clustering.ClusteringAssignments(d_numerized,include_dataset=True),
                 questions.correlation.CorrelationMatrixJugador(d),
                 questions.concepts.Concepts2(),
-                questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3),
+                questions.info_gain.InformationGain(d, numeric_attributes=1,nominal_attributes=2,class_index=3),
                 ]
     required_data = f"""
 **Datos personales**

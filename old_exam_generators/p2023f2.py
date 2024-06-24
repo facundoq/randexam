@@ -59,7 +59,7 @@ def parcial(id:int,fecha,year):
                 # questions.clustering.ClusteringAssignments(d_numerized,3,include_dataset=True,points=1.5),
                 questions.clustering.ClusteringCentroids(d_numerized_unsupervised,2,4,include_dataset=True,points=1),
                 questions.concepts.ConceptsRandom(8,2),
-                questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3,points=2),
+                questions.info_gain.InformationGain(d, numeric_attributes=1,nominal_attributes=2,class_index=3,points=2),
                 questions.perceptron.Perceptron(d_numerized,class_column=3),
                 ]
     

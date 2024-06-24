@@ -134,8 +134,8 @@ class Perceptron(DataQuestion):
         attributes=", ".join(self.d.attributes)
         enunciado=Text(f"Utilizando la numerización de datos generada anteriormente, y dado un modelo de perceptrón donde los pesos son *w={w}* (para los atributos {attributes}, respectivamente) y *sesgo={b}*:")
 
-        q1,a1=self.calculate_random(w,b)
-        q2,a2=self.calculate_output_single(w,b)
+        q1,a1=self.calculate_output_single(w,b)
+        q2,a2=self.calculate_random(w,b)
 
 
         q=Paragraphs(

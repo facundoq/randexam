@@ -56,7 +56,7 @@ def parcial1(id:int):
                 questions.clustering.ClusteringAssignments(d_numerized,include_dataset=True),
                 questions.perceptron.Perceptron(d_numerized,class_column=3),
                 questions.concepts.Concepts3(),
-                questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3),
+                questions.info_gain.InformationGain(d, numeric_attributes=1,nominal_attributes=2,class_index=3),
                 ]
     required_data = f"""Incluir en la primer hoja:
     

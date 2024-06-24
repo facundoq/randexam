@@ -102,6 +102,8 @@ def make_renderable(x:object):
     else:
         raise Exception(f"Rendering not supported for type {type(x)}, value {x}")
 
+
+
 class Paragraphs(Renderable):
     def __init__(self,items:list[Renderable],separator="\n\n"):
         assert(isinstance(items,Iterable))
@@ -114,7 +116,21 @@ class Paragraphs(Renderable):
 
     def __repr__(self):
         return f"Paragraphs(items={len(self.items)})"
-        
+import string
+class Enumeration(Paragraphs):
+    def __init__(self,items:list[Renderable],bullets = string.ascii_lowercase,separator="\n\n"):
+        assert(isinstance(items,Iterable))
+        items = [make_renderable(x) for x in items]
+        self.items=items
+        self.separator=separator
+        self.bullets = bullets
+
+    def render(self):
+        return self.separator.join([f"{self.bullets[i]}. {item.render()}" for i,item in enumerate(self.items)])
+
+    def __repr__(self):
+        return f"Enumeration(items={len(self.items)})"     
+           
 class Sections(Renderable):
     def __init__(self,titles:list[str],bodies:list[Renderable],depth=2):
         bodies = [make_renderable(x) for x in bodies]

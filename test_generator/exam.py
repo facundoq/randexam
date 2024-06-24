@@ -1,5 +1,5 @@
 import abc
-from .markdown import Sections,Document,Renderable, Paragraphs,Text
+from .markdown import Sections,Document,Renderable, Paragraphs,Text,Enumeration
 from pathlib import Path
 import pypandoc
 import string
@@ -48,19 +48,24 @@ def to_enumeration(a: list[str]):
         return "\n\n".join(a)
 
 class QAQuestion(Question):
-    def __init__(self,title_str:str,instructions:str,qas:list[QA],points:int):
+    def __init__(self,title_str:str,instructions:str,qas:list[QA],points:int,include_question=False):
         super().__init__(points=points)
         self.instructions=instructions
         self.title_str=title_str
         self.qas=qas
+        self.include_question=include_question
+
         
 
     def _generate(self) ->RenderableQA:
-        questions = to_enumeration([qa.q for qa in self.qas])
+        questions = Enumeration([qa.q for qa in self.qas])
         enunciado = Text(self.instructions)
-        q = Paragraphs([enunciado, Text(questions)])
-        answers = to_enumeration([qa.a for qa in self.qas])
-        return q, Text(answers)
+        q = Paragraphs([enunciado, questions])
+        if self.include_question:
+            answers = Enumeration([Paragraphs([qa.q," RESPUESTA:",qa.a],separator="\n") for qa in self.qas])
+        else:
+            answers = Enumeration([qa.a for qa in self.qas])
+        return q, answers
     
     def title(self) ->str:
         return self.title_str

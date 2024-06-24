@@ -58,7 +58,7 @@ def parcial(id:int):
                 questions.clustering.ClusteringCentroids(d_numerized,2,4,include_dataset=True,points=1.5),
                 questions.correlation.CorrelationMatrixFumar(d),
                 questions.concepts.ConceptsRandom(8,2),
-                questions.info_gain.InformationGain(d, numeric_attribute=1,nominal_attribute=2,class_index=3,points=1),
+                questions.info_gain.InformationGain(d, numeric_attributes=1,nominal_attributes=2,class_index=3,points=1),
                 ]
     
     space="&nbsp;"*12

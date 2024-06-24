@@ -62,8 +62,6 @@ ganancia de información será la resta de 2 valores iguales."""),
                "y la otra es un atributo nominal de 5 valores distintos. ¿Cuántos valores serán necesarios para almacenar un "
                "modelo Naive Bayes para clasificar los ejemplos?"
                ,"$3 \\times 5=15$, ya que para cada clase (3) debemos almacenar la distribución de probabilidad de los valores (5)"),
-           
-
             QA("Los modelos de Reglas de Clasificación ¿son casos particulares de los modelos de Árboles de Clasificación?",
                "Falso, es al revés, ya que todo árbol puede expresarse como un conjunto de reglas pero no viceversa.",
                ),
@@ -111,10 +109,10 @@ ganancia de información será la resta de 2 valores iguales."""),
 
 
 class ConceptsQuestion(QAQuestion):
-    def __init__(self, qas: list[QA],points:int):
+    def __init__(self, qas: list[QA],points:int,include_question=True):
         title = "Conceptos de Minería de Datos"
-        instructions = "Responda las preguntas o indique el valor de verdad de  las siguientes afirmacione, y justifique sus respuestas. La justificación es necesaria en todos los casos para obtener puntaje."
-        super().__init__(title, instructions, qas,points)
+        instructions = "Responda las preguntas o indique el valor de verdad de  las siguientes afirmaciones, y justifique sus respuestas. La justificación es necesaria en todos los casos para obtener puntaje."
+        super().__init__(title, instructions, qas,points,include_question=include_question)
 
 class Concepts2(ConceptsQuestion):
 
