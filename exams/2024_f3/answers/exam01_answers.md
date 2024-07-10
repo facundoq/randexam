@@ -1,6 +1,6 @@
 ---
 title: Minería de Datos usando Sistemas Inteligentes - Tema 2 (Respuestas)
-author:  Fecha 2 - 28 de Junio de 2024 
+author:  Fecha 3 - 12 de Julio de 2024 
 
 date: 
 geometry: margin=1.6cm
@@ -9,13 +9,13 @@ geometry: margin=1.6cm
 
 
 ### 1. Normalización de atributos (Puntos: 1)
- Normalización rango con transformación (x-1.00)/3.00
+ Normalización rango con transformación (x-41.00)/50.00
 
-Valores normalizados: 0.00, 0.67, 0.00, 1.00, 0.67, 1.00, 0.67, 0.00
+Valores normalizados: 0.28, 0.90, 0.16, 0.00, 1.00, 0.64, 0.32, 0.30
 
-Normalización mu/std con transformación (x-2.50)/1.31
+Normalización mu/std con transformación (x-63.50)/17.89
 
-Valores normalizados: -1.15, 0.38, -1.15, 1.15, 0.38, 1.15, 0.38, -1.15
+Valores normalizados: -0.48, 1.26, -0.81, -1.26, 1.54, 0.53, -0.36, -0.42
 
 ### 2. Discretización de atributos (Puntos: 1)
  Resultado de la discretización por rango:
@@ -56,16 +56,16 @@ Mejor atributo: Tipo
 
 |Reglas con Pases (accuracy=0.75)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Pases = Poco → Clase = Clasifica|0.67|3|
-|Pases = Medio → Clase = Clasifica|1.00|2|
 |Pases = Alto → Clase = No Clasifica|0.67|3|
+|Pases = Medio → Clase = Clasifica|1.00|2|
+|Pases = Poco → Clase = Clasifica|0.67|3|
 
 
 
 |Reglas con Tipo (accuracy=0.875)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Tipo = Novato → Clase = Clasifica|1.00|4|
 |Tipo = Normal → Clase = No Clasifica|0.67|3|
+|Tipo = Novato → Clase = Clasifica|1.00|4|
 |Tipo = Preferido → Clase = No Clasifica|1.00|1|
 
 
@@ -113,3 +113,22 @@ FALSO. La cantidad de valores del atributo será finita por lo que se ordenan lo
 d. Es posible que al representar el diagrama de barras de un atributo discretizado por frecuencia se observen barras con alturas diferentes.
  RESPUESTA:
 Verdadero, las barras de altura diferente en la discretización por frecuencia ocurren cuando hay valores repetidos.
+
+### 8. Ganancia de Información (Puntos: 2)
+ Entropías calculadas con logaritmo con base 2
+
+Entropía general: 0.954434002924965
+
+
+|Atributo|Goles|Tipo|
+|----------|----------|----------|
+|Entropía|0.49|0.34|
+|Ganancia|0.47|0.61|
+
+
+
+|Goles: Punto de corte|Entropía|Info Gain|
+|----------|----------|----------|
+|2.0|0.61|0.35|
+|3.5|0.49|0.47|
+
