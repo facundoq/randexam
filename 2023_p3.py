@@ -51,10 +51,10 @@ def ejercicio(id:int):
     question_list=[
                 questions.naivebayes.ApplyNaiveBayes(fruta_model1,fruta_df),
                 questions.naivebayes.ApplyNaiveBayes(fruta_model2,fruta_df),
-                # questions.naivebayes.GenerateNaiveBayes(x1,y1),
-                # questions.naivebayes.ApplyNaiveBayes(estrellas_model1,x1),
-                # questions.naivebayes.GenerateNaiveBayes(x2,y2),
-                # questions.naivebayes.ApplyNaiveBayes(estrellas_model1,x1),
+                questions.naivebayes.GenerateNaiveBayes(x1,y1),
+                questions.naivebayes.ApplyNaiveBayes(estrellas_model1,x1),
+                questions.naivebayes.GenerateNaiveBayes(x2,y2),
+                questions.naivebayes.ApplyNaiveBayes(estrellas_model2,x2),
                 
                 
  
@@ -69,9 +69,9 @@ if __name__ == "__main__":
     random.seed(seed)
     np.random.seed(seed)
     n_exams=1
-    folderpath=Path("2023")
+    folderpath=Path("assignments/")
     for i in tqdm(range(n_exams)):
-        exam=ejercicio(i+1+1)
-        filename = f"exam{i+1:02d}"
-        generate_and_save(exam,folderpath,filename,pdf=True,delete_md=False)
+        exam=ejercicio(0)
+        filename = f"p3"
+        generate_and_save(exam,folderpath,filename,format="pdf",delete_md=False)
 

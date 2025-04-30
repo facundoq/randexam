@@ -28,6 +28,7 @@ class GenerateNaiveBayes(DataFrameQuestion):
 from test_generator.utils import capture
 class ApplyNaiveBayes(DataQuestion):
     def __init__(self,model:NaiveBayes,samples:pd.DataFrame):
+        super().__init__(samples)
         self.model=model
         self.samples=samples
         

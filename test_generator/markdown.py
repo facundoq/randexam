@@ -63,9 +63,14 @@ class Table(Renderable):
     def render_header_separator(self,columns:int)->str:
         row = ["----------" for i in range(columns)]
         return self.render_row(row)
-
-    def render_row(self,row:list[str])->str:
-        middle="|".join([str(a) for a in row])
+    def render_value(self,v:any)->str:
+        if isinstance(v,float):
+            return f"{v:.2g}"
+        else:
+            return str(v)
+        
+    def render_row(self,row:list[str])->str:    
+        middle="|".join([self.render_value(a) for a in row])
         return f"|{middle}|"
 
     def __repr__(self):
@@ -116,6 +121,7 @@ class Paragraphs(Renderable):
 
     def __repr__(self):
         return f"Paragraphs(items={len(self.items)})"
+        
 import string
 class Enumeration(Paragraphs):
     def __init__(self,items:list[Renderable],bullets = string.ascii_lowercase,separator="\n\n"):
