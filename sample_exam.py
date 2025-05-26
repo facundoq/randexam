@@ -24,7 +24,7 @@ class SimpleQuestion(Question):
 
 from pathlib import Path
 if __name__ == "__main__":
-    exam=Exam("Un examen muy difícil",[SimpleQuestion() for i in range(5)])
+    exam=Exam("A Very Hard Exam",[SimpleQuestion() for i in range(5)])
     q,a=exam.generate()
     print(q.render())
     print(a.render())

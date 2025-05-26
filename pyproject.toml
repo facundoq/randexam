@@ -1,7 +1,7 @@
 [project]
 name = "randexam"
 version = "0.1.0"
-description = "Default template for PDM package"
+description = "Exam generator. Outputs markdown."
 authors = [
     {name = "facundoq", email = "facundoq@gmail.com"},
 ]

@@ -19,7 +19,7 @@ class Discretization(DataQuestion):
 
     def _generate(self, seed=None):
         attribute_index=self.attribute_index
-        q=Paragraphs([f"Discretice el atributo {self.d.attributes[attribute_index]}  por a) frecuencia y b) rango en los valores {self.values}. En ambos casos, indique los intervalos resultantes. Realice un gráfico de barras para visualizar la frecuencia de los valores resultantes.\n\n Nota: La discretización es solo para este ejercicio; utilizar los datos originales en el resto de los ejercicios."])
+        q=Paragraphs([f"Discretice el atributo {self.d.attributes[attribute_index]}  por a) frecuencia y b) rango en los valores {self.values}. En ambos casos, indique los intervalos resultantes. Realice un gráfico de barras para visualizar la frecuencia de los valores resultantes.\n\n Nota: La discretización es solo para este ejercicio; utilizar los datos provistos en el resto de los ejercicios."])
 
         x=self.d.column(attribute_index)
         strategies={"rango": preprocessing.discretize_by_range, "frecuencia": preprocessing.discretize_by_frequency}

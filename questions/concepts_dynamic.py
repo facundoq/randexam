@@ -7,8 +7,8 @@ class TreeSizeUnknownQA(QA):
         return TreeSizeUnknownQA(random.randint(2,10),random.randint(3,7),random.randint(100,1000))
     def __init__(self,classes:int,nominal:int,samples:int):
         
-        self.q=f"Dado un conjunto de datos con {classes} clases, {nominal} atributos de entrada nominales y {samples} ejemplos. Si se entrena un árbol de clasificación con este conjunto de datos ¿puedo saber cuántas hojas tendrá como máximo el árbol?"
-        self.a=f"Como no se sabe cuantos valores tiene cada atributo nominal, la cantidad máxima sería igual al número de ejemplos, {samples}."
+        self.q=f"Dado un conjunto de datos con {classes} clases, {nominal} atributos de entrada nominales y {samples} ejemplos. Si se entrena un árbol de clasificación con este conjunto de datos, y solo dispongo esta información ¿puedo saber cuántas hojas tendrá como máximo el árbol?"
+        self.a=f"Si, pero como no se sabe cuantos valores tiene cada atributo nominal, la cantidad máxima sería igual al número de ejemplos, {samples}."
 
 
 class TreeSizeNumericQA(QA):
@@ -25,11 +25,11 @@ class TreeSizeNominalQA(QA):
     def random(cls):
         nominal = random.randint(3,5)
         values = nominal+ random.randint(1,6)
-        return TreeSizeNominalQA(random.randint(2,10),nominal,values,random.randint(100,1000))
+        return TreeSizeNominalQA(random.randint(2,10),nominal,values,random.randint(100,10000))
     def __init__(self,classes:int,nominal:int,values:int,samples:int):
         
         self.q=f"Dado un conjunto de datos con {classes} clases, y {nominal} atributos de entrada nominales, cada uno con {values} valores, y {samples} ejemplos. Si se entrena un árbol de clasificación con este conjunto de datos ¿puedo saber cuántas hojas tendrá como máximo el árbol?"
-        self.a=f"Como se sabe cuantos atributos hay y cuantos valores tiene cada uno, sabemos que en el peor de los casos, el arbol tendrá {values}^{nominal} hojas, ya que si el árbol llega al máximo de su complejidad, en cada nivel cada nodo se dividirá en {values} ramas."
+        self.a=f"VERDADERO. Como se sabe cuántos atributos hay y cuántos valores tiene cada uno, sabemos que en el peor de los casos, el arbol tendrá {values}^{nominal} hojas, ya que si el árbol llega al máximo de su complejidad, en cada nivel cada nodo se dividirá en {values} ramas. Además,se tiene la cantidad de ejemplos, con lo cual tampoco puede superar los {samples} nodos."
 
 class NBNominalValuesQA(QA):
     @classmethod

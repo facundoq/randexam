@@ -55,7 +55,7 @@ class Normalization(DataQuestion):
                 text+= f" Para la normalización media/varianza, indique qué significa en relación a estos valores.\n"
         if self.meanstd and self.range:
             text+=f""" \n\n Estas normalizaciones ¿Son equivalentes? ¿A qué valor de la normalización min/max corresponde la media de los valores?. Justifique."""
-        text+=f""" \n\n Nota: La normalización es solo para este ejercicio. Utilizar los datos originales en el resto de los ejercicios."""
+        text+=f""" \n\n Nota: La normalización es solo para este ejercicio. Utilizar los datos provistos en el resto de los ejercicios."""
         q = Paragraphs([Text(text)])
         
       
