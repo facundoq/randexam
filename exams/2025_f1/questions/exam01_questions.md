@@ -1,6 +1,6 @@
 ---
 title: Minería de Datos usando Sistemas Inteligentes - Tema 3
-author:  Fecha 1 - 26 de Junio de 2025 
+author:  Fecha 1 - 4 de Junio de 2025 
 
 date: 
 geometry: margin=1.6cm
@@ -17,7 +17,7 @@ El siguiente conjunto de datos detalla estadísticas de mallines, que son humeda
 **Tabla de datos**
 
 
-| |NVDI|Temperatura|Salinidad|Clase|
+| |NDVI|Temperatura|Salinidad|Clase|
 |----------|----------|----------|----------|----------|
 |1|-1|-5|Media|Apto|
 |2|0|5|Media|Apto|
@@ -55,7 +55,7 @@ Indicar las ecuaciones utilizadas, y los valores resultantes normalizados. Intep
  Dada la siguiente discretización del conjunto de datos original, aplique el algoritmo OneR para encontrar el mejor atributo y las reglas asociadas para clasificar los ejemplos según el atributo Clase. 
 
 
-|NVDI|Temperatura|Salinidad|Clase|
+|NDVI|Temperatura|Salinidad|Clase|
 |----------|----------|----------|----------|
 |Pocos|Poco|Media|Apto|
 |Muchos|Alto|Media|Apto|
@@ -70,7 +70,7 @@ Indicar las ecuaciones utilizadas, y los valores resultantes normalizados. Intep
 Mostrar el accuracy de cada atributo, y las reglas finales del OneR:
 
 
-||NVDI|Temperatura|Salinidad|
+||NDVI|Temperatura|Salinidad|
 |----------|----------|----------|----------|
 |Accuracy||||
 
@@ -89,7 +89,7 @@ Mostrar el accuracy de cada atributo, y las reglas finales del OneR:
 |----------|----------|----------|----------|----------|
 |Salinidad = Alta → Clase = No Apto|||||
 |Clase = Apto → Salinidad = Baja|||||
-|NVDI < 0 and Salinidad = Media → Temperatura < -5|||||
+|NDVI < 0 and Salinidad = Media → Temperatura < -5|||||
 
 
 Presentar los resultados en forma de tabla, e incluir los cálculos realizados en la hoja.
@@ -98,7 +98,7 @@ Presentar los resultados en forma de tabla, e incluir los cálculos realizados e
  Dado el siguiente conjunto de ejemplos numerizado, y dados los centroides **c1** y **c2**, calcule la distancia euclídea de los ejemplos hacia estos centroides, y a cuál de ellos estarían asignados. No utilizar la clase en este ejercicio.
 
 
-| |NVDI|Temperatura|Salinidad|Clase|
+| |NDVI|Temperatura|Salinidad|Clase|
 |----------|----------|----------|----------|----------|
 |1|-1|-5|2|Apto|
 |2|0|5|2|Apto|
@@ -106,7 +106,7 @@ Presentar los resultados en forma de tabla, e incluir los cálculos realizados e
 
 
 
-|Centroide|NVDI|Temperatura|Salinidad|
+|Centroide|NDVI|Temperatura|Salinidad|
 |----------|----------|----------|----------|
 |**c1**|-1|-4|1|
 |**c2**|0|5|3|
@@ -125,7 +125,7 @@ Nota: Para presentar los resultados, no calcule las raíces cuadradas. En lugar 
  Dado el siguiente conjunto de ejemplos numerizado, calcule los valores de los 2 centroides numerados desde 0 hasta 1 usando la asignación provista. No utilizar la clase en este ejercicio. Este ejercicio es independiente del resto del examen. Utilice una tabla con 2 filas y tantas columnas como atributos haya para presentar los centroides resultantes.
 
 
-| |NVDI|Temperatura|Salinidad|Cluster Asignado|
+| |NDVI|Temperatura|Salinidad|Cluster Asignado|
 |----------|----------|----------|----------|----------|
 |1|0|-17|1|1|
 |2|1|-3|1|1|
@@ -147,10 +147,10 @@ d. El índice Silhouette siempre mejora a medida que se aumenta el número de cl
 e. Dado un conjunto de datos con 3 clases, y 3 atributos de entrada nominales, cada uno con 6 valores, y 9374 ejemplos. Si se entrena un árbol de clasificación con este conjunto de datos ¿puedo saber cuántas hojas tendrá como máximo el árbol?
 
 ### 8. Ganancia de Información
- Utilizando los datos originales, calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos NVDI y Salinidad. Tenga en cuenta que para los atributos numéricos deberá utilizar la variante del algoritmo que busca la mejor discretización probando todos los puntos de corte posibles. Utilice la siguiente tabla para presentar los resultados:
+ Utilizando los datos originales, calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos NDVI y Salinidad. Tenga en cuenta que para los atributos numéricos deberá utilizar la variante del algoritmo que busca la mejor discretización probando todos los puntos de corte posibles. Utilice la siguiente tabla para presentar los resultados:
 
 
-|Atributo|NVDI|Salinidad|
+|Atributo|NDVI|Salinidad|
 |----------|----------|----------|
 |Entropía| | |
 |Ganancia de Información| | |

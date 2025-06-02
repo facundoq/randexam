@@ -1,6 +1,6 @@
 ---
 title: Minería de Datos usando Sistemas Inteligentes - Tema 3 (Respuestas)
-author:  Fecha 1 - 26 de Junio de 2025 
+author:  Fecha 1 - 4 de Junio de 2025 
 
 date: 
 geometry: margin=1.6cm
@@ -32,7 +32,7 @@ Intervalos: [[-17,-4), [-4,-3), [-3,5]]
 
 ### 3. Modelo OneR (Puntos: 1)
  
-|NVDI|Temperatura|Salinidad|Clase|
+|NDVI|Temperatura|Salinidad|Clase|
 |----------|----------|----------|----------|
 |Pocos|Poco|Media|Apto|
 |Muchos|Alto|Media|Apto|
@@ -47,26 +47,26 @@ Intervalos: [[-17,-4), [-4,-3), [-3,5]]
 Mejor atributo: Salinidad
 
 
-|Reglas con NVDI (accuracy=0.75)|Confianza|Soporte(absoluto)|
+|Reglas con NDVI (accuracy=0.75)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|NVDI = Pocos → Clase = Apto|1.00|3|
-|NVDI = Muchos → Clase = Apto|0.60|5|
+|NDVI = Muchos → Clase = Apto|0.60|5|
+|NDVI = Pocos → Clase = Apto|1.00|3|
 
 
 
 |Reglas con Temperatura (accuracy=0.75)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Temperatura = Alto → Clase = Apto|0.67|3|
 |Temperatura = Poco → Clase = Apto|0.67|3|
+|Temperatura = Alto → Clase = Apto|0.67|3|
 |Temperatura = Medio → Clase = Apto|1.00|2|
 
 
 
 |Reglas con Salinidad (accuracy=0.875)|Confianza|Soporte(absoluto)|
 |----------|----------|----------|
-|Salinidad = Alta → Clase = No Apto|1.00|1|
 |Salinidad = Baja → Clase = Apto|0.75|4|
 |Salinidad = Media → Clase = Apto|1.00|3|
+|Salinidad = Alta → Clase = No Apto|1.00|1|
 
 
 ### 4. Métricas de Reglas (Puntos: 1)
@@ -75,7 +75,7 @@ Mejor atributo: Salinidad
 |----------|----------|----------|----------|----------|
 |Salinidad = Alta → Clase = No Apto|0.125|0.125|1.000|4.000|
 |Clase = Apto → Salinidad = Baja|0.375|0.750|0.500|1.000|
-|NVDI < 0 and Salinidad = Media → Temperatura < -5|0.000|0.250|0.000|0.000|
+|NDVI < 0 and Salinidad = Media → Temperatura < -5|0.000|0.250|0.000|0.000|
 
 
 ### 5. Agrupamiento de datos - Cálculo de asignaciones (Puntos: 1.5)
@@ -89,7 +89,7 @@ Mejor atributo: Salinidad
 
 ### 6. Agrupamiento de datos - Cálculo de centroides (Puntos: 1)
  
-| |NVDI|Temperatura|Salinidad|Cluster Asignado|
+| |NDVI|Temperatura|Salinidad|Cluster Asignado|
 |----------|----------|----------|----------|
 |1|-0.5|-4|1.5|
 |2|0.5|-10|1|
@@ -122,14 +122,14 @@ VERDADERO. Como se sabe cuántos atributos hay y cuántos valores tiene cada uno
 Entropía general: 0.8112781244591328
 
 
-|Atributo|NVDI|Salinidad|
+|Atributo|NDVI|Salinidad|
 |----------|----------|----------|
 |Entropía|0.74|0.41|
 |Ganancia|0.07|0.41|
 
 
 
-|NVDI: Punto de corte|Entropía|Info Gain|
+|NDVI: Punto de corte|Entropía|Info Gain|
 |----------|----------|----------|
 |-0.5|0.81|0|
 |0.5|0.74|0.07|

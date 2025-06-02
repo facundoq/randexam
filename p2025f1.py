@@ -16,7 +16,7 @@ from random import randrange
 
 def mallin(n=8):
     description = "El siguiente conjunto de datos detalla estadísticas de mallines, que son humedales de la patagonia, y si los mismos son aptos para la pastura de ovejas. El atributo NDVI es el Normalized Difference Vegetation Index o Índice Normalizado de Diferencia de Vegetación."
-    attributes = ["NVDI",  "Temperatura","Salinidad"]
+    attributes = ["NDVI",  "Temperatura","Salinidad"]
     header = attributes + ["Clase"]
     class_values = ["Apto", "No Apto"]
     salinidad_values = ["Baja", "Media", "Alta"]
@@ -77,7 +77,7 @@ def parcial(id:int,fecha,year):
     
     intro=Paragraphs([t,description,DisplayTable(d)])
     exam=Exam(f"Minería de Datos usando Sistemas Inteligentes - Tema {id}",intro,question_list,
-    subtitle=f" Fecha {fecha} - 26 de Junio de {year} \n",geometry="margin=1.6cm",show_points=False)
+    subtitle=f" Fecha {fecha} - 4 de Junio de {year} \n",geometry="margin=1.6cm",show_points=False)
     return exam
 
 
