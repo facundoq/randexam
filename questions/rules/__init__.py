@@ -113,7 +113,7 @@ class Lift(DatasetMetric):
         s=Support()
         denominator=s.eval(r.antecedent,rows) * s.eval(r.consequent,rows)
         if denominator==0:
-            return np.Inf
+            return np.inf
         else:
             r= s.eval(r,rows) /denominator
         return r
