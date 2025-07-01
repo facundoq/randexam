@@ -12,43 +12,43 @@ geometry: margin=1.6cm
 |||||
 
 
-El siguiente conjunto de datos tiene datos clínicos de personas que tuvieron COVID, incluyendo la cantidad de contactos estrechos, edad y presión de las personas, y si las mismas tuvieron compĺicaciones (CC) o no (SC).
+El siguiente conjunto de datos tiene datos de clientes de una empresa y si se encuentran en el estado Activo o Inactivo.
 
 **Tabla de datos**
 
 
-| |Estrechos|Edad|Presión|Clase|
+| |Antigüedad|Edad|Nivel|Clase|
 |----------|----------|----------|----------|----------|
-|1|1|30|Media|SC|
-|2|3|50|Media|SC|
-|3|1|11|Baja|SC|
-|4|4|51|Alta|CC|
-|5|3|7|Baja|CC|
-|6|4|35|Baja|SC|
-|7|3|33|Baja|SC|
-|8|1|33|Media|SC|
+|1|1|35|Medio|Inactivo|
+|2|3|66|Medio|Activo|
+|3|1|29|Bajo|Inactivo|
+|4|4|21|Medio|Activo|
+|5|3|71|Bajo|Inactivo|
+|6|4|53|Alto|Activo|
+|7|3|37|Bajo|Inactivo|
+|8|1|36|Bajo|Inactivo|
 
 
 ### 1. Modelo OneR
  Dada la siguiente discretización del conjunto de datos original, aplique el algoritmo OneR para encontrar el mejor atributo y las reglas asociadas para clasificar los ejemplos según el atributo Clase. 
 
 
-|Estrechos|Edad|Presión|Clase|
+|Antigüedad|Edad|Nivel|Clase|
 |----------|----------|----------|----------|
-|Pocos|Joven|Media|SC|
-|Muchos|Adulta|Media|SC|
-|Pocos|Joven|Baja|SC|
-|Muchos|Adulta|Alta|CC|
-|Muchos|Joven|Baja|CC|
-|Muchos|Adulta|Baja|SC|
-|Muchos|Mediana|Baja|SC|
-|Pocos|Mediana|Media|SC|
+|Baja|Joven|Medio|Inactivo|
+|Alta|Adulta|Medio|Activo|
+|Baja|Joven|Bajo|Inactivo|
+|Alta|Joven|Medio|Activo|
+|Alta|Adulta|Bajo|Inactivo|
+|Alta|Adulta|Alto|Activo|
+|Alta|Mediana|Bajo|Inactivo|
+|Baja|Mediana|Bajo|Inactivo|
 
 
 Mostrar el accuracy de cada atributo, y las reglas finales del OneR:
 
 
-||Estrechos|Edad|Presión|
+||Antigüedad|Edad|Nivel|
 |----------|----------|----------|----------|
 |Accuracy||||
 
@@ -65,9 +65,9 @@ Mostrar el accuracy de cada atributo, y las reglas finales del OneR:
 
 |Regla|Soporte|Cobertura|Confianza|Interés|
 |----------|----------|----------|----------|----------|
-|Presión = Alta → Clase = CC|||||
-|Clase = SC → Presión = Baja|||||
-|Estrechos < 2 and Presión = Media → Edad < 31|||||
+|Nivel = Medio → Clase = Inactivo|||||
+|Clase = Activo → Nivel = Bajo|||||
+|Antigüedad < 2 and Nivel = Bajo → Edad < 44|||||
 
 
 Presentar los resultados en forma de tabla, e incluir los cálculos realizados en la hoja.
@@ -76,18 +76,18 @@ Presentar los resultados en forma de tabla, e incluir los cálculos realizados e
  Dado el siguiente conjunto de ejemplos numerizado, y dados los centroides **c1** y **c2**, calcule la distancia euclídea de los ejemplos hacia estos centroides, y a cuál de ellos estarían asignados. No utilizar la clase en este ejercicio.
 
 
-| |Estrechos|Edad|Presión|Clase|
+| |Antigüedad|Edad|Nivel|Clase|
 |----------|----------|----------|----------|----------|
-|1|1|30|2|SC|
-|2|3|50|2|SC|
-|3|1|11|1|SC|
+|1|1|35|2|Inactivo|
+|2|3|66|2|Activo|
+|3|1|29|1|Inactivo|
 
 
 
-|Centroide|Estrechos|Edad|Presión|
+|Centroide|Antigüedad|Edad|Nivel|
 |----------|----------|----------|----------|
-|**c1**|1|33|1|
-|**c2**|3|50|3|
+|**c1**|1|36|1|
+|**c2**|3|66|2|
 
 
 Nota: Para presentar los resultados, no calcule las raíces cuadradas. En lugar de eso, deje expresadas las distancias como $\sqrt{valor}$. Utilice una tabla como la siguiente:
@@ -103,34 +103,19 @@ Nota: Para presentar los resultados, no calcule las raíces cuadradas. En lugar 
  Dado el siguiente conjunto de ejemplos numerizado, calcule los valores de los 2 centroides numerados desde 0 hasta 1 usando la asignación provista. No utilizar la clase en este ejercicio. Este ejercicio es independiente del resto del examen. Utilice una tabla con 2 filas y tantas columnas como atributos haya para presentar los centroides resultantes.
 
 
-| |Estrechos|Edad|Presión|Cluster Asignado|
+| |Antigüedad|Edad|Nivel|Cluster Asignado|
 |----------|----------|----------|----------|----------|
-|1|3|7|1|1|
-|2|4|35|1|1|
-|3|3|33|1|0|
-|4|1|33|2|0|
+|1|3|71|1|1|
+|2|4|53|3|1|
+|3|3|37|1|0|
+|4|1|36|1|0|
 
 
-### 5. Conceptos de Minería de Datos
- Responda las preguntas o indique el valor de verdad de  las siguientes afirmaciones, y justifique sus respuestas. La justificación es necesaria en todos los casos para obtener puntaje.
-
-a. Se tiene un problema de clasificación de 100 ejemplos con 3 columnas, una es la de la clase con 4 valores distintos, otra es nominal con 5 valores,
-   y la otra es de un atributo numérico con 10 valores distintos. 
-   Si se entrena un modelo de Naive Bayes ¿cuántas distribuciones gaussianas se deberán estimar?
-
-b. ¿Cuál de las normalizaciones vistas es más sensible a los valores anómalos/extremos?
-
-c. Un atributo nominal sólo aparecerá una vez en una misma regla generada con el método PART (recuerde que se generan como una rama de un árbol parcialmente construido con C4.5)
-
-d. En el índice Silhouette, el clustering es perfecto cuando vale 0, y los valores extremos -1 y 1 indican desviaciones negativas y positivas del óptimo.
-
-e. Dado un conjunto de datos con 6 clases, 6 atributos de entrada nominales, 1 atributo de entrada numérico y 650 ejemplos. Si se entrena un árbol de clasificación con este conjunto de datos ¿puedo saber cuántos nodos tendrá como máximo el árbol?
-
-### 6. Ganancia de Información
- Utilizando los datos originales, calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos Estrechos y Presión. Tenga en cuenta que para los atributos numéricos deberá utilizar la variante del algoritmo que busca la mejor discretización probando todos los puntos de corte posibles. Utilice la siguiente tabla para presentar los resultados:
+### 5. Ganancia de Información
+ Utilizando los datos originales, calcule la entropía general del conjunto de datos en base al atributo de clase. Luego, calcule la entropía y ganancia de información para los atributos Antigüedad y Nivel. Tenga en cuenta que para los atributos numéricos deberá utilizar la variante del algoritmo que busca la mejor discretización probando todos los puntos de corte posibles. Utilice la siguiente tabla para presentar los resultados:
 
 
-|Atributo|Estrechos|Presión|
+|Atributo|Antigüedad|Nivel|
 |----------|----------|----------|
 |Entropía| | |
 |Ganancia de Información| | |
@@ -155,14 +140,7 @@ Logaritmos de base 2
 |-1.000|-0.678|-0.415|-0.193|
 
 
-### 7. Perceptrón
- Utilizando la numerización de datos generada anteriormente, y dado un modelo de perceptrón donde los pesos son *w=[13, 1, 20]* (para los atributos Estrechos, Edad, Presión, respectivamente) y *sesgo=96*:
-
-b) Asumiendo que Clase=CC está codificado con un 0, y Clase=SC con un 1, ¿cómo clasificaría el modelo a un ejemplo donde Estrechos vale 3, Edad vale 50 y Presión vale 1?
-
-a) Asumiendo que Clase=CC está codificado con un 0, y Clase=SC con un 1, ¿cuál es el valor máximo del atributo Estrechos  para que un ejemplo con Edad=50 y Presión=2 pertenezca a la Clase=SC?
-
-### 8. Cuartiles
- Calcule la mediana y los dos cuartiles del atributo Estrechos.
+### 6. Cuartiles
+ Calcule la mediana y los dos cuartiles del atributo Antigüedad.
 
  Nota: Utilice la definición de cuartil vista en la teoría.
