@@ -19,5 +19,12 @@ readme = "README.md"
 license = {text = "MIT"}
 
 
-[tool.pdm]
-distribution = false
+[tool.setuptools]
+py-modules = ['src']
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+
+[tool.uv.sources]
+src = { workspace = true }

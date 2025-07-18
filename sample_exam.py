@@ -1,6 +1,6 @@
 
-from test_generator.markdown import Text,Paragraphs,Table
-from test_generator.exam import Exam,Question,generate_and_save
+from src.markdown import Text,Paragraphs,Table
+from src.exam import Exam,Question,generate_and_save
 from random import randrange
 
 class SimpleQuestion(Question):
@@ -24,10 +24,11 @@ class SimpleQuestion(Question):
 
 from pathlib import Path
 if __name__ == "__main__":
-    exam=Exam("A Very Hard Exam",[SimpleQuestion() for i in range(5)])
+    exam=Exam("A Very Hard Exam","This exam is very difficult", [SimpleQuestion() for i in range(5)])
     q,a=exam.generate()
     print(q.render())
     print(a.render())
     folderpath=Path("sample_exam")
-    generate_and_save(exam,folderpath,n=2,pdf=True)
+    filename = "test.pdf"
+    generate_and_save(exam,folderpath,filename,format="pdf")
 
