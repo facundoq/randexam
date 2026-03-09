@@ -3,12 +3,17 @@ name: Publish Python Package
 on:
   release:
     types: [published]
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     permissions:
+      contents: write # Required for creating release
       id-token: write  # Required for trusted publishing
+    environment: release
     steps:
       - uses: actions/checkout@v4
       - name: setup
@@ -34,9 +39,9 @@ jobs:
 
       # Optional: Create a GitHub release
       - name: Create GitHub Release
-        if: ${{ github.event.release.published }}
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         uses: ncipollo/release-action@v1
         with:
           artifacts: "dist/*"
-          body: ${{ github.event.release.body }}
+          generateReleaseNotes: true
           token: ${{ secrets.GITHUB_TOKEN }}
