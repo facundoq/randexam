@@ -28,3 +28,21 @@ packages = ["src"]
 
 [tool.uv.sources]
 src = { workspace = true }
+
+
+[tool.poe]
+executor.type = "uv"
+
+[tool.poe.tasks]
+test = "uv run pytest src"
+lint = "uvx ruff check --fix src"
+format = "uvx ruff format src"
+build = "uv build"
+docs = "uv run sphinx-build docs docs/_build"
+serve-docs = "uv run sphinx-autobuild --open-browser docs docs/_build"
+precommit = "uv run pre-commit run --all-files"
+
+[dependency-groups]
+dev = [
+    "poethepoet>=0.42.1",
+]
