@@ -1,6 +1,6 @@
 [project]
 name = "randexam"
-version = "0.1.0"
+version = "0.1.2"
 description = "Exam generator. Outputs markdown."
 authors = [
     {name = "facundoq", email = "facundoq@gmail.com"},
@@ -45,4 +45,5 @@ precommit = "uv run pre-commit run --all-files"
 [dependency-groups]
 dev = [
     "poethepoet>=0.42.1",
+    "pytest>=9.0.2",
 ]
