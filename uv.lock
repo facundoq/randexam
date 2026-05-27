@@ -355,8 +355,8 @@ wheels = [
 
 [[package]]
 name = "randexam"
-version = "0.1.2"
-source = { virtual = "." }
+version = "0.1.6"
+source = { editable = "." }
 dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },
@@ -371,6 +371,7 @@ dependencies = [
 dev = [
     { name = "poethepoet" },
     { name = "pytest" },
+    { name = "randexam" },
 ]
 
 [package.metadata]
@@ -388,6 +389,7 @@ requires-dist = [
 dev = [
     { name = "poethepoet", specifier = ">=0.42.1" },
     { name = "pytest", specifier = ">=9.0.2" },
+    { name = "randexam", editable = "." },
 ]
 
 [[package]]

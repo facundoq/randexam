@@ -8,5 +8,5 @@ from .data import (
     DisplayTable,
     MatplotlibFigure,
 )
-from .exam import QA, Exam, Path, QAQuestion, Question, generate_and_save
+from .exam import QA, Exam, Path, QAQuestion, Question, generate_and_save,FixedQuestion
 from .markdown import Document, Paragraphs, Renderable, Sections, Table, Text

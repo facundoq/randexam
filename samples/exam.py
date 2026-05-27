@@ -1,5 +1,5 @@
-from src.markdown import Text, Paragraphs, Table
-from src.exam import Exam, Question, generate_and_save
+from randexam.markdown import Text, Paragraphs, Table
+from randexam.exam import Exam, Question, generate_and_save
 from random import randrange
 from pathlib import Path
 

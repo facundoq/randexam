@@ -38,6 +38,28 @@ class Question(abc.ABC):
         return self._points
 
 
+class FixedQuestion(Question):
+    def __init__(self,title:str,question:str,points=1,answer:str="",inline_fill:int=0) -> None:
+        super().__init__()
+        self._points = points
+        self._title = title
+        self.question = question
+        self.answer = answer
+        self.inline_fill = inline_fill
+
+    def _generate(self) -> RenderableQA:
+        question = self.question
+        if self.inline_fill > 0:
+            fills = ["---" for _ in range(self.inline_fill)]
+            question = Paragraphs([Text(question),*fills])
+        return question, self.answer
+    
+    def title(self) -> str:
+        return self._title
+
+    def points(self) -> str:
+        return self._points
+    
 class QA:
     def __init__(self, q: str, a: str):
         self.q = q
@@ -126,9 +148,14 @@ class Exam:
         return d
 
     def generate(self, seed: int = None) -> RenderableQA:
+        
+            
         qa = [q.generate() for q in self.questions]
         points = [q.points() for q in self.questions]
-        questions, answers = zip(*qa)
+        if len (self.questions) == 0:
+            questions,answers = [],[]
+        else:
+            questions, answers = zip(*qa)
         if self.show_points:
             titles = [
                 f"{q.title()}\n **Puntaje:** \t &nbsp;&nbsp;&nbsp;    /{q.points()}\n"
@@ -158,22 +185,31 @@ class Exam:
 
 
 def generate_and_save(
-    exam: Exam, base_folderpath: Path, filename: str, delete_md=False, format="pdf"
-):
+    exam: Exam, base_folderpath: Path, filename: str, delete_md=False, format="pdf",template="default.tex"
+):  
+    templates_folder = Path(__file__).parent.parent.parent / "templates"
+    templates_folder = templates_folder.absolute()
+    if format =="pdf":
+        extra_args = [f"--include-in-header={templates_folder/template}"]
+    else:
+        extra_args = []
     tags = ["questions", "answers"]
     q, a = exam.generate()
     for version, tag in zip((q, a), tags):
         folderpath = base_folderpath / tag
         folderpath.mkdir(exist_ok=True, parents=True)
         md_name = f"{filename}_{tag}.md"
-        pdf_name = f"{filename}_{tag}.{format}"
+        output_name = f"{filename}_{tag}.{format}"
+        
+
         md_filepath = folderpath / md_name
         md = version.render()
         with open(md_filepath, "w") as f:
             print(md, file=f)
         if format is not None:
             pypandoc.convert_file(
-                str(md_filepath), format, outputfile=str(folderpath / pdf_name)
+                str(md_filepath), format, outputfile=str(folderpath / output_name),
+                extra_args=extra_args
             )
         if delete_md:
             Path(md_filepath).unlink()

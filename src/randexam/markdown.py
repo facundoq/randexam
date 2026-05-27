@@ -23,12 +23,12 @@ class Table(Renderable):
     def __init__(
         self,
         data,
-        header=None | list[str],
-        row_header=None | str | list[str],
+        header:None | list[str]=None,
+        row_header:None | str | list[str]=None,
         column_separator=" ",
         row_separator=False,
     ):
-        assert row_header in [None, "numbers"]
+        assert  isinstance(row_header,list) or row_header in [None, "numbers"]
         self.data = data
         self.header = header
         self.row_header = row_header
@@ -48,16 +48,20 @@ class Table(Renderable):
                 header = [" "] * columns
         else:
             columns = len(header)
-        assert isinstance(header, list[str])
+        assert isinstance(header, list)
         assert len(header) == columns
         table = "\n"
 
         if row_header is not None:
             columns += 1
             header = [" "] + header
-        elif isinstance(row_header, str):
-            if row_header == "numbers":
-                row_header = [f"{i + 1}" for i in range(len(data))]
+            if isinstance(row_header, str):
+                if row_header == "numbers":
+                    row_header = [f"{i + 1}" for i in range(len(data))]
+                else:
+                    raise ValueError(f"Invalid row header {row_header}")
+            elif isinstance(row_header, list):
+                assert len(row_header) == len(data)
             else:
                 raise ValueError(f"Invalid row header {row_header}")
 
